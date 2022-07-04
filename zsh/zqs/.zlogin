@@ -15,6 +15,9 @@ if [[ -z "$TMUX" ]]; then
   TERM="xterm-256color"
 fi
 
+if [ -z $TERM_PROGRAM ]; then
+  export TERM_PROGRAM=xterm	
+fi
 
 if [ $TERM_PROGRAM != "Apple_Terminal" ]; then
   neofetch
