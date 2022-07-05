@@ -1,25 +1,21 @@
-grc
+grc 
+ripgrep
 fd (on linux apt install fd-find)
 exa
 tree
 nvim
-git
+git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions)
 gtop
 duf
 fzf
 delta
 bat (on linux make an ln -s /usr/bin/batcat /usr/bin/bat")
-command-not-found(only on linux apt install command-not-found & apt update )
+command-not-found(on mac brew tap homebrew/command-not-found on linux apt install command-not-found & apt update )
+
 
 ZSH Quickstart Kit
 
 OS-specific setup
-
-fzf
-
-To enable the enhanced history search, you'll need to install fzf. Manual install instructions can be found at fzf and os-specific instructions below.
-
-macOS
 
 Download iTerm2 from http://www.iterm2.com (optional). In my opinion, it is considerably nicer than the stock Terminal application that comes with macOS. There is an RCE flaw in all versions of iTerm 2 before 3.3.6, so update if you're using an affected version.
 Install the current version of Homebrew from http://brew.sh/.
@@ -34,7 +30,7 @@ Set your login shell to /bin/zsh (or /usr/local/bin/zsh if you decided to use th
 Install some Powerline-compatible or NerdFont fonts from one of the links in the Fonts section above.
 In iTerm 2, go to Preferences->Profile in your iTerm 2 preferences, then select one of the Powerline-compatible fonts you just installed.
 Make sure you also specify a Powerline-compatible font for non-ASCII in your iTerm 2 preferences or the prompt separators and branch glyphs will show up garbled.
-Install fzf with brew install fzf
+
 Linux
 
 Switch your shell to zsh with chsh -s /bin/zsh

@@ -89,12 +89,12 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 
 
-
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && echo "salvo"
 
 #. /usr/local/opt/asdf/libexec/asdf.sh
 
 #Custom Added
-alias lsc='colorls'
+#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
 
 
 
