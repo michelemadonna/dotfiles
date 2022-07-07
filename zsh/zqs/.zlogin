@@ -59,7 +59,6 @@ if _has fzf; then
   FZF_CTRL_T_OPTS="--preview '(bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -200'"
 
   # Some basic fzf-tab configs.
-  
   zstyle ':fzf-tab:complete:cd:*' fzf-preview '(exa --tree --color=always $realpath || tree -C $realpath) 2> /dev/null'
   zstyle ':completion:*:descriptions' format '[%d]'
   zstyle ':fzf-tab:*' switch-group ',' '.'
@@ -97,4 +96,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
 
 
-
+alias alt2dig="dog"
+alias alt2ping="gping"
+alias althex="hexyl"
+alias altcurl="http"
+alias altps="procs"
+alias althtop="gtop"
