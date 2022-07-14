@@ -4,10 +4,10 @@ fd (on linux apt install fd-find)
 exa
 tree
 nvim
-git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions)
+git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git and ln -s /usr/share/zsh/5.8/functions/_git . for git completions)
 gtop
 duf
-fzf
+fzf (on mac is not needed)
 delta
 bat (on linux make an ln -s /usr/bin/batcat /usr/bin/bat")
 command-not-found(on mac brew tap homebrew/command-not-found on linux apt install command-not-found & apt update )
