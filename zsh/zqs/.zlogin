@@ -19,9 +19,12 @@ if [ -z $TERM_PROGRAM ]; then
   export TERM_PROGRAM=xterm	
 fi
 
-if [ $TERM_PROGRAM != "Apple_Terminal" ]; then
-  neofetch
+if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
+    if [ $TERM_PROGRAM != "Apple_Terminal" ]; then
+      neofetch
+    fi
 fi
+
 
 
 if _has rg; then
