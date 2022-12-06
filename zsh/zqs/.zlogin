@@ -26,7 +26,6 @@ if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
 fi
 
 
-
 if _has rg; then
   export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 fi
@@ -110,6 +109,7 @@ alias altcurl="http"
 alias altps="procs"
 alias althtop="gtop"
 alias ls="exa --icons --git --group-directories-first"
+alias ll="ls"
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
 

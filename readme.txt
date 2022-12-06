@@ -1,3 +1,4 @@
+Install Support Utilities
 grc 
 ripgrep
 fd (on linux apt install fd-find)
@@ -34,3 +35,7 @@ stow --target=~ zsh. If you have issues using ~ as a target, do stow --target="$
   [✔] $HOME/.zshrc → /root/.dotfiles/shell/zshrc
   [✔] $HOME/.p10k.zsh → /root/.dotfiles/shell/p10k.zsh
   [✔] $HOME/.config/nvim → /root/.dotfiles/nvim
+
+List of installed app
+brew bundle dump
+brew bundle install
