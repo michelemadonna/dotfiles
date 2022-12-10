@@ -1,0 +1,8 @@
+[user]
+	name = Michele Madonna
+	email = michele.madonna@w3studio.it
+[core]
+	excludesfile = /Users/michele/.gitignore_global
+
+[include]
+	path = /Users/michele/.main.gitconfig
