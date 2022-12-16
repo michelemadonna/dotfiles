@@ -95,6 +95,7 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 
 #. /usr/local/opt/asdf/libexec/asdf.sh
+#. ~/.asdf/plugins/java/set-java-home.zsh
 
 #Custom Added
 #on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions

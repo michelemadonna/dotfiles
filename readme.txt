@@ -5,13 +5,29 @@ fd (on linux apt install fd-find)
 exa
 tree
 nvim
-git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git and ln -s /usr/share/zsh/5.8/functions/_git . for git completions)
+
+git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git and
+sudo ln -s /usr/share/zsh/x.x.x/functions/_git /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git
+sudo ln -s /usr/share/zsh/x.x.x/functions/_git /usr/local/share/zsh/site-functions/_git
+for git completions)
+
 gtop
 duf
 fzf (on mac is not needed)
-delta
+delta (on mac git-delta)
 bat (on linux make an ln -s /usr/bin/batcat /usr/bin/bat")
 command-not-found(on mac brew tap homebrew/command-not-found on linux apt install command-not-found & apt update )
+
+on mac ventura
+sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python
+
+Install SdkMan
+curl -s "https://get.sdkman.io" | bash
+source "/Users/michele/.sdkman/bin/sdkman-init.sh"
+
+Add Forgit to path
+export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
+
 
 Install Zgenom
 cd ~

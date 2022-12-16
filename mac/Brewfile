@@ -6,102 +6,88 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/command-not-found"
 tap "homebrew/core"
+tap "mac-cleanup/mac-cleanup-py"
 tap "muesli/tap"
-brew "antibody"
-brew "coreutils" *
-brew "asdf"
-brew "bat" *
-brew "blueutil" *
-brew "gettext"
-brew "pcre2"
-brew "glib"
-brew "pcre"
-brew "python@3.9"
-brew "cdrtools" *
-brew "dive" *
-brew "dog" *
-brew "exa" *
-brew "fd" *
-brew "gawk"
-brew "gdk-pixbuf"
-brew "git-delta" *?
-brew "go"
-brew "gobject-introspection"
-brew "gping" *
-brew "harfbuzz"
-brew "pango"
-brew "librsvg"
-brew "graphviz" *
-brew "grc" *
-brew "node" *
-brew "gtop" *
-brew "h2" *
-brew "hexyl" *
-brew "htop" *
-brew "httpie" *
-brew "shared-mime-info"
-brew "x265" *
-brew "libheif" 
-brew "libraw"
-brew "imagemagick"
-brew "jenv" *
-brew "librdkafka"
-brew "kcat" *
-brew "mackup" *
-brew "mas" *
-brew "maven" *
-brew "midnight-commander" *
-brew "mitmproxy" *
-brew "neofetch" *
+brew "bat"
+brew "blueutil"
+brew "coreutils"
+brew "cask"
+brew "cdrtools"
+brew "dive"
+brew "dog"
+brew "duf"
+brew "exa"
+brew "fd"
+brew "git"
+brew "git-delta"
+brew "gping"
+brew "graphviz"
+brew "grc"
+brew "node"
+brew "gtop"
+brew "h2"
+brew "hexyl"
+brew "htop"
+brew "httpie"
+brew "jenv"
+brew "kcat"
+brew "mackup"
+brew "mas"
+brew "maven"
+brew "midnight-commander"
+brew "mitmproxy"
+brew "neofetch"
 brew "neovim"
-brew "netcat" *
-brew "nmap" *
-brew "noti" *
-brew "openshift-cli" *
-brew "procs" *
-brew "ripgrep" *
-brew "stow" *
-brew "switchaudio-osx" *
-brew "tldr" *
+brew "netcat"
+brew "nmap"
+brew "noti"
+brew "openshift-cli"
+brew "procs"
+brew "ripgrep"
+brew "stow"
+brew "switchaudio-osx"
+brew "tldr"
 brew "tmux"
 brew "tree"
 brew "wget"
-brew "fwartner/tap/mac-cleanup"
-brew "muesli/tap/duf"
+brew "x265"
+brew "mac-cleanup/mac-cleanup-py/mac-cleanup-py"
 cask "5kplayer"
 cask "ace-link"
 cask "aerial"
 cask "alt-tab"
+cask "android-file-transfer"
 cask "anydesk"
 cask "appcleaner"
-cask "bitwarden"
 cask "calibre"
 cask "cyberduck"
+cask "daisydisk"
+cask "darwindumper"
 cask "dash"
 cask "docker"
-cask "drawio"
+cask "fluor"
 cask "font-source-code-pro"
 cask "geekbench"
+cask "gitkraken"
 cask "google-chrome"
 cask "handbrake"
 cask "hex-fiend"
 cask "iina"
 cask "intel-power-gadget"
-cask "istumbler"
+cask "intellij-idea"
 cask "iterm2"
 cask "keka"
+cask "kextviewr"
+cask "macfuse"
 cask "malwarebytes"
 cask "microsoft-teams"
 cask "mos"
-cask "netbeans"
-cask "nordvpn"
+cask "netspot"
 cask "nvidia-geforce-now"
 cask "onyx"
-cask "oracle-jdk"
 cask "p4v"
-cask "parallels"
 cask "persepolis-download-manager"
-cask "plex-media-player"
+cask "plex"
 cask "postman"
 cask "qbittorrent"
 cask "rar"
@@ -111,34 +97,8 @@ cask "skype"
 cask "sourcetree"
 cask "spotify"
 cask "sublime-text"
-cask "the-unarchiver"
+cask "suspicious-package"
 cask "tunnelblick"
 cask "visual-studio-code"
 cask "vlc"
 cask "vmware-fusion"
-cask "xquartz"
-mas "Amphetamine", id: 937984704
-mas "CheatSheet", id: 529456740
-mas "Cinebench", id: 1438772273
-mas "Developer", id: 640199958
-mas "Disk Speed Test", id: 425264550
-mas "Evernote", id: 406056744
-mas "Evernote Web Clipper", id: 1481669779
-mas "GarageBand", id: 682658836
-mas "Hidden Bar", id: 1452453066
-mas "iMovie", id: 408981434
-mas "Ka-Block!", id: 1335413823
-mas "Keynote", id: 409183694
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft OneNote", id: 784801555
-mas "Microsoft Outlook", id: 985367838
-mas "Microsoft PowerPoint", id: 462062816
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "Microsoft Word", id: 462054704
-mas "NordVPN IKE", id: 1116599239
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Telegram", id: 747648890
-mas "Twitter", id: 409789998
-mas "Vectornator", id: 1219074514
-mas "Xcode", id: 497799835
