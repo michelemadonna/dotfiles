@@ -95,7 +95,10 @@ if [[ ! -f ~/.zsh-quickstart-no-omz ]] || [[ $(_zqs-get-setting load-omz-plugins
   zgenom oh-my-zsh plugins/oc
 
   #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
-  zgenom oh-my-zsh plugins/jenv
+  #zgenom oh-my-zsh plugins/jenv
+
+  #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
+  zgenom oh-my-zsh plugins/asdf
 
   if [ $(uname -a | grep -ci Darwin) = 1 ]; then
     # Load macOS-specific plugins

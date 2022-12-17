@@ -77,14 +77,14 @@ fi
 
 
 
-if _has jenv; then
-  eval "$(jenv init -)"
-fi
+#if _has jenv; then
+#  eval "$(jenv init -)"
+#fi
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+#export SDKMAN_DIR="$HOME/.sdkman"
+#[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 #echo "removing current jenv java's to readd them freshly"
 #jenv versions --bare | xargs -n1 jenv remove
@@ -94,14 +94,14 @@ export SDKMAN_DIR="$HOME/.sdkman"
 #jenv enable-plugin export
 
 
-#. /usr/local/opt/asdf/libexec/asdf.sh
-#. ~/.asdf/plugins/java/set-java-home.zsh
+source /usr/local/opt/asdf/libexec/asdf.sh
+source $HOME/.asdf/plugins/java/set-java-home.zsh
 
 #Custom Added
 #on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
-if [[ "$(uname -s)" == "Linux" ]]; then
-  FORGIT_COPY_CMD='xclip -selection clipboard'
-fi
+#if [[ "$(uname -s)" == "Linux" ]]; then
+#  FORGIT_COPY_CMD='xclip -selection clipboard'
+#fi
 
 alias alt2dig="dog"
 alias alt2ping="gping"

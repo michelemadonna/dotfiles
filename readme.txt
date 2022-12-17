@@ -17,13 +17,17 @@ fzf (on mac is not needed)
 delta (on mac git-delta)
 bat (on linux make an ln -s /usr/bin/batcat /usr/bin/bat")
 command-not-found(on mac brew tap homebrew/command-not-found on linux apt install command-not-found & apt update )
+asdf
 
 on mac ventura
 sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python
 
-Install SdkMan
-curl -s "https://get.sdkman.io" | bash
-source "/Users/michele/.sdkman/bin/sdkman-init.sh"
+Install asdf plugin
+asdf plugin add java
+asdf plugin add maven
+asdf plugin nodejs
+
+
 
 Add Forgit to path
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
