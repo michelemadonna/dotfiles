@@ -92,8 +92,11 @@ if [[ ! -f ~/.zsh-quickstart-no-omz ]] || [[ $(_zqs-get-setting load-omz-plugins
   zgenom oh-my-zsh plugins/rsync
   #zgenom oh-my-zsh plugins/screen
   #This plugin provides autocompletion for OC commands, building, managing and updating operations.
-  zgenom oh-my-zsh plugins/oc
-
+  #zgenom oh-my-zsh plugins/oc
+  
+  #This plugin provides autocompletion for Kubectl commands, building, managing and updating operations.
+  zgenom oh-my-zsh plugins/kubectl
+	
   #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
   #zgenom oh-my-zsh plugins/jenv
 
