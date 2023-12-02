@@ -1,0 +1,16 @@
+AdBlock Pro (safari plugin)
+Affinity Designer 2 ($ :) )
+Affinity Photo 2 ($ :) )
+Affinity Publisher 2 ($ :) )
+Capture One 23 ($ :) )
+Compressor ($ :) )
+DockMate or DockView
+Final Cut Pro ($ :) )
+FreeFileSync
+Hidden Bar (add to brew install hiddenbar)
+KisMac2 
+Little Snitch ($)
+Logi Options+ (add to brew install logi-options-plus)
+Luminar Neo ($ :) )
+Motion ($ :) )
+pCloud Drive
