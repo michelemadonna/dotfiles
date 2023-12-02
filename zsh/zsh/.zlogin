@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+#export JAVA_HOME=$(/usr/libexec/java_home)
+
+
 _has() {
   return $(whence $1 >/dev/null)
 }
@@ -94,10 +97,19 @@ fi
 #jenv enable-plugin export
 
 
-source /usr/local/opt/asdf/libexec/asdf.sh
+#source /usr/local/opt/asdf/libexec/asdf.sh
 source $HOME/.asdf/plugins/java/set-java-home.zsh
+#modify set-java-home.zsh with
+#if [[ "$java_path" == "/usr/bin/java" ]]; then
+#      JAVA_HOME="$(/usr/libexec/java_home)"
+#    else
+#      JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+#fi
 
 #Custom Added
+
+
+
 #on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
 #if [[ "$(uname -s)" == "Linux" ]]; then
 #  FORGIT_COPY_CMD='xclip -selection clipboard'
@@ -110,7 +122,7 @@ alias altcurl="http"
 alias altps="procs"
 alias althtop="gtop"
 alias ls="exa --icons --git --group-directories-first"
-alias ll="ls"
+alias ll="${aliases[ls]:-ls} -lar"
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
 

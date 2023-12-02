@@ -1,12 +1,41 @@
+#!/bin/zsh
 #
+# Only including a shebang to trigger editors to use shell syntax highlighting
+#
+# Copyright 2006-2021 Joseph Block <jpb@unixorn.net>
+#
+# The ZSH Starter Kit allows you to replace the curated plugins list it
+# ships with with a custom one by creating a file named .zsh-quickstart-local-plugins.
+#
+# This is to make it easier to customize without having to maintain a separate
+# fork of the starter kit.
+#
+# This example file duplicates the list of plugins that shipped with the
+# kit as of 2020-01-01.
 
-echo "Creating a zgenom save from local plugins"
 ZGEN_LOADED=()
 ZGEN_COMPLETIONS=()
 
-if [[ ! -f ~/.zsh-quickstart-no-omz ]] || [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
+if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
   zgenom oh-my-zsh
 fi
+
+warn-about-prompt-change() {
+  if [[ ! -f ~/.zsh-quickstart-kit-prompt-switch-warning ]]; then
+    echo
+    echo "The default ZSH prompt in the quickstart kit has changed from"
+    echo "bullet-train to powerlevel10k."
+    echo
+    echo "If you want to use the old prompt, run zsh-quickstart-select-bullet-train"
+    echo
+    echo "Run zsh-quickstart-select-powerlevel10k to switch to the new prompt"
+    echo
+    echo "If you do nothing, you will be switched to powerlevel10k"
+    echo
+    touch ~/.zsh-quickstart-kit-prompt-switch-warning
+  fi
+}
+
 
 # If you want to customize your plugin list, create a file named
 # .zsh-quickstart-local-plugins-example in your home directory. That
@@ -21,7 +50,7 @@ fi
 
 # If zsh-syntax-highlighting is bundled after zsh-history-substring-search,
 # they break, so get the order right.
-zgenom load zsh-users/zsh-syntax-highlighting
+zgenom load zdharma-continuum/fast-syntax-highlighting
 zgenom load zsh-users/zsh-history-substring-search
 
 # Set keystrokes for substring searching
@@ -47,6 +76,9 @@ zgenom load unixorn/warhol.plugin.zsh
 # across macOS and Linux/BSD.
 zgenom load unixorn/tumult.plugin.zsh
 
+# Deal with Apple's squirrelly DNS
+zgenom load eventi/noreallyjustfuckingstopalready
+
 # Warn you when you run a command that you've set an alias for without
 # using the alias.
 zgenom load djui/alias-tips
@@ -58,7 +90,7 @@ zgenom load unixorn/git-extra-commands
 zgenom load unixorn/fzf-zsh-plugin
 
 # Add my bitbucket git helpers plugin.
-zgenom load unixorn/bitbucket-git-helpers.plugin.zsh
+#zgenom load unixorn/bitbucket-git-helpers.plugin.zsh
 
 # A collection of scripts that might be useful to sysadmins.
 zgenom load skx/sysadmin-util
@@ -70,7 +102,7 @@ zgenom load peterhurford/git-it-on.zsh
 # in a repository securely by encrypting them with gnupg.
 zgenom load StackExchange/blackbox
 
-if [[ ! -f ~/.zsh-quickstart-no-omz ]] || [[ $(_zqs-get-setting load-omz-plugins false) == 'true' ]]; then
+if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
   # Load some oh-my-zsh plugins
   #This plugin adds completion for pip, the Python package manager.
   zgenom oh-my-zsh plugins/pip
@@ -91,6 +123,8 @@ if [[ ! -f ~/.zsh-quickstart-no-omz ]] || [[ $(_zqs-get-setting load-omz-plugins
   #This plugin adds aliases for frequent rsync commands.
   zgenom oh-my-zsh plugins/rsync
   #zgenom oh-my-zsh plugins/screen
+  #zgenom oh-my-zsh plugins/vagrant
+  
   #This plugin provides autocompletion for OC commands, building, managing and updating operations.
   #zgenom oh-my-zsh plugins/oc
   
@@ -147,7 +181,7 @@ zgenom load zsh-users/zsh-autosuggestions
 #zgenom load supercrabtree/k
 
 # Be compatible with the old settings files for now
-if [[ -f ~/.zsh-quickstart-use-bullet-train ]] || [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
+if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
   # Bullet train prompt setup.
   zgenom load https://github.com/caiogondim/bullet-train.zsh
 else

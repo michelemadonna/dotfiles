@@ -1,61 +1,79 @@
-Install Support Utilities
-grc 
-ripgrep
-fd (on linux apt install fd-find)
-exa
-tree
-nvim
+#Install Support Utilities
 
-git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git and
+on debian
+----------
+apt update
+apt install -y zsh grc ripgrep fd-find exa tree neovim git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
+apt update
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+ln -s /usr/bin/batcat /usr/bin/bat
+chsh -s /bin/zsh
+
+on macos
+----------
+brew tap "homebrew/command-not-found"
+brew "coreutils"
+brew "asdf" (***)
+brew "bat"
+brew "dog"
+brew "duf"
+brew "exa"
+brew "fd"
+brew "git-delta"
+brew "gping"
+brew "grc"
+brew "gtop"
+brew "hexyl"
+brew "htop"
+brew "httpie"
+brew "midnight-commander"
+brew "neofetch"
+brew "neovim"
+brew "nmap"
+brew "procs"
+brew "python@3.10" (*)
+brew "ripgrep"
+brew "stow"
+brew "tldr"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "git" (**)
+
+(*) on mac ventura
+sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python
+(**) git (#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git and
 sudo ln -s /usr/share/zsh/x.x.x/functions/_git /usr/local/Cellar/git/*.*.*/share/zsh/site_functions/_git
 sudo ln -s /usr/share/zsh/x.x.x/functions/_git /usr/local/share/zsh/site-functions/_git
 for git completions)
+(***) modify $HOME/.asdf/plugins/java/set-java-home.zsh
+to enable use asdf with the macos system JDK
+if [[ "$java_path" == "/usr/bin/java" ]]; then
+      JAVA_HOME="$(/usr/libexec/java_home)"
+    else
+      JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+fi
 
-gtop
-duf
-fzf (on mac is not needed)
-delta (on mac git-delta)
-bat (on linux make an ln -s /usr/bin/batcat /usr/bin/bat")
-command-not-found(on mac brew tap homebrew/command-not-found on linux apt install command-not-found & apt update )
-asdf
 
-on mac ventura
-sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python
+link all configs
+-----------------
+git clone https://github.com/jandamm/zgenom.git .zgenom 
+git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
+git clone https://github.com/michelemadonna/dotfiles.git .dotfiles && cd $HOME/.zqs/zsh && stow --target=$HOME zsh && cd $HOME/.zqs && stow --target=$HOME/.config nvim
+
 
 Install asdf plugin
+----------------------
 asdf plugin add java
 asdf plugin add maven
-asdf plugin nodejs
+asdf plugin add nodejs
 
 
+List of installed app on mac
+----------------------------
+brew leaves --installed-on-request | xargs brew desc --eval-all
+brew ls --casks | xargs brew desc --eval-all
+mas list
 
-Add Forgit to path
-export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
-
-
-Install Zgenom
-cd ~
-git clone https://github.com/jandamm/zgenom.git
-
-Install the starter kit
-cd ~
-git clone https://github.com/unixorn/zsh-quickstart-kit.git
-Configure zsh by symlinking the .zshrc, .zsh-functions, .zgen-setup and .zsh_aliases from this repository into your ~.
-You can do this with stow by:
-cd zsh-quickstart-kit
-stow --target=~ zsh. If you have issues using ~ as a target, do stow --target="$HOME" zsh. If you still have errors, symlink the files in the kit's zsh directory into your home directory.
-
-  [✔] $HOME/.gitattributes → /root/.dotfiles/git/gitattributes
-  [✔] $HOME/.main.gitconfig → /root/.dotfiles/git/main.gitconfig
-  [✔] $HOME/.gitignore → /root/.dotfiles/git/gitignore
-  [✔] $HOME/.ignore → /root/.dotfiles/shell/ignore
-  [✔] $HOME/.ripgreprc → /root/.dotfiles/shell/ripgreprc
-  [✔] $HOME/.tmux.conf → /root/.dotfiles/shell/tmux.conf
-  [✔] $HOME/.vimrc → /root/.dotfiles/shell/vimrc
-  [✔] $HOME/.zshrc → /root/.dotfiles/shell/zshrc
-  [✔] $HOME/.p10k.zsh → /root/.dotfiles/shell/p10k.zsh
-  [✔] $HOME/.config/nvim → /root/.dotfiles/nvim
-
-List of installed app
 brew bundle dump
 brew bundle install
