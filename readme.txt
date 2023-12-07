@@ -5,6 +5,13 @@ on debian
 apt update
 apt install -y zsh grc ripgrep fd-find exa tree neovim git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
 apt update
+
+if gping is not found
+echo "deb [signed-by=/usr/share/keyrings/azlux-archive-keyring.gpg] http://packages.azlux.fr/debian/ stable main" | sudo tee /etc/apt/sources.list.d/azlux.list
+sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/repo.gpg
+sudo apt update
+sudo apt install gping
+
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 ln -s /usr/bin/batcat /usr/bin/bat
 chsh -s /bin/zsh
@@ -59,7 +66,8 @@ link all configs
 -----------------
 git clone https://github.com/jandamm/zgenom.git .zgenom 
 git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
-git clone https://github.com/michelemadonna/dotfiles.git .dotfiles && cd $HOME/.zqs/zsh && stow --target=$HOME zsh && cd $HOME/.zqs && stow --target=$HOME/.config nvim
+git clone https://github.com/michelemadonna/dotfiles.git .dotfiles 
+cd $HOME/.zqs && stow --target=$HOME zsh && cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd $HOME/.dotfiles/nvim/.config && stow --target=$HOME/.config nvim
 
 
 Install asdf plugin

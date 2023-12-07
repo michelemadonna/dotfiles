@@ -107,9 +107,12 @@ source $HOME/.asdf/plugins/java/set-java-home.zsh
 #fi
 
 #Custom Added
-
-
-
+if [[ "$(uname -s)" == "Linux" ]]; then
+# append completions to fpath
+  fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+  autoload -Uz compinit && compinit
+fi
 #on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
 #if [[ "$(uname -s)" == "Linux" ]]; then
 #  FORGIT_COPY_CMD='xclip -selection clipboard'
