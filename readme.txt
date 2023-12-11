@@ -67,7 +67,10 @@ link all configs
 git clone https://github.com/jandamm/zgenom.git .zgenom 
 git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
 git clone https://github.com/michelemadonna/dotfiles.git .dotfiles 
-cd $HOME/.zqs && stow --target=$HOME zsh && cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd $HOME/.dotfiles/nvim/.config && stow --target=$HOME/.config nvim
+cd $HOME/.zqs && stow --target=$HOME zsh 
+cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh 
+cd $HOME/.dotfiles/zshrc.d stow --target=$HOME/.zshrc.d zshrc.d
+cd $HOME/.dotfiles/nvim/.config && stow --target=$HOME/.config nvim
 
 
 Install asdf plugin
