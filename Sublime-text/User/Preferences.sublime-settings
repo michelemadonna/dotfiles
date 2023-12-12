@@ -1,6 +1,6 @@
 {
-	"color_scheme": "Packages/ayu/ayu-dark.sublime-color-scheme",
-	"font_face": "FuraCode Nerd Font",
+	"color_scheme": "ayu-dark.sublime-color-scheme",
+	"font_face": "FiraCode Nerd Font",
 	"font_size": 12,
 	"ignored_packages":
 	[

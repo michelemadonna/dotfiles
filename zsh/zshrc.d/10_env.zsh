@@ -23,7 +23,7 @@ if [ -z $TERM_PROGRAM ]; then
 fi
 
 if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
-    if [ $TERM_PROGRAM != "Apple_Terminal" ]; then
+    if [ $TERM_PROGRAM != "Apple_Terminal" ] || if [ $TERM_PROGRAM != "tmux" ]  ; then
       neofetch
     fi
 fi
