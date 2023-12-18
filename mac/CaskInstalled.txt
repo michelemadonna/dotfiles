@@ -1,6 +1,5 @@
 5kplayer: (5KPlayer) Play 4K/1080p/360 degree video, MP3 AAC APE FLAC music without quality loss
 ace-link: (Ace Link) Menu bar app that allows playing Ace Stream video streams in the VLC player
-aerial: (Aerial Screensaver) Apple TV Aerial screensaver
 alt-tab: (AltTab) Enable Windows-like alt-tab
 android-file-transfer: (Android File Transfer) Transfer files from and to an Android smartphone
 anydesk: (AnyDesk) Allows connection to a computer remotely
@@ -15,6 +14,7 @@ dash: POSIX-compliant descendant of NetBSD's ash (the Almquist SHell)
 dbeaver-community: (DBeaver Community Edition) Universal database tool and SQL client
 docker: Pack, ship and run any application as a lightweight container
 fluor: (Fluor) Change the behavior of the fn keys depending on the active application
+font-hack-nerd-font: (Hack Nerd Font (Hack)) Developer targeted fonts with a high number of glyphs
 font-source-code-pro: (Source Code Pro) [no description]
 geekbench: (Geekbench) Tool to measure the computer system's performance
 ghidra: (Ghidra) Software reverse engineering (SRE) suite of tools
@@ -29,6 +29,7 @@ iterm2: (iTerm2) Terminal emulator as alternative to Apple's Terminal app
 keka: (Keka) File archiver
 kextviewr: (KextViewr) Display all currently loaded kexts
 lens: (Lens) Kubernetes IDE
+logi-options-plus: (Logitech Options+) Software for Logitech devices
 malwarebytes: (Malwarebytes for Mac) Warns about malware, adware and spyware
 microsoft-edge: (Microsoft Edge) Web browser
 microsoft-teams: (Microsoft Teams) Meet, chat, call, and collaborate in just one place
@@ -45,7 +46,7 @@ rar: (RAR Archiver) Archive manager for data compression and backups
 rectangle: (Rectangle) Move and resize windows using keyboard shortcuts or snap areas
 skim: (Skim) PDF reader and note-taking application
 skype: (Skype) Video chat, voice call and instant messaging application
-sloth: (Sloth) Displays all open files and sockets in use by all running processes
+sloth: Prometheus SLO generator
 sourcetree: (Atlassian SourceTree) Graphical client for Git version control
 spotify: (Spotify) Music streaming service
 sublime-text: (Sublime Text) Text editor for code, markup and prose

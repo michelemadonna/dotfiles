@@ -3,7 +3,7 @@
 on debian
 ----------
 apt update
-apt install -y zsh grc ripgrep fd-find exa tree neovim git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
+apt install -y zsh grc ripgrep fd-find exa tree micro git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
 apt update
 
 if gping is not found
@@ -35,7 +35,6 @@ brew "htop"
 brew "httpie"
 brew "midnight-commander"
 brew "neofetch"
-brew "neovim"
 brew "nmap"
 brew "procs"
 brew "python@3.10" (*)
@@ -46,6 +45,7 @@ brew "tmux"
 brew "tree"
 brew "wget"
 brew "git" (**)
+brew "micro"
 
 (*) on mac ventura
 sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python

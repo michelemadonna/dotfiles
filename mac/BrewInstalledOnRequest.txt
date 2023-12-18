@@ -24,16 +24,15 @@ kcat: Generic command-line non-JVM Apache Kafka producer and consumer
 mac-cleanup-py: Python cleanup script for macOS
 mackup: Keep your Mac's application settings in sync
 mas: Mac App Store command-line interface
+micro: Modern and intuitive terminal-based text editor
 midnight-commander: Terminal-based visual file manager
 mitmproxy: Intercept, modify, replay, save HTTP/S traffic
 neofetch: Fast, highly customisable system info script
-neovim: Ambitious Vim-fork focused on extensibility and agility
 netcat: Utility for managing network connections
 nmap: Port scanning utility for large networks
 noti: Trigger notifications when a process completes
 openshift-cli: OpenShift command-line interface tools
 procs: Modern replacement for ps written by Rust
-python@3.10: Interpreted, interactive, object-oriented programming language
 ripgrep: Search tool like grep and The Silver Searcher
 stow: Organize software neatly under a single directory tree (e.g. /usr/local)
 switchaudio-osx: Change macOS audio source from the command-line
