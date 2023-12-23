@@ -42,11 +42,7 @@ if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
     fi
 fi
 
-if [[ "$(uname -s)" == "Linux" ]]; then
-  if [ $TERM_PROGRAM != "tmux" ]  ; then
-      neofetch
-  fi
-fi
+
 
 function allafine(){
 
