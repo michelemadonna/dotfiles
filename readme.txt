@@ -60,6 +60,7 @@ if [[ "$java_path" == "/usr/bin/java" ]]; then
     else
       JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
 fi
+and for maven for using system jdk comment out ~/.asdf/plugins/maven/bin/exec-env
 
 
 link all configs
@@ -69,7 +70,7 @@ git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs
 git clone https://github.com/michelemadonna/dotfiles.git .dotfiles 
 cd $HOME/.zqs && stow --target=$HOME zsh 
 cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh 
-cd $HOME/.dotfiles/zsh/zshrc.d stow --target=$HOME/.zshrc.d zshrc.d
+cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d
 cd $HOME/.dotfiles/nvim/.config && stow --target=$HOME/.config nvim
 
 
