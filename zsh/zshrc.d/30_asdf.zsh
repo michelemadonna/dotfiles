@@ -24,12 +24,14 @@
 
 #source /usr/local/opt/asdf/libexec/asdf.sh
 source $HOME/.asdf/plugins/java/set-java-home.zsh
+#export PATH=$HOME/.asdf/shims/node:$PATH
 #modify set-java-home.zsh with
 #if [[ "$java_path" == "/usr/bin/java" ]]; then
 #      JAVA_HOME="$(/usr/libexec/java_home)"
 #    else
 #      JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
 #fi
+#and comment for maven $HOME/.asdf/plugins/maven/bin
 
 #Custom Added
 if [[ "$(uname -s)" == "Linux" ]]; then

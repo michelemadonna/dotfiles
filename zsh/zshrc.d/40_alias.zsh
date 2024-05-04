@@ -13,7 +13,7 @@ alias althex="hexyl"
 alias altcurl="http"
 alias altps="procs"
 alias althtop="gtop"
-alias ls="exa --icons --git --group-directories-first"
+alias ls="eza --icons --git --group-directories-first"
 alias ll="${aliases[ls]:-ls} -las modified"
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 

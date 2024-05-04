@@ -3,7 +3,7 @@
 on debian
 ----------
 apt update
-apt install -y zsh grc ripgrep fd-find exa tree micro git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
+apt install -y zsh grc ripgrep fd-find eza tree micro git python3 python3-pip duf fzf bat command-not-found neofetch git-delta stow curl gawk dirmngr gpg unzip jq tmux mc tldr gping hexyl htop
 apt update
 
 if gping is not found
@@ -24,7 +24,7 @@ brew "asdf" (***)
 brew "bat"
 brew "dog"
 brew "duf"
-brew "exa"
+brew "eza"
 brew "fd"
 brew "git-delta"
 brew "gping"
