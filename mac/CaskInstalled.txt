@@ -6,13 +6,16 @@ anydesk: (AnyDesk) Allows connection to a computer remotely
 appcleaner: (FreeMacSoft AppCleaner) Application uninstaller
 background-music: (Background Music) Audio utility
 betterdisplay: (BetterDisplay) Display management tool
+blockblock: (BlockBlock) Monitors common persistence locations
 calibre: (calibre) E-books management software
+chromium: (Chromium) Free and open-source web browser
 cyberduck: (Cyberduck) Server and cloud storage browser
-daisydisk: (DaisyDisk) Disk space visualizer
+daisydisk: (DaisyDisk) Disk space visualiser
 darwindumper: (DarwinDumper) App to dump system information to aid troubleshooting
 dash: POSIX-compliant descendant of NetBSD's ash (the Almquist SHell)
 dbeaver-community: (DBeaver Community Edition) Universal database tool and SQL client
 docker: Pack, ship and run any application as a lightweight container
+firefox: (Mozilla Firefox) Web browser
 fluor: (Fluor) Change the behavior of the fn keys depending on the active application
 font-hack-nerd-font: (Hack Nerd Font (Hack)) Developer targeted fonts with a high number of glyphs
 font-source-code-pro: (Source Code Pro) [no description]
@@ -26,11 +29,15 @@ iina: (IINA) Free and open-source media player
 intel-power-gadget: (Intel Power Gadget) Power usage monitoring tool enabled for Intel Core processors
 intellij-idea: (IntelliJ IDEA Ultimate) Java IDE by JetBrains
 iterm2: (iTerm2) Terminal emulator as alternative to Apple's Terminal app
+jordanbaird-ice: (Ice) Menu bar manager
 keka: (Keka) File archiver
 kextviewr: (KextViewr) Display all currently loaded kexts
+knockknock: (KnockKnock) Tool to show what is persistently installed on the computer
 lens: (Lens) Kubernetes IDE
 logi-options-plus: (Logitech Options+) Software for Logitech devices
 malwarebytes: (Malwarebytes for Mac) Warns about malware, adware and spyware
+marta: (Marta File Manager) Extensible two-pane file manager
+microsoft-auto-update: (Microsoft Auto Update) Provides updates to various Microsoft products
 microsoft-edge: (Microsoft Edge) Web browser
 microsoft-teams: (Microsoft Teams) Meet, chat, call, and collaborate in just one place
 mos: (Mos) Smooths scrolling and set mouse scroll directions independently

@@ -6,6 +6,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/command-not-found"
 tap "mac-cleanup/mac-cleanup-py"
 tap "muesli/tap"
+brew "xz"
 brew "zstd"
 brew "libtiff"
 brew "little-cms2"
@@ -17,17 +18,18 @@ brew "asdf"
 brew "avro-c"
 brew "bat"
 brew "blueutil"
+brew "glib"
 brew "unbound"
 brew "gnutls"
 brew "emacs"
 brew "cask"
 brew "cdrtools"
-brew "certbot", link: false
 brew "ctags"
 brew "dive"
 brew "dog"
 brew "duf"
-brew "exa"
+brew "dust"
+brew "eza"
 brew "fd"
 brew "libavif"
 brew "gd"
@@ -37,8 +39,11 @@ brew "git-delta"
 brew "gping"
 brew "netpbm"
 brew "gts"
+brew "harfbuzz"
+brew "pango"
 brew "librsvg"
 brew "graphviz"
+brew "python@3.11"
 brew "grc"
 brew "node"
 brew "gtop"
@@ -78,13 +83,16 @@ cask "anydesk"
 cask "appcleaner"
 cask "background-music"
 cask "betterdisplay"
+cask "blockblock"
 cask "calibre"
+cask "chromium"
 cask "cyberduck"
 cask "daisydisk"
 cask "darwindumper"
 cask "dash"
 cask "dbeaver-community"
 cask "docker"
+cask "firefox"
 cask "fluor"
 cask "font-hack-nerd-font"
 cask "font-source-code-pro"
@@ -98,11 +106,15 @@ cask "iina"
 cask "intel-power-gadget"
 cask "intellij-idea"
 cask "iterm2"
+cask "jordanbaird-ice"
 cask "keka"
 cask "kextviewr"
+cask "knockknock"
 cask "lens"
 cask "logi-options-plus"
 cask "malwarebytes"
+cask "marta"
+cask "microsoft-auto-update"
 cask "microsoft-edge"
 cask "microsoft-teams"
 cask "mos"
@@ -127,11 +139,39 @@ cask "tunnelblick"
 cask "visual-studio-code"
 cask "vlc"
 cask "vmware-fusion"
+mas "AdBlock Pro", id: 1018301773
+mas "Amphetamine", id: 937984704
+mas "Bitwarden", id: 1352778147
+mas "CheatSheet", id: 529456740
+mas "Cinebench", id: 1438772273
+mas "Developer", id: 640199958
+mas "Discovery", id: 1381004916
+mas "Disk Speed Test", id: 425264550
+mas "Evernote", id: 406056744
+mas "Evernote Web Clipper", id: 1481669779
+mas "GarageBand", id: 682658836
+mas "Hidden Bar", id: 1452453066
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Mactracker", id: 430255202
+mas "Microsoft Excel", id: 462058435
+mas "Microsoft OneNote", id: 784801555
+mas "Microsoft Outlook", id: 985367838
+mas "Microsoft PowerPoint", id: 462062816
+mas "Microsoft Remote Desktop", id: 1295203466
+mas "Microsoft Word", id: 462054704
+mas "NordVPN", id: 905953485
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Telegram", id: 747648890
+mas "The Unarchiver", id: 425424353
+mas "Twitter", id: 409789998
+mas "Xcode", id: 497799835
 vscode "christian-kohler.path-intellisense"
 vscode "dbaeumer.vscode-eslint"
 vscode "eamodio.gitlens"
 vscode "ecmel.vscode-html-css"
-vscode "EditorConfig.EditorConfig"
+vscode "editorconfig.editorconfig"
 vscode "eg2.vscode-npm-script"
 vscode "esbenp.prettier-vscode"
 vscode "formulahendry.auto-close-tag"
@@ -144,11 +184,11 @@ vscode "oderwat.indent-rainbow"
 vscode "redhat.java"
 vscode "redhat.vscode-commons"
 vscode "redhat.vscode-xml"
-vscode "RobbOwen.synthwave-vscode"
-vscode "Roman.ayu-next"
-vscode "SonarSource.sonarlint-vscode"
+vscode "robbowen.synthwave-vscode"
+vscode "roman.ayu-next"
+vscode "sonarsource.sonarlint-vscode"
 vscode "teabyii.ayu"
-vscode "VisualStudioExptTeam.vscodeintellicode"
+vscode "visualstudioexptteam.vscodeintellicode"
 vscode "vscjava.vscode-java-debug"
 vscode "vscjava.vscode-java-dependency"
 vscode "vscjava.vscode-java-pack"
@@ -156,4 +196,4 @@ vscode "vscjava.vscode-java-test"
 vscode "vscjava.vscode-maven"
 vscode "vscjava.vscode-spring-initializr"
 vscode "vscode-icons-team.vscode-icons"
-vscode "Zignd.html-css-class-completion"
+vscode "zignd.html-css-class-completion"

@@ -3,13 +3,13 @@ bat: Clone of cat(1) with syntax highlighting and Git integration
 blueutil: Get/set bluetooth power and discoverable state
 cask: Emacs dependency management
 cdrtools: CD/DVD/Blu-ray premastering and recording software
-certbot: Tool to obtain certs from Let's Encrypt and autoenable HTTPS
 ctags: Reimplementation of ctags(1)
 k9s: Kubernetes CLI To Manage Your Clusters In Style!
 dive: Tool for exploring each layer in a docker image
 dog: Command-line DNS client
 duf: Disk Usage/Free Utility - a better 'df' alternative
-exa: Modern replacement for 'ls'
+dust: More intuitive version of du in rust
+eza: Modern, maintained replacement for ls
 fd: Simple, fast and user-friendly alternative to find
 git: Distributed revision control system
 git-delta: Syntax-highlighting pager for git and diff output

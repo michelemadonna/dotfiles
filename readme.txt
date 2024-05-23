@@ -24,7 +24,7 @@ brew "asdf" (***)
 brew "bat"
 brew "dog"
 brew "duf"
-brew "eza"
+brew "eza" 
 brew "fd"
 brew "git-delta"
 brew "gping"
@@ -46,6 +46,7 @@ brew "tree"
 brew "wget"
 brew "git" (**)
 brew "micro"
+brew "dust"
 
 (*) on mac ventura
 sudo ln -s /Library/Developer/CommandLineTools/usr/bin/python3 /Library/Developer/CommandLineTools/usr/bin/python
