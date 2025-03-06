@@ -12,9 +12,18 @@ sudo wget -O /usr/share/keyrings/azlux-archive-keyring.gpg  https://azlux.fr/rep
 sudo apt update
 sudo apt install gping
 
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+Install asdf
+Visit https://github.com/asdf-vm/asdf/releases and download the appropriate archive for your operating system/architecture combination.
+Extract the asdf binary in the archive in ~/.asdf
+Verify asdf is on your shell's $PATH by running type -a asdf. The directory you placed the asdf binary in should be listed on the first line of the output from type. If it is not that means step #2 was not completed correctly.
+
 ln -s /usr/bin/batcat /usr/bin/bat
 chsh -s /bin/zsh
+
+#add fzf completition i zsh for ubuntu
+ln /usr/share/doc/fzf/examples/completion.zsh $HOME/.fzf/shell/completion.zsh
+ln /usr/share/doc/fzf/examples/key-bindigs.zsh $HOME/.fzf/shell/key-bindings.zsh
+  
 
 on macos
 ----------
