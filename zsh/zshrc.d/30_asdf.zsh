@@ -2,9 +2,6 @@
 
 # Add jenv oh-my-zsh plugin to .zgen-setup
 #zgenom oh-my-zsh plugins/jenv
-
-
-
 #if _has jenv; then
 #  eval "$(jenv init -)"
 #fi
@@ -13,7 +10,6 @@
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 #export SDKMAN_DIR="$HOME/.sdkman"
 #[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 #echo "removing current jenv java's to readd them freshly"
 #jenv versions --bare | xargs -n1 jenv remove
 #echo "adding all sdkmans java versions to jenv"
@@ -21,6 +17,10 @@
 #jenv enable-plugin maven
 #jenv enable-plugin export
 
+
+export ASDF_DATA_DIR="$ASDF_DIR"
+export PATH="$PATH:$ASDF_DATA_DIR/bin"
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 #source /usr/local/opt/asdf/libexec/asdf.sh
 source $HOME/.asdf/plugins/java/set-java-home.zsh
@@ -40,7 +40,4 @@ if [[ "$(uname -s)" == "Linux" ]]; then
 # initialise completions with ZSH's compinit
   autoload -Uz compinit && compinit
 fi
-#on mac you have to delete rm -Rf /usr/local/Cellar/git/*.*.*/share/zsh for git completions
-#if [[ "$(uname -s)" == "Linux" ]]; then
-#  FORGIT_COPY_CMD='xclip -selection clipboard'
-#fi
+
