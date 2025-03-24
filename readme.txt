@@ -43,7 +43,7 @@ brew "hexyl"
 brew "htop"
 brew "httpie"
 brew "midnight-commander"
-brew "neofetch"
+brew "fastfetch"
 brew "nmap"
 brew "procs"
 brew "python@3.10" (*)
@@ -65,12 +65,23 @@ sudo ln -s /usr/share/zsh/x.x.x/functions/_git /usr/local/share/zsh/site-functio
 for git completions)
 (***) modify $HOME/.asdf/plugins/java/set-java-home.zsh
 to enable use asdf with the macos system JDK
-if [[ "$java_path" == "/usr/bin/java" ]]; then
-      JAVA_HOME="$(/usr/libexec/java_home)"
-    else
-      JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
-fi
-and for maven for using system jdk comment out ~/.asdf/plugins/maven/bin/exec-env
+asdf_update_java_home() {
+  local java_path
+  java_path="$(asdf which java)"
+  if [[ -n "${java_path}" ]]; then
+    export JAVA_HOME
+    if [[ "$java_path" == "/usr/bin/java" ]]; then
+    	JAVA_HOME="$(/usr/libexec/java_home)"
+    else	
+    	JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+	fi
+	export JAVA_HOME=${JAVA_HOME}
+    export JDK_HOME=${JAVA_HOME}
+  fi
+}
+autoload -U add-zsh-hook
+add-zsh-hook precmd asdf_update_java_home
+(no more needed) and for maven for using system jdk comment out ~/.asdf/plugins/maven/bin/exec-env 
 
 
 link all configs
