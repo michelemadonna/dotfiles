@@ -59,7 +59,7 @@ bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # Tab complete rakefile targets.
-zgenom load unixorn/rake-completion.zshplugin
+#zgenom load unixorn/rake-completion.zshplugin
 
 # Automatically run zgenom update and zgenom selfupdate every 7 days.
 zgenom load unixorn/autoupdate-zgenom
@@ -88,6 +88,9 @@ zgenom load unixorn/git-extra-commands
 
 # Supercharge your history search with fzf
 zgenom load unixorn/fzf-zsh-plugin
+
+# Soup up command history search with fzf.
+#zgen load unixorn/fzf-zsh-plugin
 
 # Add my bitbucket git helpers plugin.
 #zgenom load unixorn/bitbucket-git-helpers.plugin.zsh
