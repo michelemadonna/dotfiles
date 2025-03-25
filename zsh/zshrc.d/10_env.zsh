@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-#export JAVA_HOME=$(/usr/libexec/java_home)
+export VISUAL=micro
+export EDITOR="$VISUAL"
 
 
 _has() {
@@ -38,7 +39,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 tput cup 9999 0
 if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
     if [ $TERM_PROGRAM != "Apple_Terminal" ] && if [ $TERM_PROGRAM != "tmux" ]  ; then
-      neofetch
+      fastfetch --pipe false
     fi
 fi
 
@@ -51,3 +52,6 @@ function allafine(){
 }
 zle -N allafine
 bindkey '^M' allafine
+
+
+

@@ -3,11 +3,28 @@
 
 source $HOME/.asdf/plugins/java/set-java-home.zsh
 #modify set-java-home.zsh with
-#if [[ "$java_path" == "/usr/bin/java" ]]; then
+
+######
+#asdf_update_java_home() {
+#  local java_path
+#  java_path="$(asdf which java)"
+#  if [[ -n "${java_path}" ]]; then
+#    export JAVA_HOME
+#    if [[ "$java_path" == "/usr/bin/java" ]]; then
 #      JAVA_HOME="$(/usr/libexec/java_home)"
-#    else
+#    else  
 #      JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
-#fi
+#    fi
+#    export JAVA_HOME=${JAVA_HOME}
+#    export JDK_HOME=${JAVA_HOME}
+#  fi
+#}
+#
+#autoload -U add-zsh-hook
+#add-zsh-hook precmd asdf_update_java_home
+######
+
+
 #and comment for maven $HOME/.asdf/plugins/maven/bin
 
 #Custom Added
@@ -20,7 +37,3 @@ if [[ "$(uname -s)" == "Linux" ]]; then
 # initialise completions with ZSH's compinit
   autoload -Uz compinit && compinit
 fi
-
-#if [[ "$(uname -s)" == "Linux" ]]; then
-#  FORGIT_COPY_CMD='xclip -selection clipboard'
-#fi
