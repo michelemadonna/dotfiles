@@ -14,6 +14,7 @@ alias altcurl="http"
 alias altps="procs"
 alias althtop="gtop"
 alias ls="eza --icons --git --group-directories-first"
+alias lls="${aliases[ls]:-ls} -bghHliS@Z"
 alias ll="${aliases[ls]:-ls} -las modified"
 export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 
