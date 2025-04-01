@@ -23,8 +23,7 @@ if _has fzf; then
   # Having `bat` or `highlight` (or any of the other binaries below) installed
   # enables syntax highlighting.
 
-  FZF_CTRL_T_OPTS="--preview '(bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head 
--200'"
+  FZF_CTRL_T_OPTS="--preview '(bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -200'"
 
   # Some basic fzf-tab configs.
   zstyle ':fzf-tab:complete:cd:*' fzf-preview '(exa --tree --color=always $realpath || tree -C $realpath) 2> /dev/null'
