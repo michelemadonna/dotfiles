@@ -1,6 +1,19 @@
 #!/usr/bin/env zsh
 
 
+
+
+#Custom Added
+if [[ "$(uname -s)" == "Linux" ]]; then
+  export ASDF_DATA_DIR="$HOME/.asdf"
+  export PATH="$PATH:$ASDF_DATA_DIR/bin"
+  export PATH="$ASDF_DATA_DIR/shims:$PATH"
+# append completions to fpath
+  fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+  autoload -Uz compinit && compinit
+fi
+
 source $HOME/.asdf/plugins/java/set-java-home.zsh
 #modify set-java-home.zsh with
 
@@ -26,14 +39,3 @@ source $HOME/.asdf/plugins/java/set-java-home.zsh
 
 
 #and comment for maven $HOME/.asdf/plugins/maven/bin
-
-#Custom Added
-if [[ "$(uname -s)" == "Linux" ]]; then
-  export ASDF_DATA_DIR="$ASDF_DIR"
-  export PATH="$PATH:$ASDF_DATA_DIR/bin"
-  export PATH="$ASDF_DATA_DIR/shims:$PATH"
-# append completions to fpath
-  fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
-  autoload -Uz compinit && compinit
-fi

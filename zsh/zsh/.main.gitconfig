@@ -13,12 +13,15 @@
   attributesfile = ~/.gitattributes
   excludesfile = ~/.gitignore
   pager = delta 2> /dev/null || less
+[init]
+  defaultBranch = main  
 [apply]
   whitespace = nowarn
 [format]
   pretty = %C(auto)%h%Creset -%C(auto)%d%Creset %s %C(blue)<%an> %Cgreen(%cr)%Creset
 [push]
   default = simple
+  autoSetupRemote = true
 [pager]
   # Disable paging for `git branch`.
   branch = false
@@ -28,3 +31,9 @@
     side-by-side = true
 [interactive]
     diffFilter = delta --color-only
+[diff]
+  algorithm = histogram
+[branch]
+  sort = -committerdate
+[merge]
+  conflictstyle = zdiff3
