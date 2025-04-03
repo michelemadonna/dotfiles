@@ -3,18 +3,31 @@
 
 
 
-#Custom Added
-if [[ "$(uname -s)" == "Linux" ]]; then
-  export ASDF_DATA_DIR="$HOME/.asdf"
-  export PATH="$PATH:$ASDF_DATA_DIR/bin"
-  export PATH="$ASDF_DATA_DIR/shims:$PATH"
-# append completions to fpath
-  fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
-  autoload -Uz compinit && compinit
+##Custom Added
+#if [[ "$(uname -s)" == "Linux" ]]; then
+#  export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+#  export PATH="$PATH:$ASDF_DATA_DIR/bin"
+#  export PATH="$ASDF_DATA_DIR/shims:$PATH"
+#  if [ ! -d "${ASDF_DATA_DIR}/completions" ] 
+#  then
+#    mkdir -p "${ASDF_DATA_DIR:-$HOME/.asdf}/completions"
+#    asdf completion zsh > "${ASDF_DATA_DIR:-$HOME/.asdf}/completions/_asdf"
+#    
+#  fi
+#
+## append completions to fpath
+#  fpath=(${ASDF_DATA_DIR}/completions $fpath)
+## initialise completions with ZSH's compinit
+#  autoload -Uz compinit && compinit
+#fi
+if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]
+then
+  source ${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh
 fi
-
-source $HOME/.asdf/plugins/java/set-java-home.zsh
+if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]
+then
+  ln -s ${ASDF_DATA_DIR:-$HOME/.asdf}shims/node ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs
+fi
 #modify set-java-home.zsh with
 
 ######
