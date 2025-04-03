@@ -6,4 +6,4 @@
 [include]
 	path = .main.gitconfig
 [include]
-	path = .local.gitconfig
+	path = ~/.config/local/.local.gitconfig
