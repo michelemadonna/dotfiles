@@ -12,4 +12,5 @@ Host *
     ControlPath ~/.ssh/control-%r@%h:%p  # Socket for multiplexing
     ControlPersist 10m        # Keep connection open for 10 minutes after use
 
+Include ~/.ssh/local.sshconfig
 
