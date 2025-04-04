@@ -1,0 +1,15 @@
+# Default settings for all SSH connections
+Host *
+    IgnoreUnknown UseKeychain
+    AddKeysToAgent yes        # Automatically adds keys to ssh-agent
+    UseKeychain yes           # macOS-specific: Load keys from keychain
+    IdentityFile ~/.ssh/id_rsa  # Default SSH key
+    Compression yes           # Enable compression for faster transfers
+    ServerAliveInterval 60    # Keep connection alive every 60s
+    ServerAliveCountMax 5     # Disconnect after 5 failed keepalive responses
+    TCPKeepAlive yes          # Keep TCP connections alive
+    ControlMaster auto        # Allow connection multiplexing
+    ControlPath ~/.ssh/control-%r@%h:%p  # Socket for multiplexing
+    ControlPersist 10m        # Keep connection open for 10 minutes after use
+
+
