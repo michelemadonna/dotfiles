@@ -1,0 +1,19 @@
+{
+    "autosu": true,
+    "colorscheme": "dracula-tc",
+    "diffgutter": true,
+    "eofnewline": false,
+    "fastdirty": true,
+    "hisearch": true,
+    "ignorecase": false,
+    "keepautoindent": true,
+    "pluginchannels": [
+        "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+    ],
+    "pluginrepos": [],
+    "scrollbar": true,
+    "softwrap": true,
+    "splitBottom": true,
+    "splitRight": true,
+    "termtitle": false
+}
