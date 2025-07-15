@@ -39,7 +39,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 tput cup 9999 0
 if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
     if [ $TERM_PROGRAM != "Apple_Terminal" ] && if [ $TERM_PROGRAM != "tmux" ]  ; then
-      fastfetch --pipe false
+      if _has bat; then
+        fastfetch --pipe false
+      fi
     fi
 fi
 

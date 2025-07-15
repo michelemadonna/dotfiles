@@ -1,6 +1,6 @@
 #!/usr/bin/env
 
-clearicons() {
+cleariconcache() {
   if [[ "$(uname)" != "Darwin" ]]; then
     echo "⚠️  This function is only available on macOS."
     return 1
