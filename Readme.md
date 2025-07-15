@@ -129,7 +129,7 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
 1. **Fork this repo and clone the repository on your local home dir:**
     ```sh
     git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
+
     ```
 
 2. **Install essential packages:**
@@ -137,13 +137,11 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     brew tap "homebrew/command-not-found"
     brew install coreutils
     brew install bat
-    brew install duf
     brew install eza 
     brew install fd
     brew install git-delta
     brew install grc
     brew install htop
-    brew install fastfetch
     brew install procs
     brew install ripgrep
     brew install stow
@@ -157,12 +155,32 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     ```sh
     git clone https://github.com/jandamm/zgenom.git .zgenom 
     git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
-    git clone https://github.com/<your-account>/dotfiles.git .dotfiles 
     cd $HOME/.zqs && stow --target=$HOME zsh && cd  
     cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
     cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d
-    cd $HOME/.dotfiles/ssh && stow --target=$HOME/.ssh ssh && cd 
+    mkdir -p "$HOME/.ssh" && cd "$HOME/.dotfiles" && stow --target="$HOME/.ssh" ssh && cd
     ```
+
+4. **Fix Zsh Git Autocompletion on macOS Homebrew Installs**
+
+> **Note:** Installing Git via Homebrew can break Zsh autocompletion for Git. To restore proper autocompletion, run the following commands (replace `2.49.0` with your installed Git version if different):
+
+```sh
+rm -Rf /usr/local/Cellar/git/2.49.0/share/zsh/site-functions/_git
+sudo ln -s /usr/share/zsh/5.9/functions/_git /usr/local/Cellar/git/2.49.0/share/zsh/site-functions/_git
+```
+
+This will symlink the system-provided `_git` completion script, restoring full Git autocompletion in Zsh.
+
+5. **Customize Powerlevel10k Prompt**
+
+If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
+
+```sh
+p10k configure
+```
+
+This will launch an interactive configuration wizard to help you personalize your prompt.
 
 6. **Restart your terminal.**
 
