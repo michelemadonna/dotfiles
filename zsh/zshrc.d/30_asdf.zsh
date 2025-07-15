@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 # Configure fzf (if available).
-if _has asdf; then
+if _has asdf
+then
 	if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]
 	then
 		
@@ -14,9 +15,9 @@ if _has asdf; then
 				if [[ -n "${java_path}" ]]; then
 					export JAVA_HOME
 					if [[ "$java_path" == "/usr/bin/java" ]]; then
-					JAVA_HOME="$(/usr/libexec/java_home)"
+						JAVA_HOME="$(/usr/libexec/java_home)"
 					else  
-					JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+						JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
 					fi
 					export JAVA_HOME=${JAVA_HOME}
 					export JDK_HOME=${JAVA_HOME}
@@ -25,7 +26,7 @@ if _has asdf; then
 			
 			autoload -U add-zsh-hook
 			add-zsh-hook precmd asdf_update_java_home
-		 elif
+		 else
 			source ${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh
 		 fi
 
@@ -35,8 +36,6 @@ if _has asdf; then
 	then
 		ln -s ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs
 	fi
-
-
 
 
 	####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
