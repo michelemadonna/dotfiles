@@ -8,8 +8,6 @@ _has() {
   return $(whence $1 >/dev/null)
 }
 
-
-
 if [[ -z "$TMUX" ]]; then
   # Switch to xterm if we're in a tmux session.
   TERM="xterm-256color"
@@ -18,9 +16,6 @@ fi
 if [ -z $TERM_PROGRAM ]; then
   export TERM_PROGRAM=xterm	
 fi
-
-
-
 
 if _has rg; then
   export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
@@ -36,15 +31,18 @@ export LS_COLORS='di=1;34;0:ln=2;2:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 
+
+
+
+
 tput cup 9999 0
 if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then
     if [ $TERM_PROGRAM != "Apple_Terminal" ] && if [ $TERM_PROGRAM != "tmux" ]  ; then
-      if _has bat; then
+      if _has fastfetch; then
         fastfetch --pipe false
       fi
     fi
 fi
-
 
 
 function allafine(){
@@ -54,6 +52,3 @@ function allafine(){
 }
 zle -N allafine
 bindkey '^M' allafine
-
-
-

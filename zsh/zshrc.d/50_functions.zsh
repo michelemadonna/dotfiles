@@ -16,3 +16,5 @@ cleariconcache() {
   echo "✅ Icon cache cleared!"
   echo "🔄 Dock and Finder restarted successfully."
 }
+
+

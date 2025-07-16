@@ -18,7 +18,9 @@ speed, and comfort for daily use.
 - 🦇 **bat**: Advanced file viewer with syntax highlighting.
 - 🦸 **ripgrep**: Ultra-fast file search tool.
 - 📁 **eza**: Modern replacement for `ls` with colors and icons.
-- 🛠️ **Other tools**: z, zsh-autosuggestions, zsh-syntax-highlighting, git, duf, wget, htop, and more.
+- 🧠 **zsh-autosuggestions**: Automatic command suggestions as you type.
+- 🎨 **zsh-syntax-highlighting**: Real-time syntax highlighting.
+- 🛠️ **Other tools**: z, git, duf, wget, htop, and more.
 
 
 This quickstart includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font in your terminal to display status glyphs. Powerline-compatible fonts include many useful glyphs, including the nice branch icon that the theme in this `.zshrc` uses.
@@ -27,7 +29,7 @@ In my configuration, I use [Nerd fonts](https://github.com/ryanoasis/nerd-fonts)
 ```sh
 brew install fontname
 ```
-Replace `fontname` with the desired Nerd Font (for example, `font-fira-code-nerd-font`).
+Replace `fontname` with the desired Nerd Font (for example, `font-fira-code-nerd-font` also in thr folder folder of this repo).
 
 ---
 
@@ -77,6 +79,7 @@ This kit is designed to work seamlessly on both macOS and Linux, making it easy 
 * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - Adds fish-like autosuggestions to your ZSH sessions.
 * [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions) - Tab completions for many more applications than come standard with ZSH.
 * [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - Better history search.
+* [Aloxaf/fzf-tab](https://github.com/Aloxaf/fzf-tab) - Replace zsh's default completion selection menu with fzf!.
 
 The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 
@@ -149,6 +152,7 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     brew install tree
     brew install wget
     brew install git
+    brew install micro
     ```
 
 3. **Link dotfiles using stow:**
@@ -231,10 +235,25 @@ To enable/disable components, edit the corresponding configuration files in your
 
 ### 🐚 Zsh
 - `Ctrl+R` — Search history (fzf).
-- `Alt+.` — Insert last argument of previous command.
-- `Ctrl+U` — Clear current line.
-- `Ctrl+A` / `Ctrl+E` — Move to start/end of line.
-- `Ctrl+W` — Delete previous word.
+- `Double Esc` — Insert sudo before last command.
+- `Ctrl+T` — Fuzzy file path completion (fzf).
+- `Alt-C` / `Esc+C` — Cd into a selected subdirectory (fzf).
+- `Tab` — Open Autocomplete with fzf menu (fzf-tab).
+
+### fzf
+- `↑ ↓` — Move up/down
+- `Tab` — Cycle selection                                           
+- `Ctrl+Space` — Mark/unmark 
+- `Ctrl+A` — Toggle Mark/unmark                                            
+- `Enter` — Select the current item(s)                             
+- `Ctrl+C` — Cancel                                                 
+- `Ctrl+U` — Clear query (delete upward)                            
+- `Ctrl+D` — Delete downward                                        
+- `Ctrl+R` — (If using shell integration) fuzzy history search      
+- `Ctrl-T` — Insert file path into command line (shell integration as `micro` `Ctrl-T`) 
+- `Alt-J/K` — Move preview down/up/ (if preview enabled)              
+- `Alt-P` — Toggles the preview.
+- `, .` —  Switch group (fzf-tab)
 
 ### 🔀 tmux
 - `Ctrl+A` — Prefix (instead of `Ctrl+B`).

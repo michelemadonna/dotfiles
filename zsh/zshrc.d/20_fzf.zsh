@@ -1,33 +1,50 @@
 #!/usr/bin/env zsh
+FD_HIDDEN_FLAG=""
+EXA_HIDDEN_FLAG=""
 
-# Configure fzf (if available).
-if _has fzf; then
-  if _has fd; then
-    # Use fd for fzf.
-    FZF_DEFAULT_COMMAND='fd --type f --follow --hidden'
-    FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-    # Use fd for fzf directory search.
-    FZF_ALT_C_COMMAND='fd --type d --color never'
+export FZF_DEFAULT_COMMAND="fdx --type f --follow \$FD_HIDDEN_FLAG -E .git 2>/dev/null || find . -type f ! -path '*/.git/*'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fdx --type d --color never \$FD_HIDDEN_FLAG -E .git 2>/dev/null || find . -type d ! -path '*/.git/*'"
+
+export FZF_ALT_C_OPTS="--preview '(ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always {} 2>/dev/null || tree -C {}) | head -200'"
+
+export FZF_DEFAULT_OPTS="--multi \
+  --bind ctrl-a:toggle-all,ctrl-space:toggle,alt-p:toggle-preview,alt-k:preview-up,alt-j:preview-down"
+
+export FZF_CTRL_T_OPTS="--preview '(batx --style=numbers --color=always {} 2>/dev/null || cat {} 2>/dev/null) | head -200'"
+
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "(ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always \$realpath 2>/dev/null || tree -C \$realpath 2>/dev/null) | head -200"
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+zstyle ':fzf-tab:complete:micro:*' fzf-preview "[[ -e \$realpath ]] \
+  && (batx --style=numbers --color=always \"\$realpath\" 2>/dev/null || cat \"\$realpath\" 2>/dev/null) \
+  || (ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always \"\$realpath\" 2>/dev/null || tree -C \"\$realpath\" 2>/dev/null) | head -200"
+
+function toggle_fzf_hidden() {
+  if [[ "$FZF_DEFAULT_COMMAND" == *"--hidden"* ]]; then
+    unsetopt globdots
+    FD_HIDDEN_FLAG=""
+    EXA_HIDDEN_FLAG=""
+    echo "🙉 Hidden files OFF"
+  else
+    setopt globdots
+    FD_HIDDEN_FLAG="--hidden"
+    EXA_HIDDEN_FLAG="--all"
+    echo "🙈 Hidden files ON"
   fi
 
-  # Display source tree and file preview for CTRL-T and ALT-C.
-  if _has tree; then
-    # Show subdir tree for directories.
-    FZF_ALT_C_OPTS="--preview '(exa --tree --color=always {} || tree -C {}) | head -200'"
-  fi
+  export FZF_DEFAULT_COMMAND="fdx --type f --follow \$FD_HIDDEN_FLAG -E .git 2>/dev/null || find . -type f ! -path '*/.git/*'"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="fdx --type d --color never \$FD_HIDDEN_FLAG -E .git 2>/dev/null || find . -type d ! -path '*/.git/*'"
+  export FZF_ALT_C_OPTS="--preview '(ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always {} 2>/dev/null || tree -C {}) | head -200'"
 
-  # Bind alt-j/k/d/u to moving the preview window for fzf.
-  FZF_DEFAULT_OPTS="--bind alt-k:preview-up,alt-j:preview-down,alt-u:preview-page-up,alt-d:preview-page-down"
+  zstyle ':fzf-tab:complete:micro:*' fzf-preview "[[ -e \$realpath ]] \
+    && (batx --style=numbers --color=always \"\$realpath\" 2>/dev/null || cat \"\$realpath\" 2>/dev/null) \
+    || (ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always \"\$realpath\" 2>/dev/null || tree -C \"\$realpath\" 2>/dev/null) | head -200"
 
-  # Show previews for files and directories.
-  # Having `bat` or `highlight` (or any of the other binaries below) installed
-  # enables syntax highlighting.
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview "(ezax \$EXA_HIDDEN_FLAG --icons --tree --color=always \$realpath 2>/dev/null || tree -C \$realpath 2>/dev/null) | head -200"
+}
 
-  FZF_CTRL_T_OPTS="--preview '(bat --style=numbers --color=always {} || highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -200'"
-
-  # Some basic fzf-tab configs.
-  zstyle ':fzf-tab:complete:cd:*' fzf-preview '(exa --tree --color=always $realpath || tree -C $realpath) 2> /dev/null'
-  zstyle ':completion:*:descriptions' format '[%d]'
-  zstyle ':fzf-tab:*' switch-group ',' '.'
-
-fi
+bindkey -s '\eh' 'toggle_fzf_hidden\n'

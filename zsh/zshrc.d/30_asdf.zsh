@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-# Configure fzf (if available).
 if _has asdf
 then
 	if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]
@@ -8,7 +7,7 @@ then
 		
 		###### fix for https://github.com/halcyon/asdf-java/issues/244
 		###### modify set-java-home.zsh with >>
-		 if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+		if [ $(uname -a | grep -ci Darwin) = 1 ]; then
 		 	asdf_update_java_home() {
 				local java_path
 				java_path="$(asdf which java)"
@@ -26,12 +25,13 @@ then
 			
 			autoload -U add-zsh-hook
 			add-zsh-hook precmd asdf_update_java_home
-		 else
+		else
 			source ${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh
-		 fi
+		fi
 
 		###### <<
 	fi
+	
 	if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]
 	then
 		ln -s ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs
