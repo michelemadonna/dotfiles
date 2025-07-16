@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+#This file is sourced by zshrc to set up asdf integration.
 if _has asdf
 then
 	if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]

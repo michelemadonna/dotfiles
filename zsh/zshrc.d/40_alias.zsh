@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+#This file is sourced by zshrc to set up aliases
+
 
 #export PATH="$PATH:$FORGIT_INSTALL_DIR/bin"
 #if [[ "$(uname -s)" == "Linux" ]]; then
