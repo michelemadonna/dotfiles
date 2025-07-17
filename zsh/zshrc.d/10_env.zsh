@@ -33,14 +33,16 @@ zstyle ':completion:*:descriptions' format '[%d]' # Set description format for c
 
 
 tput cup 9999 0 # Move cursor to the bottom of the terminal
-if [[ -z "${INTELLIJ_ENVIRONMENT_READER}" ]]; then # Only run this if not in IntelliJ
-    if [ $TERM_PROGRAM != "Apple_Terminal" ] && if [ $TERM_PROGRAM != "tmux" ]  ; then # Check if not in Apple Terminal or tmux
-      if _has fastfetch; then
-        fastfetch --pipe false
-      fi
-    fi
-fi
 
+# Set up fastfetch to run only if the parent command is not an editor or IDE
+# This prevents fastfetch from running in editors like VSCode, Neovim, etc.
+
+if _has fastfetch; then
+  parent_cmd=$(ps -o comm= -p $(ps -o ppid= -p $$))
+  if ! echo "$parent_cmd" | grep -qE 'code|micro|nvim|vim|idea|clion|goland|phpstorm|pycharm|tmux|Terminal'; then
+    fastfetch --pipe false
+  fi
+fi
 
 function allafine(){
 

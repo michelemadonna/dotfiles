@@ -1,8 +1,23 @@
 # ⚡️ Dotfiles for Zsh on macOS  and Ubuntu Linux 🐧
 
 Welcome to my personal dotfiles repository! Here you'll find a comprehensive collection of Zsh configurations, optimized for both macOS and Ubuntu Linux.
-The setup is based on [zsh-quickstart-kit](https://github.com/unixorn/zsh-quickstart-kit) and includes several terminal applications, each configured to maximize productivity,
-speed, and comfort for daily use.
+The setup is based on [zsh-quickstart-kit](https://github.com/unixorn/zsh-quickstart-kit) and includes several terminal applications, each configured to maximize productivity, speed, and comfort for daily use.
+
+## ⚡ How the Zsh Configuration Works
+
+We do **not** use our own `.zshrc` file directly. Instead, we rely on the `.zshrc` provided by the `zsh-quickstart-kit`. **Do not modify this file**, as the framework includes an auto-update feature for itself and its plugins, ensuring you always get the latest fixes and improvements.
+
+Here’s how it works:
+
+- We use `stow` to create symlinks in our home directory, linking both the kit’s `.zshrc` and our custom configuration files from `$HOME/.dotfiles/zsh`.
+- **Never edit the framework’s `.zshrc` directly.**  
+  Instead, place your customizations in:
+  - `$HOME/.dotfiles/zsh/zshrc.d/` for general configuration snippets.
+  - `$HOME/.dotfiles/zsh/zshrc.pre-plugins` if you need to set environment variables or make changes before the kit loads plugins.
+- The plugins loaded by Zsh are defined in `$HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins`.
+
+This setup keeps your customizations separate from the framework, making updates safe and easy.
+
 
 ---
 
@@ -151,7 +166,6 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     brew install wget
     brew install git
     brew install micro
-    brew install asdf
     ```
 
 3. **Link dotfiles using stow:**
@@ -215,7 +229,96 @@ This will launch an interactive configuration wizard to help you personalize you
 
 ## 5. 🛠️ Optional Components & Configuration
 
-- ✏️ **micro**: Configurable via `~/.config/micro/settings.json`. Includes plugins for syntax highlighting, linting, and more.
+### ✏️ **Micro**
+[**Micro**](https://micro-editor.github.io) is a modern, easy-to-use terminal-based text editor with a clean UI, mouse support, and powerful plugin system.  
+Configuration is managed via `~/.config/micro/settings.json`. Micro includes built-in plugins for syntax highlighting, linting, and more.
+
+You can easily manage plugins directly from within Micro:
+
+- To list installed plugins:  
+    <kbd>Ctrl</kbd> + <kbd>E</kbd> then type `plugin list`
+- To see available plugins:  
+    <kbd>Ctrl</kbd> + <kbd>E</kbd> then type `plugin available`
+- To install a plugin:  
+    <kbd>Ctrl</kbd> + <kbd>E</kbd> then type `plugin install <plugin-name>`
+- To remove a plugin:  
+    <kbd>Ctrl</kbd> + <kbd>E</kbd> then type `plugin remove <plugin-name>`
+
+some useful plugins are :
+- [filemanager](https://github.com/NicolaiSoeborg/filemanager-plugin) — Tree-based file explorer 
+- [fzf](https://github.com/samdmarshall/micro-fzf-plugin) — Fuzzy file finder
+
+
+**Example workflow:**
+
+1. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> to open the command bar.
+2. Type `open myfile.txt` to open a file.
+3. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> and type `hsplit` to create a horizontal split.
+4. In the new split (bottom pane), press <kbd>Ctrl</kbd> + <kbd>E</kbd> and type `term` to open a terminal.
+
+This allows you to edit files and run terminal commands side by side within Micro.
+
+### 📦 **asdf**
+[**asdf**](https://asdf-vm.com) **universal runtime version manager** is a single CLI tool to install, switch, and manage different versions of programming 
+languages and other tools per project or globally. It unifies workflows traditionally handled by tools like nvm, rbenv, pyenv, and gvm, 
+offering a clean, consistent interface and a powerful plugin ecosystem.
+
+- Single config file (.tool-versions) tracks all tool/runtime versions for your project and can be checked into version control
+- Automatic version switching: as you navigate across project directories, asdf auto-activates the right tool versions defined in .tool-versions
+- Modular plugins power support not only for major languages (Node.js, Python, Java, Ruby, etc.), but also for tools like Terraform, kubectl, PostgreSQL, Redis and more
+- Shell completions for Bash, Zsh, Fish & Elvish make installing and specifying versions easy with tab-completion
+
+**Installation**
+    
+    # Install asdf (macOS example)
+    brew install asdf
+    # Install the "system" version use as default using the latest LTS version
+    brew install oracle-jdk@21
+    brew install node@22
+
+    # Or on Linux (with git & zsh)
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+    echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
+    echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+    
+    #reload term session
+    
+
+**Plugins installation**
+    
+    asdf plugin add java
+    asdf plugin add nodejs
+    asdf plugin add python
+    
+
+**Installing & Using Tools**
+    
+    #install one specific tool. Using Tab a list of installable version appers
+    asdf install java oracle-17 or asdf install java [TAB]
+
+    # List installed versions
+    asdf list java
+
+    # Verify what's currently used
+    asdf current
+
+    # Verify what java version is currently used
+    asdf current java
+
+    # Set per-user versions
+    asdf set -u java system # or asdf set -u java [TAB] to use completition
+
+    # Set per-project versions (in the project's root folder)
+    asdf set java oracle-17 # or asdf set -u java [TAB] to use completition
+    
+
+    > **Note:**  
+    > In this example, if you do **not** specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the system-wide Java version by default.  
+    > However, if you define a specific Java version for a project (by running `asdf set java <version>` in the project folder), asdf will automatically switch to that version whenever you enter the directory or open the project in an editor like VSCode or IntelliJ. This ensures your project always uses the correct Java version without manual intervention.
+
+    > **Alert:**  
+    > In some cases, to view all installed versions of a tool managed by asdf, you may need to install at least one additional version of that tool. This ensures asdf can properly list and manage multiple versions on your system.
+
 - 🔀 **tmux**: Advanced configuration in `~/.tmux.conf` with persistent sessions, plugin manager (tpm), custom status bar, and optimized keybindings.
 - 📦 **asdf**: Manages versions of Node.js, Python, Ruby, Elixir, Go, etc. Configuration in `~/.tool-versions`. Add plugins with `asdf plugin-add <language>`.
 - 🔍 **fzf**: Fuzzy search in history, files, and commands. Integrated with Zsh for fast completions.
@@ -233,42 +336,96 @@ To enable/disable components, edit the corresponding configuration files in your
 ## 6. ⌨️ Keybindings
 
 ### 🐚 Zsh
-- `Ctrl+R` — Search history (fzf).
+- `Ctrl + R` — Search history (fzf).
 - `Double Esc` — Insert sudo before last command.
-- `Ctrl+T` — Fuzzy file path completion (fzf).
-- `Alt-C` / `Esc+C` — Cd into a selected subdirectory (fzf).
+- `Ctrl + T` — Fuzzy file path completion (fzf).
+- `Alt + C` / `Esc + C` — Cd into a selected subdirectory (fzf).
 - `Tab` — Open Autocomplete with fzf menu (fzf-tab).
 
-### fzf
-- `↑ ↓` — Move up/down
+### 🔍 fzf
+- `↑ / ↓` — Move up/down
 - `Tab` — Cycle selection                                           
-- `Ctrl+Space` — Mark/unmark 
-- `Ctrl+A` — Toggle Mark/unmark                                            
+- `Ctrl + Space` — Mark/unmark 
+- `Ctrl + A` — Toggle Mark/unmark                                            
 - `Enter` — Select the current item(s)                             
-- `Ctrl+C` — Cancel                                                 
-- `Ctrl+U` — Clear query (delete upward)                            
-- `Ctrl+D` — Delete downward                                        
-- `Ctrl+R` — (If using shell integration) fuzzy history search      
-- `Ctrl-T` — Insert file path into command line (shell integration as `micro` `Ctrl-T`) 
-- `Alt-J/K` — Move preview down/up/ (if preview enabled)              
-- `Alt-P` — Toggles the preview.
+- `Ctrl + C` — Cancel                                                 
+- `Ctrl + U` — Clear query (delete upward)                            
+- `Ctrl + D` — Delete downward                                        
+- `Ctrl + R` — (If using shell integration) fuzzy history search      
+- `Ctrl + T` — Insert file path into command line (shell integration as `micro` `Ctrl-T`) 
+- `Alt + J / K` — Move preview down/up/ (if preview enabled)              
+- `Alt + P` — Toggles the preview.
 - `, .` —  Switch group (fzf-tab)
 
 ### 🔀 tmux
-- `Ctrl+A` — Prefix (instead of `Ctrl+B`).
-- `Ctrl+A c` — New window.
-- `Ctrl+A "` — Horizontal split.
-- `Ctrl+A %` — Vertical split.
-- `Ctrl+A [` — Copy mode.
-- `Ctrl+A d` — Detach session.
-- Move between panes: `Ctrl+A` + arrow keys.
+- `Ctrl + A` — Prefix (instead of `Ctrl + B`).
+- `Ctrl + A c` — New window.
+- `Ctrl + A "` — Horizontal split.
+- `Ctrl + A %` — Vertical split.
+- `Ctrl + A [` — Copy mode.
+- `Ctrl + A d` — Detach session.
+- `Ctrl + A + ↑ / ↓ / ← / →` Move between panes
 
 ### ✏️ micro
-- `Ctrl+E` — Command.
-- `Ctrl+Q` — Quit.
-- `Ctrl+S` — Save.
-- `Alt+Up/Down` — Move line up/down.
-- `Ctrl+K` — Cut line.
+**Navigation**
+- `↑ / ↓ / ← / →` — Move cursor in the corresponding direction
+- `Shift + ↑ / ↓ / ← / →` — Select up/down/left/right
+- `Alt + ←` — Start of text toggle
+- `Alt + →` — End of line
+- `Home` — Start of text
+- `End` — End of line
+- `PageUp / PageDown` — Cursor page up/down
+**Editing**
+- `Backspace` — Delete character left
+- `Alt + Backspace` — Delete word left
+- `Tab` — Autocomplete / Indent selection / Insert tab
+- `Delete` — Delete character right
+- `Ctrl + D` — Duplicate / Duplicate line
+- `Ctrl + K` — Cut line
+- `Ctrl + X` — Cut / Cut line
+- `Ctrl + C` — Copy / Copy line
+- `Ctrl + V` — Paste
+- `Ctrl + A` — Select all
+**File Operations**
+- `Ctrl + O` — Open file
+- `Ctrl + S` — Save
+- `F2` — Save
+- `Ctrl + Q` — Quit
+- `F4 / F10` — Quit
+**Search**
+- `Ctrl + F` — Find
+- `F3 / F7` — Find
+- `Ctrl + N` — Find next
+- `Ctrl + P` — Find previous
+**Undo / Redo**
+- `Ctrl + Z` — Undo
+- `Ctrl + Y` — Redo
+**UI Toggles**
+- `Ctrl + G` — Toggle help
+- `Alt + G` — Toggle key menu
+- `Ctrl + R` — Toggle ruler
+- `Ctrl + L` — Command-edit (goto)
+- `Ctrl + E` — Command bar
+**Tabs & Splits**
+- `Ctrl + T` — Add tab
+- `Alt + , / Ctrl + PageUp` — Previous tab / Last tab
+- `Alt + . / Ctrl + PageDown` — Next tab / First tab
+- `Ctrl + W` — Next split / First split
+**Macro**
+- `Ctrl + U` — Toggle macro recording
+- `Ctrl + J` — Play macro
+**Multi Cursor**
+- `Alt + ↑ / ↓` — Move line up/down
+- `Alt + Shift + ↑ / ↓` — Spawn multi-cursor up/down
+- `Alt + N` — Spawn multi-cursor
+- `Alt + P` — Remove multi-cursor
+- `Alt + C` — Remove all multi-cursors
+**Mouse**
+- `Mouse Wheel Up/Down` — Scroll
+- `Mouse Left` — Select text / split
+- `Mouse Left Drag` — Resize split / select
+- `Mouse Middle` — Paste primary
+- `Ctrl + Mouse Left` — Multi-cursor (in iterm2 -> Settings -> Pointer -> check ^-Click reported to apps, does not open menu)
 
 Check the configuration files for more details and customizations.
 
@@ -343,3 +500,4 @@ If you don't care about future changes to the kit's plugins and want to fully re
 Creating a `.zsh-quickstart-local-plugins` from scratch is a pain, so to make customizing your plugin list easier, I've included a `.zsh-quickstart-local-plugins-example` file at the root of the repository that installs the same plugin list that the kit does by default that you can use as a starting point for your own `.zsh-quickstart-local-plugins` file.
 
 Copy that to your `$HOME/.zsh-quickstart-local-plugins`, change the list, and the next time you start a terminal session, you'll get your plugin list loaded instead of the kit's defaults.
+
