@@ -33,9 +33,10 @@ then
 		###### <<
 	fi
 	
-	if [ ! -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]
-	then
-		ln -s ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node ${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs
+	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]; then
+		if [ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]; then
+			ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
+		fi
 	fi
 
 
