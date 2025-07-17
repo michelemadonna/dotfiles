@@ -143,9 +143,7 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     brew install eza 
     brew install fd
     brew install git-delta
-    brew install grc
     brew install htop
-    brew install procs
     brew install ripgrep
     brew install stow
     brew install tmux
@@ -153,6 +151,7 @@ In my setup, I use a slightly customized version of the **Astronaut** colorschem
     brew install wget
     brew install git
     brew install micro
+    brew install asdf
     ```
 
 3. **Link dotfiles using stow:**
