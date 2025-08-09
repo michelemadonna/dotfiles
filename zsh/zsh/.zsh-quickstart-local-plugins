@@ -127,18 +127,6 @@ if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
   zgenom oh-my-zsh plugins/rsync
   zgenom oh-my-zsh plugins/screen
   #zgenom oh-my-zsh plugins/vagrant
-  
-  #This plugin provides autocompletion for OC commands, building, managing and updating operations.
-  #zgenom oh-my-zsh plugins/oc
-  
-  #This plugin provides autocompletion for Kubectl commands, building, managing and updating operations.
-  zgenom oh-my-zsh plugins/kubectl
-	
-  #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
-  #zgenom oh-my-zsh plugins/jenv
-
-  #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
-  zgenom oh-my-zsh plugins/asdf
 
   if [ $(uname -a | grep -ci Darwin) = 1 ]; then
     # Load macOS-specific plugins
@@ -148,8 +136,20 @@ if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
     zgenom oh-my-zsh plugins/macos
     
   fi
+
   #This plugin uses the command-not-found package for zsh to provide suggested packages to be installed if a command cannot be found.
   zgenom oh-my-zsh plugins/command-not-found
+  #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
+  #zgenom oh-my-zsh plugins/jenv
+
+  #This plugin initializes jenv and provides the jenv_prompt_info function to add Java version information to prompts.
+  zgenom oh-my-zsh plugins/asdf
+
+  #This plugin provides autocompletion for OC (Openshift) commands, building, managing and updating operations.
+  #zgenom oh-my-zsh plugins/oc
+
+  #This plugin provides autocompletion for Kubectl commands, building, managing and updating operations.
+  zgenom oh-my-zsh plugins/kubectl
 fi
 
 # A set of shell functions to make it easy to install small apps and

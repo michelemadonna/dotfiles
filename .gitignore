@@ -25,4 +25,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-micro/buffers/
+# Micro editor directories
+micro/buffers
+micro/backups
