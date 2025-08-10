@@ -10,18 +10,18 @@
 
 
 
-alias _dig="dog"
+alias _dig="dogggo"
 alias _ping="gping"
 alias _hex="hexyl"
 alias _curl="http"
 alias _ps="procs"
-alias _top="gtop"
-alias ls="eza --icons --git --group-directories-first"
+alias _top="btop"
+alias ls="${aliases[ls]:-ls} --icons --git --group-directories-first"
 alias lls="${aliases[ls]:-ls} -bghHliS@Z"
 alias ll="${aliases[ls]:-ls} -las modified"
 
 
-
+#alias python=python3
 # Use 256 color for tmux.
 alias tmux="TERM=screen-256color-bce tmux"
 # Attempt to take over existing sessions before creating a new tmux session.

@@ -10,8 +10,6 @@
   branch = auto
 [core]
   autocrlf = input
-  attributesfile = ~/.gitattributes
-  excludesfile = ~/.gitignore
   pager = delta 2> /dev/null || less
 [init]
   defaultBranch = main  

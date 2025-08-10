@@ -800,10 +800,11 @@ Host fast-transfer
     KexAlgorithms curve25519-sha256@libssh.org
     MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com
 ```
+---
 
-## 7. 🐙 Git Configuration
+## 8. 🐙 Git Configuration
 
-This repository includes a default `.gitconfig` for general Git usage. However, you can easily extend or override this configuration without modifying the repository’s file by creating your own local configuration at `$HOME/.config/local/local.gitconfig`.
+This repository includes a default `.min.gitconfig` for general Git usage. However, you can easily extend or override this configuration without modifying the repository’s file by creating your own local configuration at `$HOME/.config/git/local.gitconfig`.
 
 **Why use a local Git config?**
 - **No merge conflicts:** You can update your fork of this repository without worrying about conflicts in your personal Git settings.
@@ -811,8 +812,14 @@ This repository includes a default `.gitconfig` for general Git usage. However, 
 - **Multiple accounts:** Easily manage different Git identities (e.g., work and personal) by automatically switching user/email based on the project directory.
 
 **How it works:**
-- The main `.gitconfig` in this repository includes (if present) your `$HOME/.config/local/local.gitconfig`.
+- The main `.config` in this repository includes (if present) your `$HOME/.config/git/local.gitconfig`.
 
+**To set up your Git configuration using GNU Stow, run:**
+
+```sh
+    # Uses `stow` to create symlinks from the `git` folder in your dotfiles to `$HOME/.config/git`, ensuring your Git configuration files are managed and updated via your dotfiles.
+    mkdir -p $HOME/.config/git && cd $HOME/.dotfiles && stow --target=$HOME/.config/git git && cd
+```
 **Note:**  
 I use the `$HOME/Developer` folder as my main projects directory because on macOS this folder has a custom "fancy" icon, making it easily recognizable in Finder. On Ubuntu, the default folder is `$HOME/Develop`, but I usually rename it to `$HOME/Developer` to keep the same configuration and directory structure across both operating systems.
 
@@ -823,9 +830,9 @@ I use the `$HOME/Developer` folder as my main projects directory because on macO
     email = mayname@email.xxx
 
 [includeIf "gitdir:~/Developer/personal@github/"]
-    path = ~/.config/local/gitconfig.personal@github
+    path = ./gitconfig.personal@github
 [includeIf "gitdir:~/Developer/work@github/"]
-    path = ~/.config/local/gitconfig.work@github
+    path = ./gitconfig.work@github
 ```
 
 **Example of an included config (e.g., `gitconfig.work@github`):**
@@ -837,9 +844,9 @@ I use the `$HOME/Developer` folder as my main projects directory because on macO
 
 With this setup, Git will automatically use the correct user and email for each project, based on its directory. This is especially useful if you contribute to both personal and work repositories from the same machine.
 
+---
 
-
-## 8. 🛠️ Customizing Your Zsh Quickstart Kit
+## 9. 🛠️ Customizing Your Zsh Quickstart Kit
 
 ### Customizing with ~/.zshrc.d Fragment Files
 
