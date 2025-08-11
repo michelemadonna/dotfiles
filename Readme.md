@@ -570,6 +570,7 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 - `Ctrl + T` — Fuzzy file path completion (fzf).
 - `Alt + C` / `Esc + C` — Cd into a selected subdirectory (fzf).
 - `Tab` — Open Autocomplete with fzf menu (fzf-tab).
+- `Alt + H` — Toggle hidden files in FZF (fzf).
 
 ### 🔍 fzf
 - `↑ / ↓` — Move up/down

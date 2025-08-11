@@ -114,3 +114,6 @@ mise() {
     command mise "$@"
   fi
 }
+
+#In zsh-quickstart-local-plugin.zsh replace asdf plugin with
+zgenom oh-my-zsh plugins/mise 
