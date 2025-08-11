@@ -170,10 +170,11 @@ In my setup, I use a slightly customized version of the **Argonaut** colorscheme
 >   ```sh
 >   brew install ghostty@tip
 >   ```
-> Create a symbolic link to the Ghostty configuration:
->   ```sh
->   ln -s $HOME/.dotfiles/ghostty $HOME/.config/ghostty
->   ```
+>Create a symbolic link to the Ghostty configuration for using this repo configuration:
+>```sh
+>   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
+>```
+>Restart Ghostty for the changes to take effect.
 
 ### Installation
 
@@ -201,7 +202,7 @@ In my setup, I use a slightly customized version of the **Argonaut** colorscheme
     git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
     cd $HOME/.zqs && stow --target=$HOME zsh && cd  
     cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
-    cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d
+    cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
     ```
 
 3. **Fix Zsh Git Autocompletion on macOS Homebrew Installs**
@@ -231,24 +232,95 @@ This will launch an interactive configuration wizard to help you personalize you
 
 ## 4. 🐧 Installation on Linux (Ubuntu)
 
-1. **Clone the repository:**
-    ```sh
-    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
-    cd ~/.dotfiles
+### Prerequisites
+- Fork this repo on GitHub ```
+
+- Git
+> Install Git with:
+>   ```sh
+>   sudo apt update
+>   sudo apt install git
+>   ```
+
+- Zsh
+> Install Zsh with:
+>   ```sh
+>   sudo apt update
+>   sudo apt install zsh
+>   chsh -s /bin/zsh
+>   ```
+>   Log out and log back in for the changes to take effect.
+
+- Clone **your forked** repository on your local home dir with:
+>    ```sh
+>    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
+>
+>    ```  ```
+
+- A Powerline-compatible font
+> Install Fira Code Nerd Font with:
+>   ```sh
+>    mkdir -p $HOME/.fonts
+>    cp $HOME/.dotfiles/fonts/* $HOME/.fonts
+>    fc-cache -f -v
+>   ```
+
+- Ghostty
+> Install Ghostty with:
+>   ```sh
+>    sudo snap install ghostty --channel=latest/edge --classic
+>   ```
+> - **With the `latest/edge` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
+
+Open Ghostty’s default profile settings, set the font to `FiraCode Nerd Font Mono` with size of 12.0.
+    ```text
+    font-family="FiraCode Nerd Font Mono"
+    font-size=12.0
     ```
-2. **Install required packages:**
+Or Create a symbolic link to the Ghostty configuration for using this repo configuration:
     ```sh
-    sudo apt update
-    sudo apt install zsh tmux micro git curl fzf bat ripgrep exa wget htop
+   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
     ```
-3. **Link dotfiles using the script:**
+Restart Ghostty for the changes to take effect.
+
+You can use your favorite color scheme — or simply copy my Ghostty configuration from the `ghostty` folder in this repository.
+In my setup, I use a slightly customized version of the **Argonaut** colorscheme called **Astronaut**. Another colorscheme I really like is **Breeze**.
+
+### Installation
+
+1. **Install essential packages:**
     ```sh
-    ./install.sh
+    sudo apt install curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip fzf bat command-not-found git-delta tmux htop
+    sudo ln -s /usr/bin/batcat /usr/bin/bat
     ```
-4. **Set Zsh as the default shell:**
+
+2. **Link dotfiles using stow:**
     ```sh
-    chsh -s $(which zsh)
+    git clone https://github.com/jandamm/zgenom.git .zgenom 
+    git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
+    cd $HOME/.zqs && stow --target=$HOME zsh && cd  
+    cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
+    cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
     ```
+
+3. **Fix FZF Autocompletion on Ubuntu Installs**
+
+    ```sh
+    mkdir -p $HOME/.fzf/shell
+    ln -s /usr/share/doc/fzf/examples/completion.zsh $HOME/.fzf/shell/completion.zsh
+    ln -s /usr/share/doc/fzf/examples/key-bindings.zsh $HOME/.fzf/shell/key-bindings.zsh
+    ```
+
+4. **Customize Powerlevel10k Prompt**
+
+If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
+
+    ```sh
+    p10k configure
+    ```
+
+This will launch an interactive configuration wizard to help you personalize your prompt.
+
 5. **Restart your terminal.**
 
 ---
@@ -299,52 +371,80 @@ This allows you to edit files and run terminal commands side by side within Micr
 **Installation**
     
     # Install asdf (macOS example)
-    brew install asdf
+    brew install asdf openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd
+    sudo xcode-select --reset
     # Install the "system" version use as default using the latest LTS version
     brew install openjdk@21
     brew install node@22
+    #reload term session
 
     # Or on Linux (with git & zsh)
-    git clone https://github.com/asdf-vm/asdf.git ~/.asdf
-    echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.bashrc
-    echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
-    
+    sudo apt install default-jdk-headless make build-essential libssl-dev zlib1g-dev \
+                    libbz2-dev libreadline-dev libsqlite3-dev curl git \
+                    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libstd-dev
+    #sudo apt install nodejs install the system version only after installing and selecting an alternative version using asdf (see note at the end)
+    mkdir -p $HOME/.asdf/bin
+    cd $HOME/.asdf/bin
+    wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz
+    tar zxvf asdf-v0.18.0-linux-amd64.tar.gz
+    rm asdf-v0.18.0-linux-amd64.tar.gz
     #reload term session
-    
+
 
 **Plugins installation**
     
     asdf plugin add java
     asdf plugin add nodejs
     asdf plugin add python
-    
+
 
 **Installing & Using Tools**
-    
-    #install one specific tool. Using Tab a list of installable version appers
-    asdf install java openjdk-17 or asdf install java [TAB]
 
-    # List installed versions
-    asdf list java
+- **To install a specific version of a tool (for example, Java), you can use Tab completion to see available versions:**
 
-    # Verify what's currently used
-    asdf current
+    `asdf install java openjdk-17   # or: asdf install java [TAB]`
 
-    # Verify what java version is currently used
-    asdf current java
 
-    # Set per-user versions
-    asdf set -u java system # or asdf set -u java [TAB] to use completition
+- **List installed versions:**
 
-    # Set per-project versions (in the project's root folder)
-    asdf set java openjdk-17 # or asdf set -u java [TAB] to use completition
+    `asdf list java`
 
-    > **Note:**  
-    > In this example, if you do **not** specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the system-wide Java version by default.  
-    > However, if you define a specific Java version for a project (by running `asdf set java <version>` in the project folder), asdf will automatically switch to that version whenever you enter the directory or open the project in an editor like VSCode or IntelliJ. This ensures your project always uses the correct Java version without manual intervention.
 
-    > **Alert:**  
-    > In some cases, to view all installed versions of a tool managed by asdf, you may need to install at least one additional version of that tool. This ensures asdf can properly list and manage multiple versions on your system.
+- **Check what is currently in use:**
+
+    `asdf current`
+    `asdf current java`
+
+
+- **Set the global (user-wide) version:**
+
+    `asdf set -u java system`
+    # or: asdf set -u java [TAB] to use completion
+
+
+- **Set the version for a specific project (in the project root):**
+
+    `asdf set java openjdk-17`
+    # or: asdf set java [TAB] to use completion
+
+
+> **Note:**  
+> If you do not specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the global system version.  
+> If you set a specific version for the project (`asdf set java <version>` in the project folder), asdf will automatically switch to that version when you enter the directory or open the project in an editor like VSCode or IntelliJ.
+
+> **Attention (Linux only):**  
+> If on Linux asdf is unable to switch the Node.js version (it always stays on the system version even after installing other versions with asdf), you need to:
+> 1. Uninstall the system-provided Node.js (`sudo apt remove nodejs`).
+> 2. Set the global Node.js version via asdf:
+>    ```sh
+>    asdf set -u nodejs <desired-version>
+>    ```
+> 3. If needed, reinstall the system version of Node.js after configuring asdf (`sudo apt install nodejs`).
+>
+> This ensures that the `node` command points to the version managed by asdf and not the system one.
+
+> **Tip:**  
+> In some cases, to list all installed versions of a tool managed by asdf, you may need to install at least one additional version of that tool. This allows asdf to properly list and manage multiple versions on your system.
 
 ### 🔀 **tmux**
 [**tmux**](https://github.com/tmux/tmux) is a powerful terminal multiplexer that lets you manage multiple terminal sessions within a single window. It supports persistent sessions, split panes, window management, and extensive customization.
@@ -457,149 +557,12 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 - 🌳 **tree**: Display directories as trees (with optional color/HTML output)
 -  **git**: Distributed version control system for tracking changes in source code.
 - 🌐 **wget**: Internet file retriever
-
-### 🧰 **Other Useful Tools**
-#### Command Line Tools (install with Homebrew - `brew install <tool>`)
-- 🔵 **blueutil**: Get/set bluetooth power and discoverable state
-- 📊 **btop**: Resource monitor. C++ version and continuation of bashtop and bpytop
-- 💿 **cdrtools**: CD/DVD/Blu-ray premastering and recording software
-- 📜 **ctags**: Reimplementation of ctags(1)
-- 🐳 **dive**: Tool for exploring each layer in a docker image
-- 🕵️ **dug**: Global DNS propagation checker that gives pretty output
-- 🐶 **doggo**: Command-line DNS Client for Humans. Inspired by the simplicity and ease of use of the `dog` command.
-- 🗂️ **duf**: Disk Usage/Free Utility - a better 'df' alternative
-- 🦀 **dust**: More intuitive version of du in rust
-- ⚡ **fastfetch**: Like neofetch, but much faster because written mostly in C
--  **gh**: Official GitHub CLI for managing repositories, issues, pull requests, and workflows from the terminal.
--  **git-delta**: Syntax-highlighting pager for `git diff` and `git show`, with GitHub-style formatting.
-- 📈 **gping**: Ping, but with a graph
 - 🎨 **grc**: Colorize logfiles and command output
-- 🎥 **handbrake**: Open-source video transcoder available for Linux, Mac, and Windows
-- 🔍 **hexyl**: Command-line hex viewer
-- 📊 **htop**: Improved top (interactive process viewer)
-- 🌐 **httpie**: User-friendly cURL replacement (command-line HTTP client)
-- 🐳 **k9s**: Kubernetes CLI To Manage Your Clusters In Style!
-- 🐦 **kcat**: Generic command-line non-JVM Apache Kafka producer and consumer
-- 🔄 **mackup**: Keep your Mac's application settings in sync
-- 🛒 **mas**: Mac App Store command-line interface
-- 🗂️ **midnight-commander**: Terminal-based visual file manager
-- 🌙 **mist-cli**: Mac command-line tool that automatically downloads macOS Firmwares / Installers
-- 🌐 **netcat**: Utility for managing network connections
-- 🔍 **nmap**: Port scanning utility for large networks
-- 🔔 **noti**: Trigger notifications when a process completes
-- 📦 **pipx**: Execute binaries from Python packages in isolated environments
-- ⚙️ **procs**: Modern replacement for ps written in Rust
-- 🔊 **switchaudio-osx**: Change macOS audio source from the command-line
-- 📚 **tlrc**: Official tldr client written in Rust
-- 🏴‍☠️ **x265**: H.265/HEVC encoder
-- 🔍 **television**: General purpose fuzzy finder TUI
-- ⬆️ **topgrade**: Upgrade all the things (asdf-vm alternative)
-- 🧹 **mac-cleanup-py**: Python cleanup script for macOS (before install use `brew tap mac-cleanup/mac-cleanup-py`)
-- 🦙 **lazygit**: Simple terminal UI for git commands
-- 🐳 **lazydocker**: Lazier way to manage everything docker
-- 🐋 **reg**: Docker registry v2 command-line client
-
-#### GUI Applications (install with Homebrew - `brew install --cask <app>`)
-- 🎥 **5kplayer**: (5KPlayer) Play 4K/1080p/360-degree video, MP3/AAC/APE/FLAC music without quality loss
-- 🖥️ **anydesk**: (AnyDesk) Allows connection to a computer remotely
-- 🗑️ **appcleaner**: (FreeMacSoft AppCleaner) Application uninstaller
-- 🎵 **background-music**: (Background Music) Audio utility
-- 🖥️ **betterdisplay**: (BetterDisplay) Display management tool
-- 🛡️ **blockblock**: (BlockBlock) Monitors common persistence locations
-- 🦙 **bruno**: (Bruno) Open source IDE for exploring and testing APIs
-- 📚 **calibre**: (calibre) E-books management software
-- ☁️ **cyberduck**: (Cyberduck) Server and cloud storage browser
-- 🗂️ **daisydisk**: (DaisyDisk) Disk space visualiser 
-- 🐦 **darwindumper**: (DarwinDumper) App to dump system information to aid troubleshooting
-- 🐦 **datagrip**: (DataGrip) Databases and SQL IDE **($$$)**
-- 🐦 **dbeaver-community**: (DBeaver Community Edition) Universal database tool and SQL client
-- 💬 **discord**: Voice and text chat software
-- 🐦 **dockdoor**: (DockDoor) Window peeking utility app
-- 🐦 **drawio**: (draw.io Desktop) Online diagram software
-- 🌐 **firefox**: (Mozilla Firefox) Web browser
-- 🔄 **fluor**: (Fluor) Change the behavior of the fn keys depending on the active application
-- 🎨 **font-fira-code-nerd-font**: (FiraCode Nerd Font (Fira Code)) [no description]
-- 🎨 **font-sauce-code-pro-nerd-font**: (SauceCodePro Nerd Font (Source Code Pro)) [no description]
-- 📈 **geekbench**: (Geekbench) Tool to measure the computer system's performance
-- 🕵️‍♂️ **ghidra**: (Ghidra) Software reverse engineering (SRE) suite of tools
-- 🖥️ **ghostty**: (Ghostty) Modern GPU-accelerated terminal emulator (install the nightly build with `brew install --cask ghostty@tip`)
-- 🐙 **gitkraken**: (GitKraken) Git client focusing on productivity **(free for public repo, else $$$)**
-- 🧮 **hex-fiend**: (Hex Fiend) Hex editor focusing on speed
-- 🎥 **iina**: (IINA) Free and open-source media player
-- 🦙 **intellij-idea**: (IntelliJ IDEA Ultimate) Java IDE by JetBrains. **($$$) Alternately install the Community Edition with `brew install --cask intellij-idea-ce`**
-- 🖥️ **iterm2**: (iTerm2) Terminal emulator as alternative to Apple's Terminal app
-- 🧊 **jordanbaird-ice**: (Ice) Menu bar manager
-- 📦 **keka**: (Keka) File archiver
-- 🧩 **kextviewr**: (KextViewr) Display all currently loaded kexts
-- ⌨️ **keuclu**: (KeuClu) Find shortcuts for any installed application
-- 🕵️ **knockknock**: (KnockKnock) Tool to show what is persistently installed on the computer
-- 🛰️ **lens**: (Lens) Kubernetes IDE
-- 🛡️ **little-snitch**: (Little Snitch) Host-based application firewall **($$$)**
-- 🖱️ **logi-options**: (Logitech Options) Software for Logitech devices
-- 🦠 **malwarebytes**: (Malwarebytes for Mac) Scan and remove malware, spyware, and viruses
-- 🗂️ **marta**: (Marta File Manager) Extensible two-pane file manager
-- 🌐 **microsoft-edge**: (Microsoft Edge) Multi-platform web browser
-- 💬 **microsoft-teams**: (Microsoft Teams) Meet, chat, call, and collaborate in just one place
-- 🌙 **mist**: (Mist) Mac command-line tool that automatically downloads macOS Firmwares / Installers (GUI version install with `--cask`)
-- 🕵️ **mitmproxy**: (mitmproxy) Intercept, modify, replay, save HTTP/S traffic
-- 🖱️ **mos**: (Mos) Smooths scrolling and set mouse scroll directions independently
-- ⬇️ **motrix**: (Motrix) Open-source download manager
-- 📶 **netspot**: (NetSpot) WiFi site survey software and WiFi scanner
-- 🎮 **nvidia-geforce-now**: (NVIDIA GeForce NOW) Cloud gaming platform
-- 🛠️ **onyx**: (OnyX) Verify system files structure, run miscellaneous maintenance and more
-- 🐙 **openshift-client**: (Openshift Client) Red Hat OpenShift Container Platform command-line client
-- ☕ **openjdk@21**: (OpenJDK 21) JDK from OpenJDK
-- 🗃️ **p4v**: (Perforce Helix Visual Client, P4Merge, P4V) Visual client for Helix Core
-- 🧹 **pearcleaner**: (PearCleaner) Utility to uninstall apps and remove leftover files from old/uninstalled apps
-- 🎬 **plex**: (Plex) Home media player
-- 🐍 **pycharm**: (PyCharm, PyCharm Professional) IDE for professional Python development. **($$$) Alternately install the Community Edition with `brew install --cask pycharm-ce`**
-- 📦 **rar**: (RAR Archiver) Archive manager for data compression and backups
-- 📄 **skim**: (Skim) PDF reader and note-taking application
-- 🦥 **sloth**: (Sloth) Displays all open files and sockets in use by all running processes
-- 🎵 **spotify**: (Spotify) Music streaming service
-- 🎮 **steam**: (Steam) Video game digital distribution service
-- 📺 **stremio**: (Stremio) Open-source media center
-- 📝 **sublime-text**: (Sublime Text) Text editor for code, markup and prose
-- 🕵️‍♂️ **suspicious-package**: (Suspicious Package) Application for inspecting installer packages
-- 🔒 **tunnelblick**: (Tunnelblick) Free and open-source OpenVPN client
-- 🖊️ **visual-studio-code**: (Microsoft Visual Studio Code, VS Code) Open-source code editor
-- 🤝 **zed**: (Zed) Multiplayer code editor
-- 🧽 **tencent-lemon**: (Tencent Lemon) Tencent Lemon Cleaner
-- 🧠 **xmind**: (XMind) Mind mapping and brainstorming tool
-
-#### Apple Store Apps
-- 🚫 **AdBlock Pro** Block ads in Safari **($$$)**
-- 💤 **Amphetamine** Keep your Mac awake
-- 🔐 **Bitwarden** Password manager
-- ⚙️ **Blackmagic Disk Speed Test** Measure disk performance
-- 🛠️ **Developer** Apple tools for developers
-- 🐦 **Discovery** Browse local Bonjour services
-- 🐢 **DoubleMemory** Your second brain
-- 🗒️ **Evernote** Note-taking and organization
-- 📝 **Evernote Web Clipper** Clip web pages to Evernote
-- 🎶 **GarageBand** Music creation software by Apple
-- 🎬 **iMovie** Video editing software by Apple
-- 🎤 **Keynote** Presentation software by Apple
-- 🖥️ **Mactracker** Mac hardware and software information
-- 📊 **Microsoft Excel** MS Office Spreadsheet software **($$$)**
-- 📝 **Microsoft OneNote** MS Office Note-taking and organization **($$$)**
-- 📧 **Microsoft Outlook** MS Office Email client **($$$)**
-- 📊 **Microsoft PowerPoint** MS Office Presentation software **($$$)**
-- 📝 **Microsoft Word** MS Office Word processing software **($$$)**
-- 📂 **New File Menu Lite** Quick access to create new files
-- 🛡️ **NordVPN** VPN service **($$$)**
-- 📊 **Numbers** Spreadsheet software by Apple
-- 📝 **Pages** Word processing software by Apple
-- 💬 **Telegram** Messaging app
-- 📁 **TeraCopy** File transfer utility
-- 📦 **The Unarchiver** Extract various archive formats
-- 🪟 **Windows App** Windows Remote Desktop by Microsoft
-- 🛠️ **Xcode** Integrated development environment by Apple
 
 
 ---
 
-## 6. ⌨️ Keybindings
+## 5. ⌨️ Keybindings
 
 ### 🐚 Zsh
 - `Ctrl + R` — Search history (fzf).
@@ -696,7 +659,7 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 Check the configuration files for more details and customizations.
 
 ---
-## 7. 🔐 SSH Configuration
+## 6. 🔐 SSH Configuration
 
 This repository includes a custom SSH configuration to enhance security, usability, and productivity for SSH usage on both macOS and Linux.
 The SSH configuration is found in the `ssh` folder within this repository (`$HOME/.dotfiles/ssh`). Using GNU Stow, this directory is automatically linked to `$HOME/.ssh`, replacing any existing files.
@@ -802,7 +765,7 @@ Host fast-transfer
 ```
 ---
 
-## 8. 🐙 Git Configuration
+## 7. 🐙 Git Configuration
 
 This repository includes a default `.min.gitconfig` for general Git usage. However, you can easily extend or override this configuration without modifying the repository’s file by creating your own local configuration at `$HOME/.config/git/local.gitconfig`.
 
@@ -846,7 +809,7 @@ With this setup, Git will automatically use the correct user and email for each 
 
 ---
 
-## 9. 🛠️ Customizing Your Zsh Quickstart Kit
+## 8. 🛠️ Customizing Your Zsh Quickstart Kit
 
 ### Customizing with ~/.zshrc.d Fragment Files
 
@@ -881,17 +844,5 @@ If you don't care about future changes to the kit's plugins and want to fully re
 Creating a `.zsh-quickstart-local-plugins` from scratch is a pain, so to make customizing your plugin list easier, I've included a `.zsh-quickstart-local-plugins-example` file at the root of the repository that installs the same plugin list that the kit does by default that you can use as a starting point for your own `.zsh-quickstart-local-plugins` file.
 
 Copy that to your `$HOME/.zsh-quickstart-local-plugins`, change the list, and the next time you start a terminal session, you'll get your plugin list loaded instead of the kit's defaults.
-
-
-## 📚 Tips
-
-- Add your favorite Zsh plugins by editing `.zshrc` or the zgenom plugin section.
-- Customize prompt, colors, and aliases as you like.
-- Update tools with `brew upgrade` (macOS) or `sudo apt upgrade` (Linux).
-- Sync your dotfiles across multiple machines using Git.
-
----
-
-> **Note:** Replace `your-username` with your actual GitHub username and adjust paths as needed. For questions or suggestions, open an issue or pull request!
 
 

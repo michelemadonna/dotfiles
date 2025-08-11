@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+
+
+
+
+
 #This file is sourced by zshrc to set up asdf integration.
 if _has asdf
 then
