@@ -229,20 +229,9 @@ On macOS, you may also want to adjust the following settings:
     cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
     ```
 
-3. **Fix Zsh Git Autocompletion on macOS Homebrew Installs**
+3. **Restart your terminal**
 
-> **Note:** Installing Git via Homebrew can break Zsh autocompletion for Git. To restore proper autocompletion, run the following commands (replace `2.49.0` with your installed Git version if different):
-
-```sh
-rm -Rf /usr/local/Cellar/git/2.49.0/share/zsh/site-functions/_git
-sudo ln -s /usr/share/zsh/5.9/functions/_git /usr/local/Cellar/git/2.49.0/share/zsh/site-functions/_git
-```
-
-This will symlink the system-provided `_git` completion script, restoring full Git autocompletion in Zsh.
-
-4. **Restart your terminal**
-
-5. **Customize Powerlevel10k Prompt**
+4. **Customize Powerlevel10k Prompt**
 
 If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
 
