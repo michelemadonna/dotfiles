@@ -24,4 +24,3 @@ if [[ "$(uname)" != "Darwin" ]]; then
   }
 fi
 
-echo "function"

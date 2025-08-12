@@ -20,6 +20,7 @@ This approach keeps custom settings separate from the framework, making updates 
 
 ---
 
+
 ## 1. 🧩 Components Used
 
 - 🐚 **Zsh**: Main shell, powerful and highly customizable.
@@ -41,14 +42,23 @@ This quickstart includes the [powerlevel10k](https://github.com/romkatv/powerlev
 
 In my configuration, I use [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) — a collection of over 20 patched fonts (over 1,700 variations). This includes fonts like Droid Sans, Meslo, AnonymousPro, ProFont, Inconsolata, and many more. These can be installed with Homebrew:  
 
-```sh
-brew install fontname
-```
-Replace `fontname` with the desired Nerd Font (for example, `font-fira-code-nerd-font` also in thr folder folder of this repo).
 
----
+### 🪐 Ghostty Terminal
 
-## 2. 🧰 About zgenom and zsh-quickstart-kit
+[Ghostty](https://github.com/ghostty-org/ghostty) is a modern, open source terminal emulator that is lightweight and cross-platform (macOS  and Ubuntu 🐧).
+
+I chose Ghostty because it is:
+- **Cross-platform:** Works seamlessly on both macOS and Ubuntu.
+- **Easy to install:** Available via Homebrew on macOS and Snap on Ubuntu.
+- **Simple to configure:** Just apply the configuration file included in this repository to instantly get my personalized setup.
+
+**Advantages of Ghostty:**
+- High performance with minimal resource usage.
+- Native GPU rendering and advanced Unicode support.
+- Extensive customization for fonts, colors, and layouts.
+- **With the `nightly build` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
+
+This repository includes my personal Ghostty configuration, which by default applies a slightly customized version of the **Argonaut** theme called **Astronaut**. Another color scheme I really like is **Breeze**.
 
 ### ⚡️ zgenom
 zgenom is a plugin manager for Zsh that allows you to load themes and plugins in a modular and extremely fast way. It uses smart caching to reduce shell startup times and supports plugins from Oh-my-zsh and other sources.
@@ -111,23 +121,11 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 
 ---
 
-## 3. 🍏 Installation on macOS
+## 2. 🍏 Installation on macOS
 > **Note:** Zsh is the default shell on macOS starting from version 10.15 (Catalina). If you are using an earlier version, you may need to install Zsh manually.
 
-### Prerequisites
+### 2.1 Prerequisites
 - Fork this repo on GitHub
-
-- Homebrew  
-> Install Homebrew (if not already installed) with:
->   ```sh
->   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
->   ```
-
-- Git
-> Install Git with:
->   ```sh
->   brew install git
->
 
 - Clone **your forked** repository on your local home dir with:
 >    ```sh
@@ -135,10 +133,10 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 >
 >    ```
 
-- iTerm2
-> Install iTerm2 with:
+- Homebrew  
+> Install Homebrew (if not already installed) with:
 >   ```sh
->    brew install iterm2
+>   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 >   ```
 
 - A Powerline-compatible font
@@ -147,36 +145,61 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 >   brew install font-fira-code-nerd-font
 >   ```
 
-Open iTerm2’s default profile settings, set the font to `FiraCode Nerd Font` → `Retina`, and make sure the Use Ligatures option is enabled.
-You can use your favorite color scheme — or simply import my iTerm2 configuration from the `iterm2` folder in this repository.
-
-In my setup, I use a slightly customized version of the **Argonaut** colorscheme called **Astronaut**. Another colorscheme I really like is **Breeze**.
-
-> 💡 **Recommended Alternative: [Ghostty](https://github.com/ghostty-org/ghostty)**
->
-> Consider trying [Ghostty](https://github.com/ghostty-org/ghostty), a modern, lightweight, and cross-platform open source terminal emulator.
->
-> **Advantages of Ghostty:**
-> - High performance with minimal resource usage.
-> - Native GPU rendering and advanced Unicode support.
-> - Extensive customization for fonts, colors, and layouts.
-> - **With the `@tip` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
->
-> This repository includes my personal Ghostty configuration, which by default applies the same custom theme I use on iTerm2.
-> Give it a try for an even more modern and "fancy" terminal experience!
-
-- Ghostty(@tip)
+- Ghostty
 > Install Ghostty with:
 >   ```sh
 >   brew install ghostty@tip
 >   ```
->Create a symbolic link to the Ghostty configuration for using this repo configuration:
->```sh
->   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
->```
->Restart Ghostty for the changes to take effect.
+> - **With the `@tip` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
 
-### Installation
+Open Ghostty’s default profile settings, set the font to `FiraCode Nerd Font Mono` with size of 12.0.
+    ```text
+    font-family="FiraCode Nerd Font Mono"
+    font-size=12.0
+    ```
+Or Create a symbolic link to the Ghostty configuration for using this repo configuration:
+    ```sh
+   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
+    ```
+Restart Ghostty for the changes to take effect.
+
+The configuration included in this repository uses my personalized **Argonaut** color scheme.
+
+On macOS, you may also want to adjust the following settings:
+    System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"
+
+
+> 💡 **Other Recommended Terminal: [iTerm2](https://iterm2.com/)**
+>
+> Consider using [iTerm2](https://iterm2.com/), a powerful and feature-rich terminal emulator for macOS.
+>
+> **Advantages of iTerm2:**
+> - Highly customizable with support for profiles, color schemes, and fonts.
+> - Advanced features like split panes, search, triggers, and inline images.
+> - Excellent integration with macOS, including support for the system clipboard and keychain.
+> - Built-in support for Powerline and Nerd Fonts for enhanced prompt and glyph rendering.
+>
+> Install Iterm2 with :
+>   ```sh
+>   brew install --cask iterm2
+>   ```
+> This repository includes my personal iTerm2 configuration and color schemes (Argonaut, Breeze), providing a consistent and visually appealing terminal experience.
+> General -> Selection -> Uncheck "Command selection"
+> Appearance -> General ->  Theme -> Select "Minimal"
+> Profiles -> Default -> Other Actions... -> Duplicate Profile -> Name it "Astronaut Alternative Lighter"
+> Profile -> "Astronaut Alternative Lighter" -> Colors -> Uncheck "Use separate colors for light and dark mode"
+> Profile -> "Astronaut Alternative Lighter" -> Colors -> Color Presets -> Import -> Import ".dotfiles/iTerm2/Color Schemes/Astronaut Alternative Lighter.iTermColors"
+> Profile -> "Astronaut Alternative Lighter" -> Colors -> Color Presets -> Select "Astronaut Alternative Lighter"
+> Profile -> "Astronaut Alternative Lighter" -> Colors -> Minimum Contrast -> 7
+> Profile -> "Astronaut Alternative Lighter" -> Text -> Cursor -> Check "Blink" and "Animate movement"
+> Profile -> "Astronaut Alternative Lighter" -> Text -> Text rendering -> Check "Allow blinking text"
+> Profile -> "Astronaut Alternative Lighter" -> Text -> Font -> Select "Fira Code Nerd Font Mono" , "Regular" and set size to 12
+> Profile -> "Astronaut Alternative Lighter" -> Terminal -> Shell Integration -> Uncheck "Show mark indicators"
+> Profile -> "Astronaut Alternative Lighter" -> Session -> Password Manager -> Check "Open password manager automatically..."
+> Profile -> "Astronaut Alternative Lighter" -> Keys -> General -> Left Option key -> Select "Esc+"
+> Profile -> "Astronaut Alternative Lighter" -> Other Actions... -> Set as Default
+
+### 2.2 Installation
 
 1. **Install essential packages:**
     ```sh
@@ -194,6 +217,7 @@ In my setup, I use a slightly customized version of the **Argonaut** colorscheme
     brew install wget
     brew install git
     brew install micro
+    brew install gnu-sed
     ```
 
 2. **Link dotfiles using stow:**
@@ -216,7 +240,9 @@ sudo ln -s /usr/share/zsh/5.9/functions/_git /usr/local/Cellar/git/2.49.0/share/
 
 This will symlink the system-provided `_git` completion script, restoring full Git autocompletion in Zsh.
 
-4. **Customize Powerlevel10k Prompt**
+4. **Restart your terminal**
+
+5. **Customize Powerlevel10k Prompt**
 
 If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
 
@@ -226,13 +252,11 @@ p10k configure
 
 This will launch an interactive configuration wizard to help you personalize your prompt.
 
-5. **Restart your terminal.**
-
 ---
 
-## 4. 🐧 Installation on Linux (Ubuntu)
+## 3. 🐧 Installation on Linux (Ubuntu)
 
-### Prerequisites
+### 3.1 Prerequisites
 - Fork this repo on GitHub ```
 
 - Git
@@ -245,7 +269,6 @@ This will launch an interactive configuration wizard to help you personalize you
 - Zsh
 > Install Zsh with:
 >   ```sh
->   sudo apt update
 >   sudo apt install zsh
 >   chsh -s /bin/zsh
 >   ```
@@ -255,7 +278,7 @@ This will launch an interactive configuration wizard to help you personalize you
 >    ```sh
 >    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
 >
->    ```  ```
+>    ```
 
 - A Powerline-compatible font
 > Install Fira Code Nerd Font with:
@@ -286,11 +309,11 @@ Restart Ghostty for the changes to take effect.
 You can use your favorite color scheme — or simply copy my Ghostty configuration from the `ghostty` folder in this repository.
 In my setup, I use a slightly customized version of the **Argonaut** colorscheme called **Astronaut**. Another colorscheme I really like is **Breeze**.
 
-### Installation
+### 3.2 Installation
 
 1. **Install essential packages:**
     ```sh
-    sudo apt install curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip fzf bat command-not-found git-delta tmux htop
+    sudo apt install curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip bat command-not-found git-delta tmux htop
     sudo ln -s /usr/bin/batcat /usr/bin/bat
     ```
 
@@ -302,14 +325,7 @@ In my setup, I use a slightly customized version of the **Argonaut** colorscheme
     cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
     cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
     ```
-
-3. **Fix FZF Autocompletion on Ubuntu Installs**
-
-    ```sh
-    mkdir -p $HOME/.fzf/shell
-    ln -s /usr/share/doc/fzf/examples/completion.zsh $HOME/.fzf/shell/completion.zsh
-    ln -s /usr/share/doc/fzf/examples/key-bindings.zsh $HOME/.fzf/shell/key-bindings.zsh
-    ```
+3. **Restart your terminal**
 
 4. **Customize Powerlevel10k Prompt**
 
@@ -321,11 +337,9 @@ If you want to change the appearance or behavior of your Powerlevel10k prompt, s
 
 This will launch an interactive configuration wizard to help you personalize your prompt.
 
-5. **Restart your terminal.**
-
 ---
 
-## 5. 🛠️ Optional Components & Configuration
+## 4. 🛠️ Optional Components & Configuration
 
 ### ✏️ **Micro**
 [**Micro**](https://micro-editor.github.io) is a modern, easy-to-use terminal-based text editor with a clean UI, mouse support, and powerful plugin system.  
@@ -379,10 +393,9 @@ This allows you to edit files and run terminal commands side by side within Micr
     #reload term session
 
     # Or on Linux (with git & zsh)
-    sudo apt install default-jdk-headless make build-essential libssl-dev zlib1g-dev \
-                    libbz2-dev libreadline-dev libsqlite3-dev curl git \
-                    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev libstd-dev
-    #sudo apt install nodejs install the system version only after installing and selecting an alternative version using asdf (see note at the end)
+    sudo apt install default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
+        libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
+        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
     mkdir -p $HOME/.asdf/bin
     cd $HOME/.asdf/bin
     wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz
@@ -432,7 +445,8 @@ This allows you to edit files and run terminal commands side by side within Micr
 > If you do not specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the global system version.  
 > If you set a specific version for the project (`asdf set java <version>` in the project folder), asdf will automatically switch to that version when you enter the directory or open the project in an editor like VSCode or IntelliJ.
 
-> **Attention (Linux only):**  
+> **Attention :**
+
 > If on Linux asdf is unable to switch the Node.js version (it always stays on the system version even after installing other versions with asdf), you need to:
 > 1. Uninstall the system-provided Node.js (`sudo apt remove nodejs`).
 > 2. Set the global Node.js version via asdf:
@@ -558,6 +572,7 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 -  **git**: Distributed version control system for tracking changes in source code.
 - 🌐 **wget**: Internet file retriever
 - 🎨 **grc**: Colorize logfiles and command output
+- 🦄 **gnu-sed**: Stream editor for filtering and transforming text
 
 
 ---
@@ -663,11 +678,13 @@ Check the configuration files for more details and customizations.
 ## 6. 🔐 SSH Configuration
 
 This repository includes a custom SSH configuration to enhance security, usability, and productivity for SSH usage on both macOS and Linux.
-The SSH configuration is found in the `ssh` folder within this repository (`$HOME/.dotfiles/ssh`). Using GNU Stow, this directory is automatically linked to `$HOME/.ssh`, replacing any existing files.
+The SSH configuration file (`config`) is located in the `ssh` folder within this repository (`$HOME/.dotfiles/ssh/config`). To use this configuration, create a symbolic link from the `config` file in your dotfiles to your SSH configuration directory:
 
-```ssh
-mkdir -p "$HOME/.ssh" && cd "$HOME/.dotfiles" && stow --target="$HOME/.ssh" ssh && cd
+```sh
+ln -s $HOME/.dotfiles/ssh/config $HOME/.ssh/config
 ```
+
+This will make your custom SSH configuration available at `$HOME/.ssh/config` without affecting other files in your `.ssh` directory.
 ### 📄 Configuration files
 
 - **config**  

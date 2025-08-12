@@ -16,11 +16,14 @@ alias _hex="hexyl"
 alias _curl="http"
 alias _ps="procs"
 alias _top="btop"
+alias _ls="ls"
+
+
 
 if _has eza; then
-    alias ls="eza --icons --git --group-directories-first"
-    alias lls="eza -bghHliS@Z"
-    alias ll="eza -las modified"
+    alias ls="${aliases[ls]:-ls} --icons --git --group-directories-first"
+    alias lls="${aliases[ls]:-ls} -bghHliS@Z"
+    alias ll="${aliases[ls]:-ls} -las modified"
 fi
 
 

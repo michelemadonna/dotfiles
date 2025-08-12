@@ -52,6 +52,26 @@ if _has fastfetch; then
 fi
 
 
+# Get versions
+export GIT_VERSION=$(git --version | awk '{print $3}')
+
+if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+  # Paths
+  git_link="/usr/local/Cellar/git/${GIT_VERSION}/share/zsh/site-functions/_git"
+  zsh_target="/usr/share/zsh/${ZSH_VERSION}/functions/_git"
+
+  # Check if the link does not exist or does not point to the correct target
+  # Check if the file exists and is not a symlink, or if it's a symlink but points elsewhere
+  if { [[ -e "$git_link" && ! -L "$git_link" ]] || [[ -L "$git_link" && "$(readlink "$git_link")" != "$zsh_target" ]] }; then
+      echo "Updating symbolic link for _git..."
+      rm -rf "$git_link"
+      ln -s "$zsh_target" "$git_link"
+  fi
+fi
+
+
+
+
 
 
 

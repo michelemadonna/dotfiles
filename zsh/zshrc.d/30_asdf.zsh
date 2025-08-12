@@ -41,6 +41,11 @@ then
 		fi
 	fi
 
+	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/python" ]; then
+		gsed -E 's/("?)python([^3]|$)/\1python3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
+		gsed -E 's/("?)pip([^3]|$)/\1pip3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
+	fi
+
 
 	####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
 	_asdf () {
