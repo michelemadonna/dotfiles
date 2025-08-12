@@ -127,6 +127,7 @@ if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
   zgenom oh-my-zsh plugins/rsync
   zgenom oh-my-zsh plugins/screen
   #zgenom oh-my-zsh plugins/vagrant
+  zgenom oh-my-zsh plugins/docker
 
   if [ $(uname -a | grep -ci Darwin) = 1 ]; then
     # Load macOS-specific plugins
@@ -162,7 +163,7 @@ zgenom load chrissicool/zsh-256color
 zgenom load zsh-users/zsh-completions src
 
 # Docker completion
-zgenom load srijanshetty/docker-zsh
+#zgenom load srijanshetty/docker-zsh
 
 # Load tab completions for 1Password's op command line tool if it's installed
 #zgenom load unixorn/1password-op.plugin.zsh

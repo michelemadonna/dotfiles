@@ -1,6 +1,6 @@
-# ⚡️ Dotfiles for Zsh on macOS  and Ubuntu Linux 🐧
+# ⚡️ Dotfiles for Zsh on macOS  and Ubuntu Linux 🐧 (>= 24.04)
 
-Welcome to my personal dotfiles repository! Here you'll find a comprehensive collection of Zsh configurations, optimized for both macOS and Ubuntu Linux (LTS).
+Welcome to my personal dotfiles repository! Here you'll find a comprehensive collection of Zsh configurations, optimized for both macOS and Ubuntu Linux (>= 24.04).
 The setup is based on [zsh-quickstart-kit](https://github.com/unixorn/zsh-quickstart-kit) and includes several terminal applications, each configured to maximize productivity, speed, and comfort for daily use.
 
 ## ⚡ How the Zsh Configuration Works
@@ -38,7 +38,7 @@ This approach keeps custom settings separate from the framework, making updates 
 - 🛠️ **Other tools**: z, git, duf, wget, htop, and more.
 
 
-This quickstart includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font in your terminal to display status glyphs. Powerline-compatible fonts include many useful glyphs, including the nice branch icon that the theme in this `.zshrc` uses.
+This quickstart includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font in your terminal to display status glyphs. Powerline-compatible fonts include many useful glyphs.
 
 In my configuration, I use [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) — a collection of over 20 patched fonts (over 1,700 variations). This includes fonts like Droid Sans, Meslo, AnonymousPro, ProFont, Inconsolata, and many more. These can be installed with Homebrew:  
 
@@ -217,7 +217,6 @@ On macOS, you may also want to adjust the following settings:
     brew install wget
     brew install git
     brew install micro
-    brew install gnu-sed
     ```
 
 2. **Link dotfiles using stow:**
@@ -561,8 +560,6 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 -  **git**: Distributed version control system for tracking changes in source code.
 - 🌐 **wget**: Internet file retriever
 - 🎨 **grc**: Colorize logfiles and command output
-- 🦄 **gnu-sed**: Stream editor for filtering and transforming text
-
 
 ---
 

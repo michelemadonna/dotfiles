@@ -35,16 +35,64 @@ then
 		fi
 	fi
 	
-	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]; then
-		if [ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]; then
-			ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
-		fi
-	fi
+	#if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]; then
+	#	if [ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]; then
+	#		ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
+	#	fi
+	#fi
+#
+	#if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/python" ]; then
+	#	gsed -E 's/("?)python([^3]|$)/\1python3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
+	#	gsed -E 's/("?)pip([^3]|$)/\1pip3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
+	#fi
 
-	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/python" ]; then
-		gsed -E 's/("?)python([^3]|$)/\1python3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
-		gsed -E 's/("?)pip([^3]|$)/\1pip3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
-	fi
+	# Example extra function
+
+
+	asdf() {
+    # Call the real asdf
+    command echo "$@"
+    local exit_code=$?
+
+    # If first arg is install or reshim, and second is nodejs or python
+    if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
+        
+        # If asdf failed, return its exit code
+        if [[ $exit_code -ne 0 ]]; then
+            return $exit_code
+        fi
+		echo $2
+        if [[ $2 == "nodejs" ]]; then
+            echo "Running nodejs fix..."
+            if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]]; then
+                echo "Fixing nodejs symlink..."
+                rm -f "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node"
+                ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
+            fi
+        fi
+
+        if [[ $2 == "python" ]]; then
+            echo "Running python fix..."
+            if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" ]]; then
+                echo "Fixing python symlink..."
+                rm -f "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
+                ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
+            fi
+
+            echo "Running pip fix..."
+            if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" ]]; then
+                echo "Fixing pip symlink..."
+                rm -f "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
+                echo "Creating new symlink..."
+				ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
+            fi
+        fi
+    fi
+
+    return $exit_code
+}
+
+
 
 
 	####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
