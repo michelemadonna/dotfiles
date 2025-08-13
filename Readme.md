@@ -860,4 +860,29 @@ Creating a `.zsh-quickstart-local-plugins` from scratch is a pain, so to make cu
 
 Copy that to your `~/.zsh-quickstart-local-plugins`, change the list, and the next time you start a terminal session, you'll get your plugin list loaded instead of the kit's defaults.
 
+---
+
+## 9. 🐳 Bonus: Docker Development Environment
+
+Test this repo (or yours!) dotfiles configuration in a reproducible Zsh setup using Docker.
+
+### 🛠️ Build the Image
+
+From your dotfiles repo:
+
+```sh
+cd ~/.dotfiles
+docker build -t my-zsh-dotfiles .
+
+```
+
+### 🚀 Run the Container
+
+Launch an interactive shell:
+
+```sh
+docker run -e TERM -e COLORTERM -it --pid host --detach-keys="ctrl-^,ctrl-@" my-zsh-dotfiles
+```
+
+This starts a clean, isolated Zsh environment with your configuration and tools.
 
