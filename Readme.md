@@ -125,51 +125,49 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 > **Note:** Zsh is the default shell on macOS starting from version 10.15 (Catalina). If you are using an earlier version, you may need to install Zsh manually.
 
 ### 2.1 Prerequisites
-- Fork this repo on GitHub
 
-- Clone **your forked** repository on your local home dir with:
->    ```sh
->    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
->
->    ```
+#### - Fork this repo on GitHub
 
-- Homebrew  
-    Install Homebrew (if not already installed) with:
-
-    ```sh
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#### - Clone **your forked** repository on your local home dir with:
+```sh
+git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
 ```
 
-- A Powerline-compatible font
-    Install Fira Code Nerd Font with:
-
-    ```sh
-    brew install font-fira-code-nerd-font
+#### - Homebrew  
+Install Homebrew (if not already installed) with:
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-- Ghostty
-    Install Ghostty with:
+#### - A Powerline-compatible font
+Install Fira Code Nerd Font with:
+```sh
+brew install font-fira-code-nerd-font
+```
 
-    ```sh
-    brew install ghostty@tip
+#### - Ghostty
+Install Ghostty with:
+```sh
+brew install ghostty@tip
 ```
 > **With the `@tip` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
 
 Open Ghostty’s default profile settings, set the font to `FiraCode Nerd Font Mono` with size of 12.0.
-    ```text
-    font-family="FiraCode Nerd Font Mono"
-    font-size=12.0
-    ```
+```text
+font-family="FiraCode Nerd Font Mono"
+font-size=12.0
+```
 Or Create a symbolic link to the Ghostty configuration for using my config included in this repo:
-    ```sh
-   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
-    ```
+```sh
+ln -s $HOME/.dotfiles/ghostty $HOME/.config/
+```
 Restart Ghostty for the changes to take effect.
 
 The configuration included in this repository uses my personalized **Argonaut** color scheme.
 
 On macOS, you may also want to adjust the following settings:
-    System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"
+
+`System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`
 
 
 > 💡 **Other Recommended Terminal: [iTerm2](https://iterm2.com/)**
@@ -187,56 +185,58 @@ On macOS, you may also want to adjust the following settings:
 >   brew install --cask iterm2
 >   ```
 > This repository includes my personal iTerm2 configuration and color schemes (Argonaut, Breeze), providing a consistent and visually appealing terminal experience.
-> General -> Selection -> Uncheck "Command selection"
-> Appearance -> General ->  Theme -> Select "Minimal"
-> Profiles -> Default -> Other Actions... -> Duplicate Profile -> Name it "Astronaut Alternative Lighter"
-> Profile -> "Astronaut Alternative Lighter" -> Colors -> Uncheck "Use separate colors for light and dark mode"
-> Profile -> "Astronaut Alternative Lighter" -> Colors -> Color Presets -> Import -> Import ".dotfiles/iTerm2/Color Schemes/Astronaut Alternative Lighter.iTermColors"
-> Profile -> "Astronaut Alternative Lighter" -> Colors -> Color Presets -> Select "Astronaut Alternative Lighter"
-> Profile -> "Astronaut Alternative Lighter" -> Colors -> Minimum Contrast -> 7
-> Profile -> "Astronaut Alternative Lighter" -> Text -> Cursor -> Check "Blink" and "Animate movement"
-> Profile -> "Astronaut Alternative Lighter" -> Text -> Text rendering -> Check "Allow blinking text"
-> Profile -> "Astronaut Alternative Lighter" -> Text -> Font -> Select "Fira Code Nerd Font Mono" , "Regular" and set size to 12
-> Profile -> "Astronaut Alternative Lighter" -> Terminal -> Shell Integration -> Uncheck "Show mark indicators"
-> Profile -> "Astronaut Alternative Lighter" -> Session -> Password Manager -> Check "Open password manager automatically..."
-> Profile -> "Astronaut Alternative Lighter" -> Keys -> General -> Left Option key -> Select "Esc+"
-> Profile -> "Astronaut Alternative Lighter" -> Other Actions... -> Set as Default
+> Configure iTerm2 **Settings** with :
+> * `General` -> `Selection` -> `Uncheck "Command selection"`
+> * `Appearance` -> `General` -> `Theme` -> `Select "Minimal"`
+> * `Pointer` -> `General` -> `Mouse Reporting` -> `Check "^-Click reported to apps, does not open menu"`
+> * `Keys` -> `Key Bindings` -> `+` -> `create a new keyboard shortcut "Option + C" with action "Send Escape Sequence" "Esc+c"`
+> * `Profiles` -> `Default` -> `Other Actions...` -> `Duplicate Profile` -> `Name it "Astronaut Alternative Lighter"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Uncheck "Use separate colors for light and dark mode"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Color Presets` -> `Import` -> `Import ".dotfiles/iTerm2/Color Schemes/Astronaut Alternative Lighter.iTermColors"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Color Presets` -> `Select "Astronaut Alternative Lighter"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Minimum Contrast` -> `7`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Text` -> `Cursor` -> `Check "Blink" and "Animate movement"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Text` -> `Text rendering` -> `Check "Allow blinking text"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Text` -> `Font` -> `Select "Fira Code Nerd Font Mono" , "Regular" and set size to 12"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Terminal` -> `Shell Integration` -> `Uncheck "Show mark indicators"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Session` -> `Password Manager` -> `Check "Open password manager automatically..."`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Keys` -> `General` -> `Left Option key` -> `Select "Esc+"`
+> * `Profile` -> `"Astronaut Alternative Lighter"` -> `Other Actions...` -> `Set as Default`
 
 ### 2.2 Installation
 
 1. **Install essential packages:**
-    ```sh
-    brew tap "homebrew/command-not-found"
-    brew install coreutils
-    brew install bat
-    brew install eza 
-    brew install fd
-    brew install git-delta
-    brew install htop
-    brew install ripgrep
-    brew install stow
-    brew install tmux
-    brew install tree
-    brew install wget
-    brew install git
-    brew install micro
-    ```
+```sh
+brew tap "homebrew/command-not-found"
+brew install coreutils
+brew install bat
+brew install eza 
+brew install fd
+brew install git-delta
+brew install htop
+brew install ripgrep
+brew install stow
+brew install tmux
+brew install tree
+brew install wget
+brew install git
+brew install micro
+```
 
 2. **Link dotfiles using stow:**
-    ```sh
-    git clone https://github.com/jandamm/zgenom.git .zgenom 
-    git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
-    cd $HOME/.zqs && stow --target=$HOME zsh && cd  
-    cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
-    cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
-    ```
+```sh
+git clone https://github.com/jandamm/zgenom.git .zgenom 
+git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
+cd $HOME/.zqs && stow --target=$HOME zsh && cd  
+cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
+cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
+```
 
 3. **Restart your terminal**
 
 4. **Customize Powerlevel10k Prompt**
 
 If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
-
 ```sh
 p10k configure
 ```
@@ -248,84 +248,80 @@ This will launch an interactive configuration wizard to help you personalize you
 ## 3. 🐧 Installation on Linux (Ubuntu)
 
 ### 3.1 Prerequisites
-- Fork this repo on GitHub ```
+#### - Fork this repo on GitHub
 
-- Git
-> Install Git with:
->   ```sh
->   sudo apt update
->   sudo apt install git
->   ```
+#### - Git
+Install Git with:
+```sh
+sudo apt update
+sudo apt install git
+```
 
-- Zsh
-> Install Zsh with:
->   ```sh
->   sudo apt install zsh
->   chsh -s /bin/zsh
->   ```
->   Log out and log back in for the changes to take effect.
+#### - Zsh
+Install Zsh with:
+```sh
+sudo apt install zsh
+chsh -s /bin/zsh
+```
+Log out and log back in for the changes to take effect.
 
-- Clone **your forked** repository on your local home dir with:
->    ```sh
->    git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
->
->    ```
+#### - Clone **your forked** repository on your local home dir with:
+```sh
+git clone https://github.com/your-username/dotfiles.git ~/.dotfiles
+```
 
-- A Powerline-compatible font
-> Install Fira Code Nerd Font with:
->   ```sh
->    mkdir -p $HOME/.fonts
->    cp $HOME/.dotfiles/fonts/* $HOME/.fonts
->    fc-cache -f -v
->   ```
+#### - A Powerline-compatible font
+Install Fira Code Nerd Font with:
+```sh
+mkdir -p $HOME/.fonts
+cp $HOME/.dotfiles/fonts/* $HOME/.fonts
+fc-cache -f -v
+```
 
-- Ghostty
-> Install Ghostty with:
->   ```sh
->    sudo snap install ghostty --channel=latest/edge --classic
->   ```
-> - **With the `latest/edge` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
+#### - Ghostty
+Install Ghostty with:
+```sh
+sudo snap install ghostty --channel=latest/edge --classic
+```
+> **With the `latest/edge` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
 
 Open Ghostty’s default profile settings, set the font to `FiraCode Nerd Font Mono` with size of 12.0.
-    ```text
-    font-family="FiraCode Nerd Font Mono"
-    font-size=12.0
-    ```
-Or Create a symbolic link to the Ghostty configuration for using this repo configuration:
-    ```sh
-   ln -s $HOME/.dotfiles/ghostty $HOME/.config/
-    ```
+```text
+font-family="FiraCode Nerd Font Mono"
+font-size=12.0
+```
+Or Create a symbolic link to the Ghostty configuration for using my config included in this repo:
+```sh
+ln -s $HOME/.dotfiles/ghostty $HOME/.config/
+```
 Restart Ghostty for the changes to take effect.
 
-You can use your favorite color scheme — or simply copy my Ghostty configuration from the `ghostty` folder in this repository.
-In my setup, I use a slightly customized version of the **Argonaut** colorscheme called **Astronaut**. Another colorscheme I really like is **Breeze**.
+The configuration included in this repository uses my personalized **Argonaut** color scheme.
 
 ### 3.2 Installation
 
 1. **Install essential packages:**
-    ```sh
-    sudo apt install curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip bat command-not-found git-delta tmux htop
-    sudo ln -s /usr/bin/batcat /usr/bin/bat
-    ```
+```sh
+sudo apt install curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip bat command-not-found git-delta tmux htop
+sudo ln -s /usr/bin/batcat /usr/bin/bat
+```
 
 2. **Link dotfiles using stow:**
-    ```sh
-    git clone https://github.com/jandamm/zgenom.git .zgenom 
-    git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
-    cd $HOME/.zqs && stow --target=$HOME zsh && cd  
-    cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
-    cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
-    ```
+```sh
+git clone https://github.com/jandamm/zgenom.git .zgenom 
+git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs 
+cd $HOME/.zqs && stow --target=$HOME zsh && cd  
+cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd  
+cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
+```
+
 3. **Restart your terminal**
 
 4. **Customize Powerlevel10k Prompt**
-
 If you want to change the appearance or behavior of your Powerlevel10k prompt, simply run:
-
-    ```sh
-    p10k configure
-    ```
-
+```sh
+p10k configure
+```
 This will launch an interactive configuration wizard to help you personalize your prompt.
 
 ---
@@ -373,80 +369,91 @@ This allows you to edit files and run terminal commands side by side within Micr
 - Modular plugins power support not only for major languages (Node.js, Python, Java, Ruby, etc.), but also for tools like Terraform, kubectl, PostgreSQL, Redis and more
 - Shell completions for Bash, Zsh, Fish & Elvish make installing and specifying versions easy with tab-completion
 
-**Installation**
-    
-    # Install asdf (macOS example)
-    brew install asdf openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd
-    sudo xcode-select --reset
-    # Install the "system" version use as default using the latest LTS version
-    brew install openjdk@21
-    brew install node@22
-    #reload term session
+#### Installation
+**macOs Installation**
+* Install **asdf** with **brew** along with python compilation dependencies
+```sh
+brew install asdf
+brew install openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd
+```
+* Install the "system" version of the tools using the latest LTS version.
+```sh
+brew install openjdk@21
+brew install node@22
+```
+>python should be already installed
+* Reload term session
 
-    # Or on Linux (with git & zsh)
-    sudo apt install default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
-        libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
-        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-    mkdir -p $HOME/.asdf/bin
-    cd $HOME/.asdf/bin
-    wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz
-    tar zxvf asdf-v0.18.0-linux-amd64.tar.gz
-    rm asdf-v0.18.0-linux-amd64.tar.gz
-    #reload term session
+**Linux Installation**
+* Install python compilation dependencies with **apt**
+```sh
+sudo apt install default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+```
 
+* Install the "system" version of the tools using the default version for the distro.
+```sh
+apt install default-jdk-headless nodejs
+```
+>python should be already installed
 
-**Plugins installation**
-    
-    asdf plugin add java
-    asdf plugin add nodejs
-    asdf plugin add python
+* Download and install **asdf**
+```sh
+mkdir -p $HOME/.asdf/bin && \
+cd $HOME/.asdf/bin && \
+wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz && \
+tar zxvf asdf-v0.18.0-linux-amd64.tar.gz && \
+rm asdf-v0.18.0-linux-amd64.tar.gz
+```
+> Refer to the asdf-vm release page on GitHub to get the latest.
+* Reload term session
 
+#### Plugins installation
+* Enable languages and tools (Java, Node.js, Python, etc.) in asdf-vm by installing their corresponding plugins
+```sh    
+asdf plugin add java
+asdf plugin add nodejs
+asdf plugin add python
+```
 
-**Installing & Using Tools**
-
-- **To install a specific version of a tool (for example, Java), you can use Tab completion to see available versions:**
-
-    `asdf install java openjdk-17   # or: asdf install java [TAB]`
-
-
-- **List installed versions:**
-
-    `asdf list java`
-
-
-- **Check what is currently in use:**
-
-    `asdf current`
-    `asdf current java`
-
-
-- **Set the global (user-wide) version:**
-
-    `asdf set -u java system`
-    # or: asdf set -u java [TAB] to use completion
-
-
-- **Set the version for a specific project (in the project root):**
-
-    `asdf set java openjdk-17`
-    # or: asdf set java [TAB] to use completion
-
+#### Installing & Using Tools
+* To install a specific version of a tool (for example, Java), you can use Tab completion to see available versions:
+```sh
+asdf install java openjdk-17   # or: asdf install java [TAB]
+```
+* List installed versions:
+```sh
+asdf list java`
+```
+* Check what is currently in use:
+```sh
+asdf current
+asdf current java
+```
+* Set the global (user-wide) version:
+```sh
+asdf set -u java system     # or: asdf set -u java [TAB] to use completion
+```
+* Set the version for a specific project (in the project root):
+```sh
+asdf set java openjdk-17 # or: asdf set java [TAB] to use completion
+```
 
 > **Note:**  
 > If you do not specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the global system version.  
 > If you set a specific version for the project (`asdf set java <version>` in the project folder), asdf will automatically switch to that version when you enter the directory or open the project in an editor like VSCode or IntelliJ.
 
 > **Attention :**
-
-> If on Linux asdf is unable to switch the Node.js version (it always stays on the system version even after installing other versions with asdf), you need to:
-> 1. Uninstall the system-provided Node.js (`sudo apt remove nodejs`).
-> 2. Set the global Node.js version via asdf:
->    ```sh
->    asdf set -u nodejs <desired-version>
->    ```
-> 3. If needed, reinstall the system version of Node.js after configuring asdf (`sudo apt install nodejs`).
->
+> If on Linux, asdf is unable to switch the Node.js version (it always stays on the system version even after installing other versions with asdf), you need to:
+>     1. Uninstall the system-provided Node.js (`sudo apt remove nodejs`).
+>     2. Set the global Node.js version via asdf:
+>     ```sh
+>     asdf set -u nodejs <desired-version>
+>     ```
+>     3. If needed, reinstall the system version of Node.js after configuring asdf (`sudo apt install nodejs`).
 > This ensures that the `node` command points to the version managed by asdf and not the system one.
+> On macOS, after running asdf install python, you might see a warning such as: `xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance` To fix this, run: `sudo xcode-select --reset`
 
 > **Tip:**  
 > In some cases, to list all installed versions of a tool managed by asdf, you may need to install at least one additional version of that tool. This allows asdf to properly list and manage multiple versions on your system.
@@ -467,31 +474,31 @@ This repository includes a custom `~/.tmux.conf` configuration (see `/zsh/zsh/.t
 - **Improved pane navigation:** Fast movement between panes and windows, with support for cycling and swapping.
 - **Automatic renaming:** Windows automatically rename based on the running command for better context.
 
-**Example workflow:**
+#### Example workflow:
 
 1. Start a new tmux session:  
     ```sh
     tmux
     ```
 2. Split the window horizontally:  
-    `Ctrl + A -`  
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>-</kbd>  
     Split vertically:  
-    `Ctrl + A /`
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>/</kbd>
 3. Move between panes:  
-    `Ctrl + A` + Arrow keys
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
 4. Create a new window:  
-    `Ctrl + A c`
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>c</kbd>
 5. Detach from the session:  
-    `Ctrl + A d`
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>d</kbd>
 6. Reattach later:  
-    ```sh
+    sh
     tmux attach
-    ```
+    
 7. Toggle the status bar:  
-    `Ctrl + A Ctrl + S`  
+    <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>Ctrl</kbd> + <kbd>S</kbd>  
 8. Sync input to all panes:  
-    `Ctrl + S` (without the tmux prefix)  
-    (Pressing `Ctrl + S` enables or disables synchronized input, so your keystrokes are sent to all panes at once—useful for running the same command in multiple panes.)
+    <kbd>Ctrl</kbd> + <kbd>S</kbd> (without the tmux prefix)  
+    (Pressing <kbd>Ctrl</kbd> + <kbd>S</kbd> enables or disables synchronized input, so your keystrokes are sent to all panes at once—useful for running the same command in multiple panes.)
 
 You can further customize tmux by adding the `~/.tmux.conf.local` for your own plugins and keybindings.
 
@@ -499,49 +506,51 @@ You can further customize tmux by adding the `~/.tmux.conf.local` for your own p
 [**fzf**](https://github.com/junegunn/fzf) is a fast, interactive fuzzy finder for the command line. It enables you to quickly search, filter, and select from lists of files, processes, command history, git branches, and more—all with a simple, intuitive interface.
 **fzf** is already integrated into this dotfiles setup for history search, file completion, and directory navigation. You can further customize its behavior via the `zsh/zshrc.d/20_fzf.zsh` configuration files.
 
-**Key features:**
+#### Key features
 - Blazing fast fuzzy search for files, directories, processes, and more.
 - Seamless integration with Zsh (and other shells) for history search, file completion, and directory navigation.
 - Highly customizable with preview windows, keybindings, and color themes.
 - Works well with other tools (e.g., `ps`, `kill`, `git`, `docker`).
 
-**Common usage examples:**
+>**Tip:**  
+>With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive fzf-powered completion menu for commands, files, and directories. For example, typing `micro <Tab>` will open a fuzzy search menu to quickly select the file you want to edit. This enhances the default shell completion with a fast, searchable interface.
 
-- **Find and kill a process:**
-    ```sh
-    ps aux | fzf --preview 'echo {}' | awk '{print $2}' | xargs kill
-    ```
-    This command lists all processes, lets you interactively select one, and kills it.
+#### Common usage examples:
 
-- **Fuzzy search and checkout a git branch:**
-    ```sh
-    git checkout $(git branch | fzf)
-    ```
-- **Fuzzy search and view logs of a Docker container:**
-    ```sh
-    docker ps --format '{{.ID}} {{.Names}}' | fzf | awk '{print $1}' | xargs -r docker logs
-    ```
+- Find and kill a process:
+```sh
+ps aux | fzf | awk '{print $2}' | xargs kill
+# or more simply
+kill [TAB] # to use the integrated completition with fzf
+```
+This command lists all processes, lets you interactively select one, and kills it.
 
-- **Fuzzy search and run a shell in a running Docker container:**
-    ```sh
-    docker ps --format '{{.ID}} {{.Names}}' | fzf | awk '{print $1}' | xargs -r -I {} docker exec -it {} /bin/sh
-    ```
-- **Fuzzy open files in your editor:**
-    ```sh
-    micro $(fzf)
-    ```
+- Fuzzy search and checkout a git branch:
+```sh
+git checkout $(git branch | fzf)
+# or
+git checkout [TAB] # to use the integrated completition with fzf
+```
+This command lists all branch, lets you interactively select one, and checkout it.
 
-- **Fuzzy command history search:**  
-    - Press <kbd>Ctrl</kbd> + <kbd>R</kbd> to open an interactive fzf-powered search through your shell history. Start typing to filter commands, then press <kbd>Enter</kbd> to execute the selected command.
+- Fuzzy open files in your editor:
+```sh
+micro $(fzf)
+# or more simply
+kill [TAB] # to use the integrated completition with fzf
+```
+This command lists all files, lets you interactively select one, and open it with micro.
+- Fuzzy history search:  
+Press <kbd>Ctrl</kbd> + <kbd>R</kbd> to open an interactive fzf-powered search through your shell history.
+Start typing to filter commands, then press <kbd>Enter</kbd> to execute the selected command.
 
-- **Fuzzy file path completion:**  
-    - Press <kbd>Ctrl</kbd> + <kbd>T</kbd> to trigger fzf-based file selection and insert the chosen file path into your command line.
+- Fuzzy file path completion:  
+Press <kbd>Ctrl</kbd> + <kbd>T</kbd> to trigger fzf-based file selection and insert the chosen file path into your command line.
 
-- **Fuzzy cd into a subdirectory:**  
-    - Press <kbd>Alt</kbd> + <kbd>C</kbd> (or <kbd>Esc</kbd> + <kbd>C</kbd>) to interactively select a subdirectory and automatically `cd` into it.
+- Fuzzy cd into a subdirectory:  
+Press <kbd>Alt</kbd> + <kbd>C</kbd> (or <kbd>Esc</kbd> + <kbd>C</kbd>) to interactively select a subdirectory and automatically `cd` into it.
 
-**Tip:**  
-With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive fzf-powered completion menu for commands, files, and directories. For example, typing `micro <Tab>` will open a fuzzy search menu to quickly select the file you want to edit. This enhances the default shell completion with a fast, searchable interface.
+
 
 ### 🧠 **zsh-autosuggestions**
 [**zsh-autosuggestions**](https://github.com/zsh-users/zsh-autosuggestions) provides real-time command suggestions as you type, based on your command history and completions. Suggestions appear in a lighter color and can be accepted by pressing the right arrow key. This greatly speeds up repetitive command entry and helps recall complex commands.
@@ -551,7 +560,6 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 
 ### 📦 **zsh-completions**
 [**zsh-completions**](https://github.com/zsh-users/zsh-completions) adds thousands of additional tab completions for many CLI tools and applications not covered by the default Zsh installation. This makes working with a wide variety of commands faster and more convenient, with intelligent suggestions and argument completion.
-
 
 ### 🛠️ **Other Tools Included**
 - 🦇 **bat**: File viewer with syntax highlighting and line numbers.
@@ -569,97 +577,97 @@ With **fzf-tab**, you can use the <kbd>Tab</kbd> key to trigger an interactive f
 ## 5. ⌨️ Keybindings
 
 ### 🐚 Zsh
-- `Ctrl + R` — Search history (fzf).
-- `Double Esc` — Insert sudo before last command.
-- `Ctrl + T` — Fuzzy file path completion (fzf).
-- `Alt + C` / `Esc + C` — Cd into a selected subdirectory (fzf).
-- `Tab` — Open Autocomplete with fzf menu (fzf-tab).
-- `Alt + H` — Toggle hidden files in FZF (fzf).
+- <kbd>Ctrl</kbd> + <kbd>R</kbd> — Search history (fzf).
+- Double <kbd>Esc</kbd> — Insert sudo before last command.
+- <kbd>Ctrl</kbd> + <kbd>T</kbd> — Fuzzy file path completion (fzf).
+- <kbd>Alt</kbd> + <kbd>C</kbd> / <kbd>Esc</kbd> + <kbd>C</kbd> — Cd into a selected subdirectory (fzf).
+- <kbd>Tab</kbd> — Open Autocomplete with fzf menu (fzf-tab).
+- <kbd>Alt</kbd> + <kbd>H</kbd> — Toggle hidden files in FZF (fzf).
 
 ### 🔍 fzf
-- `↑ / ↓` — Move up/down
-- `Tab` — Cycle selection                                           
-- `Ctrl + Space` — Mark/unmark 
-- `Ctrl + A` — Toggle Mark/unmark                                            
-- `Enter` — Select the current item(s)                             
-- `Ctrl + C` — Cancel                                                 
-- `Ctrl + U` — Clear query (delete upward)                            
-- `Ctrl + D` — Delete downward                                        
-- `Ctrl + R` — (If using shell integration) fuzzy history search      
-- `Ctrl + T` — Insert file path into command line (shell integration as `micro` `Ctrl-T`) 
-- `Alt + J / K` — Move preview down/up/ (if preview enabled)              
-- `Alt + P` — Toggles the preview.
-- `, .` —  Switch group (fzf-tab)
+- <kbd>↑</kbd> / <kbd>↓</kbd> — Move up/down
+- <kbd>Tab</kbd> — Cycle selection                                           
+- <kbd>Ctrl</kbd> + <kbd>Space</kbd> — Mark/unmark 
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> — Toggle Mark/unmark                                            
+- <kbd>Enter</kbd> — Select the current item(s)                             
+- <kbd>Ctrl</kbd> + <kbd>C</kbd> — Cancel                                                 
+- <kbd>Ctrl</kbd> + <kbd>U</kbd> — Clear query (delete upward)                            
+- <kbd>Ctrl</kbd> + <kbd>D</kbd> — Delete downward                                        
+- <kbd>Ctrl</kbd> + <kbd>R</kbd> — (If using shell integration) fuzzy history search
+- <kbd>Ctrl</kbd> + <kbd>T</kbd> — Insert file path into command line (shell integration as micro Ctrl-T)
+- <kbd>Alt</kbd> + <kbd>J</kbd> / <kbd>K</kbd> — Move preview down/up/ (if preview enabled)
+- <kbd>Alt</kbd> + <kbd>P</kbd> — Toggles the preview.
+- <kbd>,</kbd> <kbd>.</kbd> —  Switch group (fzf-tab)
 
 ### 🔀 tmux
-- `Ctrl + A` — Prefix (instead of `Ctrl + B`).
-- `Ctrl + A c` — New window.
-- `Ctrl + A /` — Horizontal split.
-- `Ctrl + A -` — Vertical split.
-- `Ctrl + S (Without the tmux prefix)` — Multiple panes input broadcast.
-- `Ctrl + A d` — Detach session.
-- `Ctrl + A + ↑ / ↓ / ← / →` Move between panes
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> — Prefix (instead of Ctrl + B).
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>C</kbd> — New window.
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>/</kbd> — Horizontal split.
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>-</kbd> — Vertical split.
+- <kbd>Ctrl</kbd> + <kbd>S</kbd> (Without the tmux prefix) — Multiple panes input broadcast.
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>D</kbd> — Detach session.
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> Move between panes
 
 ### ✏️ micro
-**Navigation**
-- `↑ / ↓ / ← / →` — Move cursor in the corresponding direction
-- `Shift + ↑ / ↓ / ← / →` — Select up/down/left/right
-- `Alt + ←` — Start of text toggle
-- `Alt + →` — End of line
-- `Home` — Start of text
-- `End` — End of line
-- `PageUp / PageDown` — Cursor page up/down
-**Editing**
-- `Backspace` — Delete character left
-- `Alt + Backspace` — Delete word left
-- `Tab` — Autocomplete / Indent selection / Insert tab
-- `Delete` — Delete character right
-- `Ctrl + D` — Duplicate / Duplicate line
-- `Ctrl + K` — Cut line
-- `Ctrl + X` — Cut / Cut line
-- `Ctrl + C` — Copy / Copy line
-- `Ctrl + V` — Paste
-- `Ctrl + A` — Select all
-**File Operations**
-- `Ctrl + O` — Open file
-- `Ctrl + S` — Save
-- `F2` — Save
-- `Ctrl + Q` — Quit
-- `F4 / F10` — Quit
-**Search**
-- `Ctrl + F` — Find
-- `F3 / F7` — Find
-- `Ctrl + N` — Find next
-- `Ctrl + P` — Find previous
-**Undo / Redo**
-- `Ctrl + Z` — Undo
-- `Ctrl + Y` — Redo
-**UI Toggles**
-- `Ctrl + G` — Toggle help
-- `Alt + G` — Toggle key menu
-- `Ctrl + R` — Toggle ruler
-- `Ctrl + L` — Command-edit (goto)
-- `Ctrl + E` — Command bar
-**Tabs & Splits**
-- `Ctrl + T` — Add tab
-- `Alt + , / Ctrl + PageUp` — Previous tab / Last tab
-- `Alt + . / Ctrl + PageDown` — Next tab / First tab
-- `Ctrl + W` — Next split / First split
-**Macro**
-- `Ctrl + U` — Toggle macro recording
-- `Ctrl + J` — Play macro
-**Multi Cursor**
-- `Alt + ↑ / ↓` — Move line up/down
-- `Alt + Shift + ↑ / ↓` — Spawn multi-cursor up/down
-- `Alt + N` — Spawn multi-cursor
-- `Alt + P` — Remove multi-cursor
-- `Alt + C` — Remove all multi-cursors
-**Mouse**
-- `Mouse Wheel Up/Down` — Scroll
-- `Mouse Left` — Select text / split
-- `Mouse Left Drag` — Resize split / select
-- `Mouse Middle` — Paste primary
-- `Ctrl + Mouse Left` — Multi-cursor (in iterm2 -> Settings -> Pointer -> check ^-Click reported to apps, does not open menu)
+#### Navigation
+- <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> — Move cursor in the corresponding direction
+- <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> — Select up/down/left/right
+- <kbd>Alt</kbd> + <kbd>←</kbd> — Start of text toggle
+- <kbd>Alt</kbd> + <kbd>→</kbd> — End of line
+- <kbd>Home</kbd> — Start of text
+- <kbd>End</kbd> — End of line
+- <kbd>PageUp</kbd> / <kbd>PageDown</kbd> — Cursor page up/down
+#### Editing
+- <kbd>Backspace</kbd> — Delete character left
+- <kbd>Alt</kbd> + <kbd>Backspace</kbd> — Delete word left
+- <kbd>Tab</kbd> — Autocomplete / Indent selection / Insert tab
+- <kbd>Delete</kbd> — Delete character right
+- <kbd>Ctrl</kbd> + <kbd>D</kbd> — Duplicate / Duplicate line
+- <kbd>Ctrl</kbd> + <kbd>K</kbd> — Cut line
+- <kbd>Ctrl</kbd> + <kbd>X</kbd> — Cut / Cut line
+- <kbd>Ctrl</kbd> + <kbd>C</kbd> — Copy / Copy line
+- <kbd>Ctrl</kbd> + <kbd>V</kbd> — Paste
+- <kbd>Ctrl</kbd> + <kbd>A</kbd> — Select all
+#### File Operations
+- <kbd>Ctrl</kbd> + <kbd>O</kbd> — Open file
+- <kbd>Ctrl</kbd> + <kbd>S</kbd> — Save
+- <kbd>F2</kbd> — Save
+- <kbd>Ctrl</kbd> + <kbd>Q</kbd> — Quit
+- <kbd>F4</kbd> / <kbd>F10</kbd> — Quit
+#### Search
+- <kbd>Ctrl</kbd> + <kbd>F</kbd> — Find
+- <kbd>F3</kbd> / <kbd>F7</kbd> — Find
+- <kbd>Ctrl</kbd> + <kbd>N</kbd> — Find next
+- <kbd>Ctrl</kbd> + <kbd>P</kbd> — Find previous
+#### Undo / Redo
+- <kbd>Ctrl</kbd> + <kbd>Z</kbd> — Undo
+- <kbd>Ctrl</kbd> + <kbd>Y</kbd> — Redo
+#### UI Toggles
+- <kbd>Ctrl</kbd> + <kbd>G</kbd> — Toggle help
+- <kbd>Alt</kbd> + <kbd>G</kbd> — Toggle key menu
+- <kbd>Ctrl</kbd> + <kbd>R</kbd> — Toggle ruler
+- <kbd>Ctrl</kbd> + <kbd>L</kbd> — Command-edit (goto)
+- <kbd>Ctrl</kbd> + <kbd>E</kbd> — Command bar
+#### Tabs & Splits
+- <kbd>Ctrl</kbd> + <kbd>T</kbd> — Add tab
+- <kbd>Alt</kbd> + <kbd>,</kbd> / <kbd>Ctrl</kbd> + <kbd>PageUp</kbd> — Previous tab / Last tab
+- <kbd>Alt</kbd> + <kbd>.</kbd> / <kbd>Ctrl</kbd> + <kbd>PageDown</kbd> — Next tab / First tab
+- <kbd>Ctrl</kbd> + <kbd>W</kbd> — Next split / First split
+#### Macro
+- <kbd>Ctrl</kbd> + <kbd>U</kbd> — Toggle macro recording
+- <kbd>Ctrl</kbd> + <kbd>J</kbd> — Play macro
+#### Multi Cursor
+- <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> — Move line up/down
+- <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> — Spawn multi-cursor up/down
+- <kbd>Alt</kbd> + <kbd>N</kbd> — Spawn multi-cursor
+- <kbd>Alt</kbd> + <kbd>P</kbd> — Remove multi-cursor
+- <kbd>Alt</kbd> + <kbd>C</kbd> — Remove all multi-cursors
+#### Mouse
+- Mouse Wheel Up/Down — Scroll
+- Mouse Left — Select text / split
+- Mouse Left Drag — Resize split / select
+- Mouse Middle — Paste primary
+- <kbd>Ctrl</kbd> + Mouse Left — Multi-cursor (in iterm2 -> Settings -> Pointer -> check ^-Click reported to apps, does not open menu)
 
 Check the configuration files for more details and customizations.
 
@@ -787,11 +795,11 @@ This repository includes a default `.min.gitconfig` for general Git usage. Howev
 **To set up your Git configuration using GNU Stow, run:**
 
 ```sh
-    # Uses `stow` to create symlinks from the `git` folder in your dotfiles to `$HOME/.config/git`, ensuring your Git configuration files are managed and updated via your dotfiles.
-    mkdir -p $HOME/.config/git && cd $HOME/.dotfiles && stow --target=$HOME/.config/git git && cd
+# Uses `stow` to create symlinks from the `git` folder in your dotfiles to `$HOME/.config/git`, ensuring your Git configuration files are managed and updated via your dotfiles.
+mkdir -p $HOME/.config/git && cd $HOME/.dotfiles && stow --target=$HOME/.config/git git && cd
 ```
-**Note:**  
-I use the `$HOME/Developer` folder as my main projects directory because on macOS this folder has a custom "fancy" icon, making it easily recognizable in Finder. On Ubuntu, the default folder is `$HOME/Develop`, but I usually rename it to `$HOME/Developer` to keep the same configuration and directory structure across both operating systems.
+>**Note:**  
+>I use the `$HOME/Developer` folder as my main projects directory because on macOS this folder has a custom "fancy" icon, making it easily recognizable in Finder. On Ubuntu, the default folder is `$HOME/Develop`, but I usually >rename it to `$HOME/Developer` to keep the same configuration and directory structure across both operating systems.
 
 **Example `local.gitconfig`:**
 ```ini
@@ -850,6 +858,6 @@ If you don't care about future changes to the kit's plugins and want to fully re
 
 Creating a `.zsh-quickstart-local-plugins` from scratch is a pain, so to make customizing your plugin list easier, I've included a `.zsh-quickstart-local-plugins-example` file at the root of the repository that installs the same plugin list that the kit does by default that you can use as a starting point for your own `.zsh-quickstart-local-plugins` file.
 
-Copy that to your `$HOME/.zsh-quickstart-local-plugins`, change the list, and the next time you start a terminal session, you'll get your plugin list loaded instead of the kit's defaults.
+Copy that to your `~/.zsh-quickstart-local-plugins`, change the list, and the next time you start a terminal session, you'll get your plugin list loaded instead of the kit's defaults.
 
 
