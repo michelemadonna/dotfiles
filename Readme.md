@@ -491,9 +491,9 @@ This repository includes a custom `~/.tmux.conf` configuration (see `/zsh/zsh/.t
 5. Detach from the session:  
     <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>d</kbd>
 6. Reattach later:  
-    sh
-    tmux attach
-    
+```sh
+tmux attach
+```
 7. Toggle the status bar:  
     <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>Ctrl</kbd> + <kbd>S</kbd>  
 8. Sync input to all panes:  
