@@ -28,7 +28,7 @@ This approach keeps custom settings separate from the framework, making updates 
 - 🚀 **zsh-quickstart-kit**: Solid foundation for Zsh configuration.
 - ✏️ **micro**: Modern terminal-based text editor (Of course, if you prefer a different editor, you can absolutely use it.).
 - 🔀 **tmux**: Terminal multiplexer for managing multiple sessions.
-- 📦 **asdf**: Version manager for programming languages.
+- 📦 **asdf**: Version manager for programming languages. (optional)
 - 🔍 **fzf**: Interactive fuzzy finder.
 - 🦇 **bat**: Advanced file viewer with syntax highlighting.
 - 🦸 **ripgrep**: Ultra-fast file search tool.
@@ -40,7 +40,7 @@ This approach keeps custom settings separate from the framework, making updates 
 
 This quickstart includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font in your terminal to display status glyphs. Powerline-compatible fonts include many useful glyphs.
 
-In my configuration, I use [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) — a collection of over 20 patched fonts (over 1,700 variations). This includes fonts like Droid Sans, Meslo, AnonymousPro, ProFont, Inconsolata, and many more. These can be installed with Homebrew:  
+In my configuration, I use [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) — a collection of over 20 patched fonts (over 1,700 variations). This includes fonts like Droid Sans, Meslo, AnonymousPro, ProFont, Inconsolata, and many more.  
 
 
 ### 🪐 Ghostty Terminal
@@ -58,7 +58,7 @@ I chose Ghostty because it is:
 - Extensive customization for fonts, colors, and layouts.
 - **With the `nightly build` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
 
-This repository includes my personal Ghostty configuration, which by default applies a slightly customized version of the **Argonaut** theme called **Astronaut**. Another color scheme I really like is **Breeze**.
+This repository includes my personal Ghostty configuration, which by default applies a slightly customized version of the **Argonaut** theme called **Astronaut** (another color scheme I really like is **Breeze**, so i uncluded also this). 
 
 ### ⚡️ zgenom
 zgenom is a plugin manager for Zsh that allows you to load themes and plugins in a modular and extremely fast way. It uses smart caching to reduce shell startup times and supports plugins from Oh-my-zsh and other sources.
@@ -89,7 +89,6 @@ This kit is designed to work seamlessly on both macOS and Linux, making it easy 
 * [robSis/zsh-completion-generator](https://github.com/RobSis/zsh-completion-generator) - Adds a tool to generate ZSH completion functions for programs missing them by parsing their `--help` output. Note that this doesn't happen dynamically; you'll have to explicitly run it to create a completion for each command missing one.
 * [sharat87/pip-app](https://github.com/sharat87/pip-app) - A set of shell functions to make it easy to install small apps and utilities distributed with `pip`.
 * [skx/sysadmin-util](https://github.com/skx/sysadmin-util) - A collection of scripts useful for sysadmins.
-* [srijanshetty/docker-zsh](https://github.com/srijanshetty/docker-zsh) - Adds completions for `docker`.
 * [stackexchange/blackbox](https://github.com/stackexchange/blackbox) - Tom Limoncelli's tool for storing secret information in a repository with GnuPG encryption, automatically decrypting as needed.
 * [unixorn/1password-op.plugin.zsh](https://github.com/unixorn/1password-op.plugin.zsh) - Tab completions for [1Password](https://1password.com)'s [op](https://developer.1password.com/docs/cli/get-started/) command line tool. Only installs itself if `op` is in your `$PATH`.
 * [unixorn/autoupdate-zgenom](https://github.com/unixorn/autoupdate-zgenom) - Adds autoupdate (for both `zgenom` itself, and your plugins) to `zgenom`.
@@ -118,6 +117,7 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 * sudo
 * asdf
 * kubectl
+* docker
 
 ---
 
@@ -134,30 +134,33 @@ The quickstart kit also uses `zgenom` to load oh-my-zsh and these plugins:
 >    ```
 
 - Homebrew  
-> Install Homebrew (if not already installed) with:
->   ```sh
->   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
->   ```
+    Install Homebrew (if not already installed) with:
+
+    ```sh
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
 - A Powerline-compatible font
-> Install Fira Code Nerd Font with:
->   ```sh
->   brew install font-fira-code-nerd-font
->   ```
+    Install Fira Code Nerd Font with:
+
+    ```sh
+    brew install font-fira-code-nerd-font
+```
 
 - Ghostty
-> Install Ghostty with:
->   ```sh
->   brew install ghostty@tip
->   ```
-> - **With the `@tip` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
+    Install Ghostty with:
+
+    ```sh
+    brew install ghostty@tip
+```
+> **With the `@tip` version, you can enable *shaders* for advanced graphical effects and animations directly in your terminal!**
 
 Open Ghostty’s default profile settings, set the font to `FiraCode Nerd Font Mono` with size of 12.0.
     ```text
     font-family="FiraCode Nerd Font Mono"
     font-size=12.0
     ```
-Or Create a symbolic link to the Ghostty configuration for using this repo configuration:
+Or Create a symbolic link to the Ghostty configuration for using my config included in this repo:
     ```sh
    ln -s $HOME/.dotfiles/ghostty $HOME/.config/
     ```
