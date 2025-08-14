@@ -71,6 +71,11 @@ if [ $(uname -a | grep -ci Darwin) = 1 ]; then
   fi
 fi
 
+# Alt + | → backtick `
+bindkey -s '^[\' '`'
+
+# Alt + 5 → tilde ~
+bindkey -s '^[5' '~'
 
 
 
