@@ -169,6 +169,10 @@ On macOS, you may also want to adjust the following settings:
 
 `System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`
 
+> ⚠️ **Copying Text from Terminal Applications (when not works as expected):**
+>
+> To copy text from tmux (or any terminal app that has issues with system clipboard integration), **in Ghostty hold the <kbd>Shift</kbd> key while selecting text with your mouse then <kbd>Ctrl</kbd> + <kbd>C</kbd> on Linux or <kbd>Command</kbd> + <kbd>C</kbd> on macOS**. This ensures the selection is recognized by your operating system and can be pasted elsewhere.
+>
 
 > 💡 **Other Recommended Terminal: [iTerm2](https://iterm2.com/)**
 >
@@ -189,7 +193,6 @@ On macOS, you may also want to adjust the following settings:
 > * `General` -> `Selection` -> `Uncheck "Command selection"`
 > * `Appearance` -> `General` -> `Theme` -> `Select "Minimal"`
 > * `Pointer` -> `General` -> `Mouse Reporting` -> `Check "^-Click reported to apps, does not open menu"`
-> * `Keys` -> `Key Bindings` -> `+` -> `create a new keyboard shortcut "Option + C" with action "Send Escape Sequence" "Esc+c"`
 > * `Profiles` -> `Default` -> `Other Actions...` -> `Duplicate Profile` -> `Name it "Astronaut Alternative Lighter"`
 > * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Uncheck "Use separate colors for light and dark mode"`
 > * `Profile` -> `"Astronaut Alternative Lighter"` -> `Colors` -> `Color Presets` -> `Import` -> `Import ".dotfiles/iTerm2/Color Schemes/Astronaut Alternative Lighter.iTermColors"`
@@ -202,6 +205,12 @@ On macOS, you may also want to adjust the following settings:
 > * `Profile` -> `"Astronaut Alternative Lighter"` -> `Session` -> `Password Manager` -> `Check "Open password manager automatically..."`
 > * `Profile` -> `"Astronaut Alternative Lighter"` -> `Keys` -> `General` -> `Left Option key` -> `Select "Esc+"`
 > * `Profile` -> `"Astronaut Alternative Lighter"` -> `Other Actions...` -> `Set as Default`
+
+> ⚠️ **Copying Text from Terminal Applications (when not works as expected):**
+>
+> To copy text from tmux (or any terminal app that has issues with system clipboard integration), **in Iterm2 hold the <kbd>Option/Alt</kbd> key while selecting text with your mouse then <kbd>Command</kbd> + <kbd>C</kbd>**. This ensures the selection is recognized by your operating system and can be pasted elsewhere.
+>
+
 
 ### 2.2 Installation
 
@@ -598,15 +607,19 @@ Press <kbd>Alt</kbd> + <kbd>C</kbd> (or <kbd>Esc</kbd> + <kbd>C</kbd>) to intera
 - <kbd>Alt</kbd> + <kbd>J</kbd> / <kbd>K</kbd> — Move preview down/up/ (if preview enabled)
 - <kbd>Alt</kbd> + <kbd>P</kbd> — Toggles the preview.
 - <kbd>,</kbd> <kbd>.</kbd> —  Switch group (fzf-tab)
+- <kbd>Alt</kbd> + <kbd>H</kbd> — Toggle hidden files in FZF (fzf).
 
 ### 🔀 tmux
 - <kbd>Ctrl</kbd> + <kbd>A</kbd> — Prefix (instead of Ctrl + B).
-- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>C</kbd> — New window.
-- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>/</kbd> — Horizontal split.
-- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>-</kbd> — Vertical split.
-- <kbd>Ctrl</kbd> + <kbd>S</kbd> (Without the tmux prefix) — Multiple panes input broadcast.
-- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>D</kbd> — Detach session.
-- <kbd>Ctrl</kbd> + <kbd>A</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> Move between panes
+- <kbd>Prefix</kbd> <kbd>C</kbd> — New window.
+- <kbd>Prefix</kbd> + <kbd>\</kbd> — Horizontal split.
+- <kbd>Prefix</kbd> + <kbd>-</kbd> — Vertical split.
+- <kbd>Prefix</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> (Without the tmux prefix) — Multiple panes input broadcast.
+- <kbd>Prefix</kbd> + <kbd>D</kbd> — Detach session.
+- <kbd>Prefix</kbd> + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> Move between panes
+- <kbd>Prefix</kbd> + <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> Resize the current pane
+- <kbd>Prefix</kbd> + <kbd>+</kbd> — Zoom the current pane
+- Right Mouse Button press - Shows context menu
 
 ### ✏️ micro
 #### Navigation
