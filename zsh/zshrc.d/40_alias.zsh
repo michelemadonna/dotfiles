@@ -21,9 +21,11 @@ alias _ls="command ls"
 
 
 if _has eza; then
-   # alias ls="${aliases[ls]:-ls} --icons --git --group-directories-first" #-al --icons --git --time-style=long-iso --group-directories-first --color-scale
+    unalias ls
+    alias ls="eza"
+    alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
     alias lls="${aliases[ls]:-ls} -bghHliS@Z --time-style=long-iso"
-    alias ll="${aliases[ls]:-ls} --time-style=long-iso -las modified"
+    alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
 fi
 
 

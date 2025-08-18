@@ -44,5 +44,8 @@
     "splitRight": true,
 
     // Do not set the terminal title
-    "termtitle": false
+    "termtitle": false,
+
+    "clipboard": "terminal"
 }
+
