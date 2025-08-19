@@ -46,6 +46,6 @@
     // Do not set the terminal title
     "termtitle": false,
 
-    "clipboard": "terminal"
+    "clipboard": "external"
 }
 
