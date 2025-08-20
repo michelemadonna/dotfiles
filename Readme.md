@@ -145,6 +145,21 @@ mkdir -p $HOME/.config
 ln -s $HOME/.dotfiles/ghostty $HOME/.config/
 ```
 Restart Ghostty for the changes to take effect. 
+
+You can extend the Ghostty configuration included in this repository by creating a `config.local` file inside `$HOME/.dotfiles/ghostty`. Any settings you add to `config.local` will override or supplement the defaults, allowing you to personalize your terminal without modifying the main configuration file.
+
+> **Important:**  
+> On macOS, Ghostty saves its configuration in  
+> `$HOME/Library/Application Support/com.mitchellh.ghostty/config`.  
+> If you launched Ghostty **before** creating the symlink to your config in `$HOME/.config`, you must remove the old configuration folder to avoid conflicts:
+> ```sh
+> rm -rf "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
+> ```
+> Then restart Ghostty to load your new configuration.
+
+
+> ⚠️ **Default config path on macOS:** by default ghoss
+
 > ⚠️ **Mouse Reporting:** by default, Ghostty is configured to transparently report mouse events to terminal applications. You can hold down the <kbd>Shift</kbd> key to bypass mouse reporting temporarily
 
 > ⚠️ **Copying Text from Terminal Applications:** in Ghostty, if standard copy doesn't work inside an app like tmux, **hold the <kbd>Shift</kbd> key while selecting text with your mouse, then press <kbd>Cmd</kbd> + <kbd>C</kbd>**. This bypasses the application's mouse handling and lets the OS capture the text.
@@ -334,7 +349,7 @@ This allows you to edit files and run terminal commands side by side within Micr
 ```sh
 # Install asdf and dependencies
 brew install asdf
-brew install openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd
+brew install openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd xz
 # Install system versions of tools
 brew install openjdk node
 sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
