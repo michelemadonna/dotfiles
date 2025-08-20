@@ -8,6 +8,28 @@
 #This file is sourced by zshrc to set up asdf integration.
 if _has asdf
 then
+
+	function _asdf_fix_macos_system_jdk() {
+		###### fix for https://github.com/halcyon/asdf-java/issues/244
+		asdf_update_java_home() {
+			local java_path
+			java_path="$(asdf which java)"
+			if [[ -n "${java_path}" ]]; then
+				export JAVA_HOME
+				if [[ "$java_path" == "/usr/bin/java" ]]; then
+				JAVA_HOME="$(/usr/libexec/java_home)"
+				else
+				JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+				fi
+				export JAVA_HOME=${JAVA_HOME}
+				export JDK_HOME=${JAVA_HOME}
+			fi
+		}
+
+		autoload -U add-zsh-hook
+		add-zsh-hook precmd asdf_update_java_home
+	}
+
 	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]; then
 		asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
 		
@@ -18,19 +40,6 @@ then
 			source "$asdf_set_java_home_script"
 		fi
 	fi
-	
-	#if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/nodejs" ]; then
-	#	if [ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]; then
-	#		ln -s "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
-	#	fi
-	#fi
-#
-	#if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/python" ]; then
-	#	gsed -E 's/("?)python([^3]|$)/\1python3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
-	#	gsed -E 's/("?)pip([^3]|$)/\1pip3\2/g' -i "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
-	#fi
-
-	# Example extra function
 
 
 	asdf() {
@@ -87,26 +96,7 @@ then
 		return $exit_code
 	}
 
-	_asdf_fix_macos_system_jdk() {
-		###### fix for https://github.com/halcyon/asdf-java/issues/244
-		asdf_update_java_home() {
-			local java_path
-			java_path="$(asdf which java)"
-			if [[ -n "${java_path}" ]]; then
-				export JAVA_HOME
-				if [[ "$java_path" == "/usr/bin/java" ]]; then
-				JAVA_HOME="$(/usr/libexec/java_home)"
-				else
-				JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
-				fi
-				export JAVA_HOME=${JAVA_HOME}
-				export JDK_HOME=${JAVA_HOME}
-			fi
-		}
 
-		autoload -U add-zsh-hook
-		add-zsh-hook precmd asdf_update_java_home
-	}
 
 
 

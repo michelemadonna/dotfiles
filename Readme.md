@@ -342,7 +342,7 @@ sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtua
 
 **Linux Installation**
 ```sh
-# Install dependencies
+# Install dependencies and system versions of tools
 sudo apt install default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
@@ -364,7 +364,7 @@ asdf plugin add python
 # Install a specific version
 asdf install java openjdk-22 #or asdf install java + [TAB] to list available versions using completion
 
-# Set the global (user-wide) version
+# Set the system provided tool version as the global version (user-wide)
 asdf set -u java system #or asdf set -u java + [TAB] to list installed versions using completion
 
 # Set the local (project-specific) version
