@@ -9,98 +9,6 @@
 if _has asdf
 then
 
-	function _asdf_fix_macos_system_jdk() {
-		###### fix for https://github.com/halcyon/asdf-java/issues/244
-		asdf_update_java_home() {
-			local java_path
-			java_path="$(asdf which java)"
-			if [[ -n "${java_path}" ]]; then
-				export JAVA_HOME
-				if [[ "$java_path" == "/usr/bin/java" ]]; then
-				JAVA_HOME="$(/usr/libexec/java_home)"
-				else
-				JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
-				fi
-				export JAVA_HOME=${JAVA_HOME}
-				export JDK_HOME=${JAVA_HOME}
-			fi
-		}
-
-		autoload -U add-zsh-hook
-		add-zsh-hook precmd asdf_update_java_home
-	}
-
-	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]; then
-		asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
-		
-		if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-		 	###### fix for https://github.com/halcyon/asdf-java/issues/244
-			_asdf_fix_macos_system_jdk
-		else
-			source "$asdf_set_java_home_script"
-		fi
-	fi
-
-
-	asdf() {
-		# Call the real asdf
-		command asdf "$@"
-		local exit_code=$?
-
-		# If first arg is install or reshim, and second is nodejs or python
-		if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
-
-			# If asdf failed, return its exit code
-			if [[ $exit_code -ne 0 ]]; then
-				return $exit_code
-			fi
-			
-			if [[ $2 == "nodejs" ]]; then
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
-				fi
-			fi
-
-			if [[ $2 == "python" ]]; then
-				
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
-				fi
-
-				
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
-				fi
-			fi
-		fi
-
-		if [[ ( $1 == "plugin") && ( $3 == "java") ]]; then
-
-			# If asdf failed, return its exit code
-			if [[ $exit_code -ne 0 ]]; then
-				return $exit_code
-			fi
-
-			asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
-		
-			if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-				###### fix for https://github.com/halcyon/asdf-java/issues/244
-				_asdf_fix_macos_system_jdk
-			else
-				source "$asdf_set_java_home_script"
-			fi
-			
-			
-		fi
-
-		return $exit_code
-	}
-
-
-
-
-
-
 	####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
 	_asdf () {
 		local state subcmd
@@ -330,6 +238,100 @@ then
 		esac
 	}
 	autoload -Uz _asdf
+
+	function _asdf_fix_macos_system_jdk() {
+		###### fix for https://github.com/halcyon/asdf-java/issues/244
+		asdf_update_java_home() {
+			local java_path
+			java_path="$(asdf which java)"
+			if [[ -n "${java_path}" ]]; then
+				export JAVA_HOME
+				if [[ "$java_path" == "/usr/bin/java" ]]; then
+				JAVA_HOME="$(/usr/libexec/java_home)"
+				else
+				JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
+				fi
+				export JAVA_HOME=${JAVA_HOME}
+				export JDK_HOME=${JAVA_HOME}
+			fi
+		}
+
+		autoload -U add-zsh-hook
+		add-zsh-hook precmd asdf_update_java_home
+	}
+
+	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]; then
+		asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
+		
+		if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+		 	###### fix for https://github.com/halcyon/asdf-java/issues/244
+			_asdf_fix_macos_system_jdk
+		else
+			source "$asdf_set_java_home_script"
+		fi
+	fi
+
+
+	asdf() {
+		# Call the real asdf
+		command asdf "$@"
+		local exit_code=$?
+
+		# If first arg is install or reshim, and second is nodejs or python
+		if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
+
+			# If asdf failed, return its exit code
+			if [[ $exit_code -ne 0 ]]; then
+				return $exit_code
+			fi
+			
+			if [[ $2 == "nodejs" ]]; then
+				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]]; then
+					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
+				fi
+			fi
+
+			if [[ $2 == "python" ]]; then
+				
+				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" ]]; then
+					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
+				fi
+
+				
+				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" ]]; then
+					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
+				fi
+			fi
+		fi
+
+		if [[ ( $1 == "plugin") && ( $3 == "java") ]]; then
+
+			# If asdf failed, return its exit code
+			if [[ $exit_code -ne 0 ]]; then
+				return $exit_code
+			fi
+
+			asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
+		
+			if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+				###### fix for https://github.com/halcyon/asdf-java/issues/244
+				_asdf_fix_macos_system_jdk
+			else
+				source "$asdf_set_java_home_script"
+			fi
+			
+			
+		fi
+
+		return $exit_code
+	}
+
+
+
+
+
+
+	
 
 
 	#and comment for maven $HOME/.asdf/plugins/maven/bin

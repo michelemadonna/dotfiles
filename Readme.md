@@ -141,6 +141,7 @@ font-size=12.0
 ```
 or simply create a symbolic link to use the config from this repo:
 ```sh
+mkdir -p $HOME/.config
 ln -s $HOME/.dotfiles/ghostty $HOME/.config/
 ```
 Restart Ghostty for the changes to take effect. 
