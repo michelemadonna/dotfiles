@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 #This file is sourced by zshrc to set up fzf integration.
 #includes private functions for toggling hidden files, setting default commands, and configuring fzf options.
-if _has micro; then
+if _has fzf; then
   __toggle_fzf_hidden_files() {
     local show_hidden="$1"
     if [[ -z "$show_hidden" ]]; then
@@ -122,7 +122,7 @@ if _has micro; then
       || tree $TREE_HIDDEN_FLAG -C \"\$realpath\" 2>/dev/null \
       || ls -l$LS_HIDDEN_FLAG \"\$realpath\" 2>/dev/null) | head -200"
   }
-  
+
   __fzf_tab_complete_cd_preview() {
     if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
       setopt globdots
@@ -161,5 +161,4 @@ if _has micro; then
   __fzf_reload
 
 fi
-
 
