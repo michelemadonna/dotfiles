@@ -151,8 +151,7 @@ if _has micro; then
     export FZF_ALT_C_OPTS="$(__fzf_alt_c_opts)"
     export FZF_CTRL_T_OPTS="$(__fzf_ctrl_t_opts)"
     export FZF_DEFAULT_OPTS="--multi \
-      --bind='ctrl-a:toggle-all,ctrl-space:toggle,ctrl-p:toggle-preview,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-o:change-preview-window(50%,top|50%,right|50%,bottom)' \
-      --header='^A Select ALL ^SPACE Toggle Selection ^P Toggle Preview ^K/J Preview Up/Down ^O Change Preview Win'"
+      --bind='ctrl-a:toggle-all,ctrl-space:toggle,ctrl-p:toggle-preview,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-o:change-preview-window(50%,top|50%,right|50%,bottom)'"
 
     zstyle ":fzf-tab:complete:${${EDITOR}:t}:*" fzf-preview "$(__fzf_tab_complete_editor_preview)"
     zstyle ':fzf-tab:complete:cd:*' fzf-preview "$(__fzf_tab_complete_cd_preview)"

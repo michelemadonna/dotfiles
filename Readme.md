@@ -110,13 +110,6 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
 
 ### 2.1 Prerequisites
 
-#### - A fork of this repo on GitHub
-
-#### - Clone **your forked** repository
-```sh
-git clone https://github.com/your-username/dotfiles.git $HOME/.dotfiles
-```
-
 #### - Homebrew
 If you don't have it installed, get it with:
 ```sh
@@ -127,6 +120,11 @@ If you don't have it installed, get it with:
 Install the recommended Fira Code Nerd Font:
 ```sh
 brew install font-fira-code-nerd-font
+```
+
+#### - A fork of this repo on GitHub and Clone **your forked** repository on your local machine
+```sh
+git clone https://github.com/your-username/dotfiles.git $HOME/.dotfiles
 ```
 
 #### - Ghostty
@@ -145,8 +143,7 @@ or simply create a symbolic link to use the config from this repo:
 ```sh
 ln -s $HOME/.dotfiles/ghostty $HOME/.config/
 ```
-Restart Ghostty for the changes to take effect. On macOS, you may also want to adjust `System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`.
-
+Restart Ghostty for the changes to take effect. 
 > ⚠️ **Mouse Reporting:** by default, Ghostty is configured to transparently report mouse events to terminal applications. You can hold down the <kbd>Shift</kbd> key to bypass mouse reporting temporarily
 
 > ⚠️ **Copying Text from Terminal Applications:** in Ghostty, if standard copy doesn't work inside an app like tmux, **hold the <kbd>Shift</kbd> key while selecting text with your mouse, then press <kbd>Cmd</kbd> + <kbd>C</kbd>**. This bypasses the application's mouse handling and lets the OS capture the text.
@@ -167,22 +164,24 @@ Install iTerm2 with:
 brew install --cask iterm2
 ```
 To apply my custom settings, follow these steps in iTerm2's **Preferences**:
--   `General` -> `Selection` -> Uncheck `"Command selection"`
+-   `General` -> `Selection` -> Uncheck `"Command selection: Clicking on command selects it to restrict Find and Filter"`
+-   `General` -> `Selection` -> Check `"Access: Application in terminal may access clipboard"`
 -   `Appearance` -> `General` -> `Theme` -> Select `"Minimal"`
 -   `Pointer` -> `General` -> `Mouse Reporting` -> Check `"^-Click reported to apps, does not open menu"`
 -   `Profiles` -> `Default` -> `Other Actions...` -> `Duplicate Profile` -> Name it `"Astronaut Alternative Lighter"`
 -   In the new profile:
+    -   `Colors` -> Uncheck `"Modes : Use separate colors for light and dark mode"`
     -   `Colors` -> `Color Presets` -> `Import...` -> Import `"$HOME/.dotfiles/iTerm2/Color Schemes/Astronaut Alternative Lighter.iTermColors"`
     -   `Colors` -> `Color Presets` -> Select `"Astronaut Alternative Lighter"`
-    -   `Colors` -> Uncheck `"Use separate colors for light and dark mode"`
     -   `Colors` -> `Minimum Contrast` -> `7`
-    -   `Text` -> `Font` -> Select `"Fira Code Nerd Font Mono"`, `"Retina"`, size `12`
     -   `Text` -> `Cursor` -> Check `"Blink"` and `"Animate movement"`
     -   `Text` -> `Text rendering` -> Check `"Allow blinking text"`
+    -   `Text` -> `Font` -> Select `"Fira Code Nerd Font Mono"`, `"Retina"`, size `12`
     -   `Terminal` -> `Shell Integration` -> Uncheck `"Show mark indicators"`
     -   `Session` -> `Password Manager` -> Check `"Open password manager automatically..."`
     -   `Keys` -> `General` -> `Left Option key` -> Select `"Esc+"`
 -   Finally, `Profile` -> `"Astronaut Alternative Lighter"` -> `Other Actions...` -> `Set as Default`
+On macOS, you may also want to adjust `System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`.
 
 > ⚠️ **Mouse Reporting:** by default, iTerm2 is configured to transparently report mouse events to terminal applications, except for right-click actions. You can temporarily enable right-click reporting by holding the <kbd>Command</kbd> key while clicking, or enable it permanently in the settings:  
 `General` → `Pointer` → `General` → Check `"Right Click reported to the apps, does not open menu"`. If you want to disable mouse reporting entirely, you can do so in the same settings menu. Alternatively, you can hold down the <kbd>Option</kbd> key to bypass mouse reporting temporarily.
@@ -336,7 +335,8 @@ This allows you to edit files and run terminal commands side by side within Micr
 brew install asdf
 brew install openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd
 # Install system versions of tools
-brew install openjdk@21 node@22
+brew install openjdk node
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 # Reload terminal session
 ```
 
@@ -362,13 +362,13 @@ asdf plugin add nodejs
 asdf plugin add python
 
 # Install a specific version
-asdf install java openjdk-17 #or asdf install java + [TAB] to list available versions using completion
+asdf install java openjdk-22 #or asdf install java + [TAB] to list available versions using completion
 
 # Set the global (user-wide) version
 asdf set -u java system #or asdf set -u java + [TAB] to list installed versions using completion
 
 # Set the local (project-specific) version
-asdf set java openjdk-17 #or asdf set java + [TAB] to list installed versions using completion
+asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions using completion
 ```
 > **Note:**  
 > If you do not specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the global system version.  

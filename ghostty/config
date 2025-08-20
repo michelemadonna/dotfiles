@@ -42,94 +42,41 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-shell-integration=zsh
-shell-integration-features = no-cursor,sudo,no-title
+
 font-family="FiraCode Nerd Font Mono"
 font-size=12.0
+bold-is-bright=true
+adjust-cell-height = 0%
+
+shell-integration=zsh
+shell-integration-features = no-cursor,sudo,no-title
+
 window-padding-x = 3
 window-padding-y = 5
-bold-is-bright=true
 window-padding-color=background
-mouse-scroll-multiplier = 2
 window-padding-balance = true
+window-colorspace = "display-p3"
 window-save-state = always
+
 macos-titlebar-style = transparent
 macos-option-as-alt=left
-window-colorspace = "display-p3"
-adjust-cell-height = 0%
-theme = Argonaut
-copy-on-select = clipboard
-confirm-close-surface=false
-mouse-hide-while-typing = true
+
 cursor-style-blink= false
-custom-shader-animation=true
-clipboard-read=allow
-clipboard-write=allow
-#term=xterm-256color
 cursor-style=block
 cursor-click-to-move=true
 
-#This is the modified version of Argonaut
-palette = 0=#373738
-palette = 1=#ea4029
-palette = 2=#aae046
-palette = 3=#f5c643
-palette = 4=#479ff2
-palette = 5=#7b5caf
-palette = 6=#64daec
-palette = 7=#fefefe
-palette = 8=#656565
-palette = 9=#eb5256
-palette = 10=#c0e27c
-palette = 11=#f8d96a
-palette = 12=#49a3f7
-palette = 13=#a47ce8
-palette = 14=#98f9f2
-palette = 15=#fefefe
-background = #292c33
-foreground = #fefbf6
-cursor-color = #ea4030
-cursor-text = #ea4030
-selection-background = #133649
-selection-foreground = #fefefe
 
+confirm-close-surface=false
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
 
-# Some shaders can be found in this repo, they're usually uploaded to discord
-# https://github.com/hackrmomo/ghostty-shaders or https://catskull.net/fun-with-ghostty-shaders.html
-# custom-shader = shaders/animated-gradient-shader.glsl
-# custom-shader = shaders/bettercrt.glsl
-# custom-shader = shaders/bloom.glsl
-custom-shader = shaders/bloom025.glsl
-# custom-shader = shaders/bloom050.glsl
-# custom-shader = shaders/bloom060.glsl
-# custom-shader = shaders/bloom075.glsl
-# custom-shader = shaders/bloom1.glsl
-# custom-shader = shaders/crt.glsl
-# custom-shader = shaders/cubes.glsl
-# custom-shader = shaders/dither.glsl
-# custom-shader = shaders/drunkard.glsl
-# custom-shader = shaders/fireworks-rockets.glsl
-# custom-shader = shaders/fireworks.glsl
-# custom-shader = shaders/gears-and-belts.glsl
-# custom-shader = shaders/glitchy.glsl
-# custom-shader = shaders/glow-rgbsplit-twitchy.glsl
-# custom-shader = shaders/gradient-background.glsl
-# custom-shader = shaders/inside-the-matrix.glsl
-# custom-shader = shaders/just-snow.glsl
-# custom-shader = shaders/matrix-hallway.glsl
-# custom-shader = shaders/negative.glsl
-# custom-shader = shaders/retro-terminal.glsl
-# custom-shader = shaders/smoke-and-ghost.glsl
-# custom-shader = shaders/sparks-from-fire.glsl
-# custom-shader = shaders/spotlight.glsl
-# custom-shader = shaders/starfield-colors.glsl
-# custom-shader = shaders/starfield.glsl
-# custom-shader = shaders/tft.glsl
-# custom-shader = shaders/underwater.glsl
-# custom-shader = shaders/water.glsl
-# custom-shader = shaders/cursor_blaze.glsl
-custom-shader = shaders/cursor_blaze_no_trail.glsl
-custom-shader = shaders/cursor_smear.glsl
-# custom-shader = shaders/cursor_smear_fade.glsl
+copy-on-select = clipboard
+clipboard-read=allow
+clipboard-write=allow
 
+#term=xterm-256color
 #keybind = alt+c=esc:c
+
+theme = Astronaut
+config-file=?shaders_config
+config-file=?config.local
