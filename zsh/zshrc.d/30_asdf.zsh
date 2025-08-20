@@ -270,16 +270,21 @@ then
 			source "$asdf_set_java_home_script"
 		fi
 	fi
-
+	
 
 	asdf() {
+
+		if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
+			export CFLAGS="-I$(brew --prefix xz)/include" 
+			export LDFLAGS="-L$(brew --prefix xz)/lib"
+		fi
 		# Call the real asdf
 		command asdf "$@"
 		local exit_code=$?
 
 		# If first arg is install or reshim, and second is nodejs or python
 		if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
-
+			
 			# If asdf failed, return its exit code
 			if [[ $exit_code -ne 0 ]]; then
 				return $exit_code
