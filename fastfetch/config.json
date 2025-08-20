@@ -18,7 +18,7 @@
     "modules": [
     	 {
             "type": "host",
-            "key": "󰌢 System",
+            "key": "󰌢 SYSTEM",
             "keyColor": "green",
             "format" : "{name} ({family})"
         },
@@ -57,11 +57,11 @@
             "key": "├󰍛 GPU",
             "keyColor": "green"
         },
-        {
+        /*{
             "type": "opengl",
             "key": "├󰍛 OpenGL",
             "keyColor": "green"
-        },
+        },*/
         {
             "type": "vulkan",
             "key": "├󰍛 Vulkan",
@@ -147,7 +147,8 @@
         {
             "type": "terminalfont",
             "key": "├ Terminal Font",
-            "keyColor": "blue"
+            "keyColor": "blue",
+            "format": "{2}"
         },
         {
             "type": "custom",
