@@ -10,7 +10,9 @@
   branch = auto
 [core]
   autocrlf = input
-  pager = delta 2> /dev/null || less
+  pager = delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}
+[interactive]
+  pager = delta 2> --color-only /dev/null || less
 [init]
   defaultBranch = main  
 [apply]

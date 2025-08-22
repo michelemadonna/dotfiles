@@ -144,6 +144,11 @@ if _has fzf; then
     fi
   }
 
+  if [[ ! -f $HOME/.fzf/fzf-git.sh ]]; then
+    curl -fsSL https://raw.githubusercontent.com/junegunn/fzf-git.sh/master/fzf-git.sh -o $HOME/.fzf/fzf-git.sh
+  fi
+  source $HOME/.fzf/fzf-git.sh
+
   __fzf_reload() {
     export FZF_DEFAULT_COMMAND="$(__fzf_default_command)"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -151,14 +156,39 @@ if _has fzf; then
     export FZF_ALT_C_OPTS="$(__fzf_alt_c_opts)"
     export FZF_CTRL_T_OPTS="$(__fzf_ctrl_t_opts)"
     export FZF_DEFAULT_OPTS="--multi \
-      --bind='ctrl-a:toggle-all,ctrl-space:toggle,ctrl-p:toggle-preview,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-o:change-preview-window(50%,top|50%,right|50%,bottom)'"
+      --bind='tab:down,shift-tab:up,ctrl-a:toggle-all,ctrl-space:toggle,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-/:change-preview-window(50%,bottom|hidden|50%,right)'"
+
+    zstyle ':completion:*:git-checkout:*' sort false
+    #zstyle ':completion:*' menu no
+
 
     zstyle ":fzf-tab:complete:${${EDITOR}:t}:*" fzf-preview "$(__fzf_tab_complete_editor_preview)"
     zstyle ':fzf-tab:complete:cd:*' fzf-preview "$(__fzf_tab_complete_cd_preview)"
     zstyle ':fzf-tab:*' switch-group ',' '.'
     zstyle ':fzf-tab:*' use-fzf-default-opts yes
+
+    unset NO_COLOR
+    KEYTIMEOUT=300
   }
+
+  
   __fzf_reload
 
 fi
 
+## Delete brew's objectively worse git completion
+#remove_conflicting_git_completions() {
+#    local git_completion_bash="$HOMEBREW_PREFIX/share/zsh/site-functions/git-completion.bash"
+#    local git_completion_zsh="$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
+#
+#    [ -e "$git_completion_bash" ] && rm "$git_completion_bash"
+#    [ -e "$git_completion_zsh" ] && rm "$git_completion_zsh"
+#}
+#
+## This needs to run every time since brew sometimes brings those files back
+#remove_conflicting_git_completions
+#
+## Add Homebrew's site functions to fpath (minus git, because that causes conflicts)
+## This will give you autocomplete for _other_ things you installed
+## from brew (like `just`, or `exa`, or `k6`)
+#fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)

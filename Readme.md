@@ -451,16 +451,16 @@ asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions us
 
 | Key                                                           | Action                                     |
 | ------------------------------------------------------------- | ------------------------------------------ |
-| <kbd>↑</kbd>/<kbd>↓</kbd>                                     | Move up/down.                              |
+| <kbd>↑</kbd> / <kbd>↓</kbd>                                     | Move up/down.                              |
 | <kbd>Tab</kbd>                                                | Cycle selection.                           |
 | <kbd>Ctrl</kbd> + <kbd>Space</kbd>                            | Mark/unmark item.                          |
 | <kbd>Ctrl</kbd> + <kbd>A</kbd>                                | Toggle all marked/unmarked.                |
 | <kbd>Enter</kbd>                                              | Select the current item(s).                |
 | <kbd>Ctrl</kbd> + <kbd>P</kbd>                                | Toggle the preview window.                 |
 | <kbd>Ctrl</kbd> + <kbd>O</kbd>                                | Move the preview window.                   |
-| <kbd>Ctrl</kbd> + <kbd>J</kbd>/<kbd>K</kbd>                   | Scroll preview window down/up.             |
+| <kbd>Ctrl</kbd> + <kbd>J</kbd> / <kbd>K</kbd>                   | Scroll preview window down/up.             |
 | <kbd>Ctrl</kbd> + <kbd>O</kbd>                                | Move the preview window.                   |
-| <kbd>,</kbd>/<kbd>.</kbd>                                     | Switch group (fzf-tab).                    |
+| <kbd>,</kbd> / <kbd>.</kbd>                                     | Switch group (fzf-tab).                    |
 
 ### 🔀 tmux
 
@@ -472,8 +472,8 @@ asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions us
 | `Prefix` + <kbd>|</kbd>                                                                         | Vertical split.                    |
 | `Prefix` + <kbd>d</kbd>                                                                         | Detach session.                    |
 | `Prefix` + <kbd>+</kbd>                                                                         | Zoom the current pane.             |
-| `Prefix` + <kbd>Ctrl</kbd> + <kbd>↑</kbd>/<kbd>↓</kbd>/<kbd>←</kbd>/<kbd>→</kbd>                | Move between panes.                |
-| `Prefix` + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd>/<kbd>↓</kbd>/<kbd>←</kbd>/<kbd>→</kbd> | Resize panes.                  |
+| `Prefix` + <kbd>Ctrl</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>                | Move between panes.                |
+| `Prefix` + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Resize panes.                  |
 
 ### ✏️ micro
 
@@ -484,10 +484,10 @@ asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions us
 | <kbd>Ctrl</kbd> + <kbd>Q</kbd>                                   | Quit                             |
 | <kbd>Ctrl</kbd> + <kbd>F</kbd>                                   | Find                             |
 | <kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Ctrl</kbd> + <kbd>Y</kbd>  | Undo / Redo                      |
-| <kbd>Ctrl</kbd> + <kbd>X</kbd>/<kbd>C</kbd>/<kbd>V</kbd>         | Cut / Copy / Paste               |
+| <kbd>Ctrl</kbd> + <kbd>X</kbd> / <kbd>C</kbd> / <kbd>V</kbd>         | Cut / Copy / Paste               |
 | <kbd>Ctrl</kbd> + <kbd>E</kbd>                                   | Open Command bar                 |
 | <kbd>Ctrl</kbd> + <kbd>T</kbd>                                   | Add new tab                      |
-| <kbd>Alt</kbd> + <kbd>,</kbd>/<kbd>.</kbd>                       | Previous / Next tab              |
+| <kbd>Alt</kbd> + <kbd>,</kbd> / <kbd>.</kbd>                       | Previous / Next tab              |
 | <kbd>Ctrl</kbd> + <kbd>R</kbd>                                   | Toggle the line number ruler     |
 
 ---
@@ -528,7 +528,7 @@ Host *                                          #Applies these settings to all S
 
 ---
 ## 7. 🐙 Git Configuration
-
+### Local Configuration and Multiple Profiles
 This setup includes a default `.main.gitconfig`. To extend it without creating merge conflicts when pulling updates from this repository to your forked one, create your own local configuration at `$HOME/.config/git/local.gitconfig`.
 
 **Why use a local Git config?**
@@ -564,6 +564,43 @@ With this setup, Git will automatically use the correct user and email for each 
 >**Note:**  
 >I use the `$HOME/Developer` folder as my main projects directory because on macOS this folder has a custom "fancy" icon, making it easily recognizable in Finder. 
 >On Ubuntu, the default folder is `$HOME/Develop`, but I usually rename it to `$HOME/Developer` to keep the same configuration and directory structure across both operating systems.
+
+### Enhanced Git Completion with fzf
+Zsh offers built-in autocompletion for Git commands—typing `git branch` and pressing <kbd>TAB</kbd> brings up an fzf-powered menu to select branches. While useful, the default completion is limited in scope.
+
+This dotfiles setup improves Git completion by integrating the [`fzf-git.sh`](https://github.com/junegunn/fzf-git.sh) script. With it, you get interactive fzf menus for files, branches, tags, remotes, commits, stashes, reflogs, and worktrees. These shortcuts make it much faster and easier to select Git resources directly from the command line.
+
+#### Key Bindings
+
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>?</kbd> Show all available fzf-git shortcuts
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>F</kbd> Fuzzy select **F**iles (e.g., for `git add`)
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>B</kbd> Fuzzy select **B**ranches
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>T</kbd> Fuzzy select **T**ags
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>R</kbd> Fuzzy select **R**emotes
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>H</kbd> Fuzzy select commit **H**ashes
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>S</kbd> Fuzzy select **S**tashes
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>L</kbd> Fuzzy select ref**l**ogs
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>W</kbd> Fuzzy select **W**orktrees
+- <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>E</kbd> Fuzzy select refs via `git for-**e**ach-ref`
+
+With `fzf-git.sh`, you can use interactive shortcuts to quickly select files, branches, or commit hashes when running `git checkout`:
+
+- To checkout a **branch**:
+    1. Type `git checkout`
+    2. Press <kbd>Ctrl</kbd> + <kbd>G</kbd> then <kbd>B</kbd> to open a fuzzy branch selector.
+    3. Select the branch and press <kbd>Enter</kbd>.
+
+- To checkout a **commit**:
+    1. Type `git checkout`
+    2. Press <kbd>Ctrl</kbd> + <kbd>G</kbd> then <kbd>H</kbd> to open a fuzzy commit hash selector.
+    3. Select the commit and press <kbd>Enter</kbd>.
+
+- To checkout a **file** (restore a file from the current branch or a commit):
+    1. Type `git checkout`
+    2. Press <kbd>Ctrl</kbd> + <kbd>G</kbd> then <kbd>F</kbd> to open a fuzzy file selector.
+    3. Select the file and press <kbd>Enter</kbd>.
+
+This workflow lets you interactively choose what to checkout, making it much faster and less error-prone than typing names or hashes manually.
 
 ---
 ## 8. 🛠️ Customizing Your Zsh Quickstart Kit

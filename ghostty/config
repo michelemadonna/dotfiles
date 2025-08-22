@@ -57,6 +57,8 @@ window-padding-color=background
 window-padding-balance = true
 window-colorspace = "display-p3"
 window-save-state = always
+window-height = 30
+window-width = 140
 
 macos-titlebar-style = transparent
 macos-option-as-alt=left
@@ -65,7 +67,10 @@ cursor-style-blink= false
 cursor-style=block
 cursor-click-to-move=true
 
+#keybind = global:cmd+t=toggle_quick_terminal
 
+quit-after-last-window-closed-delay=60s
+quit-after-last-window-closed=true
 confirm-close-surface=false
 mouse-hide-while-typing = true
 mouse-scroll-multiplier = 2
