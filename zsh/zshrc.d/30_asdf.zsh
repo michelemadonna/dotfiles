@@ -1,343 +1,98 @@
 #!/usr/bin/env zsh
 
-
-
-
-
-
 #This file is sourced by zshrc to set up asdf integration.
-if _has asdf
-then
+(( ! $+commands[asdf] )) && return
 
-	####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
-	_asdf () {
-		local state subcmd
-		local asdf_dir="${ASDF_DATA_DIR:-$HOME/.asdf}" 
-		local -a asdf_plugin_commands
-		asdf_plugin_commands=('add:add plugin from asdf-plugins repo or from git URL' 'list:list installed plugins (--urls with URLs)' 'remove:remove named plugin and all packages for it' 'update:update named plugin (or --all)') 
-		local -a asdf_commands
-		asdf_commands=('plugin:plugin management sub-commands' 'help:Output documentation for plugin and tool' 'install:install tool at stated version, or all from .tools-versions' 'uninstall:remove a specific version of a tool' 'current:display current versions for named tool (else all)' 'latest:display latest version available to install for a named tool' 'where:display install path for given tool at optional specified version' 'which:display path to an executable' 'set:Set a tool version in a .tool-version file' 'list:list installed versions of a tool' 'exec:executes the command shim for the current version' 'env:prints or runs an executable under a command environment' 'info:print os, shell and asdf debug information' 'version:print the currently installed version of ASDF' 'reshim:recreate shims for version of a tool' 'shim:shim management sub-commands' 'shimversions:list for given command which plugins and versions provide it') 
-		_asdf__available_plugins () {
-			local plugin_dir="${asdf_dir:?}/repository/plugins" 
-			if [[ ! -d "$plugin_dir" ]]
-			then
-				_wanted asdf-available-plugins expl 'ASDF Installable Plugins' compadd -x "no plugins repository found"
-				return
-			fi
-			local -a plugins
-			plugins=("$plugin_dir"/*(:t)) 
-			_wanted asdf-available-plugins expl 'ASDF Installable Plugins' compadd -a plugins
-		}
-		_asdf__installed_plugins () {
-			local plugin_dir="${asdf_dir:?}/plugins" 
-			if [[ ! -d "$plugin_dir" ]]
-			then
-				_wanted asdf-plugins expl 'ASDF Plugins' compadd -x "no plugins dir, none installed yet"
-				return
-			fi
-			local -a plugins
-			plugins=("$plugin_dir"/*(:t)) 
-			_wanted asdf-plugins expl 'ASDF Plugins' compadd -a plugins
-		}
-		_asdf__installed_versions_of () {
-			local plugin_dir="${asdf_dir:?}/installs/${1:?need a plugin version}" 
-			if [[ ! -d "$plugin_dir" ]]
-			then
-				_wanted "asdf-versions-$1" expl "ASDF Plugin ${(q-)1} versions" compadd -x "no versions installed"
-				return
-			fi
-			local -a versions
-			versions=("$plugin_dir"/*(:t)) 
-			_wanted "asdf-versions-$1" expl "ASDF Plugin ${(q-)1} versions" compadd -a versions
-		}
-		_asdf__installed_versions_of_plus_system () {
-			local plugin_dir="${asdf_dir:?}/installs/${1:?need a plugin version}" 
-			if [[ ! -d "$plugin_dir" ]]
-			then
-				_wanted "asdf-versions-$1" expl "ASDF Plugin ${(q-)1} versions" compadd -x "no versions installed"
-				return
-			fi
-			local -a versions
-			versions=("$plugin_dir"/*(:t)) 
-			versions+="system" 
-			_wanted "asdf-versions-$1" expl "ASDF Plugin ${(q-)1} versions" compadd -a versions
-		}
-		_asdf__plugin_git_refs () {
-			local plugin=$1 
-			local data_dir=${ASDF_DATA_DIR:-$HOME/.asdf} 
-			local plugin_path="$data_dir/plugins/$plugin" 
-			if [[ -d "$plugin_path/.git" ]]
-			then
-				git -C "$plugin_path" branch -r 2> /dev/null | sed -e 's/^[[:space:]]*[^\/]*\///' -e 's/[[:space:]]*->.*$//' -e 's/\(.*\)/\1:Remote branch \1/' | sort -fd
-				git -C "$plugin_path" tag 2> /dev/null | sed -e 's/\(.*\)/\1:Tag \1/' | sort -V
-				git -C "$plugin_path" log --pretty=format:'%h:%s' -n 10 2> /dev/null
-			fi
-		}
-		if (( CURRENT == 2 ))
-		then
-			_arguments -C : '--version[version]' ':command:->command'
+export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+
+if [ $(uname -a | grep -ci Linux) = 1 ]; then
+	# Add shims to the front of the path, removing if already present.
+	path=("$ASDF_DATA_DIR/shims" ${path:#$ASDF_DATA_DIR/shims})
+
+	# If the completion file doesn't exist yet, we need to autoload it and
+	# bind it to `asdf`. Otherwise, compinit will have already done that.
+	if [[ ! -f "$ZSH_CACHE_DIR/completions/_asdf" ]]; then
+		typeset -g -A _comps
+		autoload -Uz _asdf
+		_comps[asdf]=_asdf
+	fi
+	asdf completion zsh >| "$ZSH_CACHE_DIR/completions/_asdf"
+	if [ -e "$ZSH_CACHE_DIR/completions/_asdf" ] && ! tail -n 5 "$ZSH_CACHE_DIR/completions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
+		patch "$(readlink -f "$ZSH_CACHE_DIR/completions/_asdf" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
+	fi
+fi
+
+####This is a fix for https://github.com/asdf-vm/asdf/issues/2047
+if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+	if [ -e "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" ] && ! tail -n 5 "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
+		patch "$(readlink -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf")" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
+	fi
+fi
+
+if [ -d "${ASDF_DATA_DIR}/plugins/java" ]; then
+	if [ -e "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
+		######This is a fix for https://github.com/halcyon/asdf-java/issues/244
+		if [ $(uname -a | grep -ci Darwin) = 1 ] && ! tail -n 5 "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
+			patch "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" < "$DOTFILES_DIR/asdf_set-java-home.zsh.patch"
 		fi
-		case "$state" in
-			(command) _describe -t asdf-commands 'ASDF Commands' asdf_commands
-				return ;;
-		esac
-		subcmd="${words[2]}" 
-		case "$subcmd" in
-			(plugin) if (( CURRENT == 3 ))
-				then
-					_describe -t asdf-plugin-commands 'ASDF Plugin Commands' asdf_plugin_commands
-				else
-					local plugin_subcmd="${words[3]}" 
-					case "$plugin_subcmd" in
-						(add) if (( CURRENT == 4 ))
-							then
-								_asdf__available_plugins
-							elif (( CURRENT == 5 ))
-							then
-								_arguments "*:${words[4]} plugin url:_urls"
-							fi
-							return ;;
-						(update) if (( CURRENT == 4 ))
-							then
-								_alternative 'flags:flags:((--all\:"Update all installed plugins"))' 'asdf-available-plugins:Installed ASDF Plugins:_asdf__installed_plugins'
-							elif (( CURRENT == 5 ))
-							then
-								if [[ ${words[4]} != "--all" ]]
-								then
-									local -a refs
-									while IFS=: read -r value descr
-									do
-										refs+=("${value}:${descr}") 
-									done < <(_asdf__plugin_git_refs ${words[4]})
-									_describe -V -t git-refs 'Git References' refs
-								fi
-							fi ;;
-						(remove) _asdf__installed_plugins
-							return ;;
-						(list) case $CURRENT in
-								(4) _alternative 'flags:flags:((--urls\:"Show repository URLs" --refs\:"Show Git references"))' 'commands:commands:((all\:"List all available plugins"))'
-									return ;;
-								(5) if [[ ${words[4]} == --* ]]
-									then
-										local used_flags=("${words[@]}") 
-										local -a available_flags
-										available_flags=() 
-										if [[ ! "${used_flags[@]}" =~ "--urls" ]]
-										then
-											available_flags+=("--urls") 
-										fi
-										if [[ ! "${used_flags[@]}" =~ "--refs" ]]
-										then
-											available_flags+=("--refs") 
-										fi
-										(( ${#available_flags[@]} )) && compadd -- "${available_flags[@]}"
-									fi
-									return ;;
-							esac ;;
-					esac
-				fi ;;
-			(current) _asdf__installed_plugins ;;
-			(list) case $CURRENT in
-					(3) _alternative 'commands:commands:((all\:"List all available (remote) versions"))' 'plugin:plugin:_asdf__installed_plugins' ;;
-					(4) if [[ ${words[3]} == "all" ]]
-						then
-							_asdf__installed_plugins
-						else
-							_asdf__installed_versions_of ${words[3]}
-						fi ;;
-					(5) if [[ ${words[3]} == "all" ]]
-						then
-							local versions
-							if versions=$(asdf list all "${words[4]}" 2>/dev/null) 
-							then
-								_wanted "remote-versions-${words[4]}" expl "Available versions of ${words[4]}" compadd -- ${(f)versions}
-							else
-								_message "Unable to fetch versions for ${words[4]}"
-							fi
-						fi ;;
-				esac ;;
-			(help) if (( CURRENT == 3 ))
-				then
-					_asdf__installed_plugins
-				elif (( CURRENT == 4 ))
-				then
-					_asdf__installed_versions_of ${words[3]}
-				fi ;;
-			(install) if (( CURRENT == 3 ))
-				then
-					_asdf__installed_plugins
-					return
-				elif (( CURRENT == 4 ))
-				then
-					local tool="${words[3]}" 
-					local ver_prefix="${words[4]}" 
-					if [[ $ver_prefix == latest:* ]]
-					then
-						_wanted "latest-versions-$tool" expl "Latest version" compadd -- latest:${^$(asdf list all "$tool")}
-					else
-						_wanted "latest-tag-$tool" expl "Latest version" compadd -- 'latest' 'latest:'
-						_wanted "remote-versions-$tool" expl "Available versions of $tool" compadd -- $(asdf list all "$tool")
-					fi
-					return
-				fi ;;
-			(latest) if (( CURRENT == 3 ))
-				then
-					_alternative 'flags:flags:((--all\:"Show latest version of all tools"))' 'asdf-available-plugins:Installed ASDF Plugins:_asdf__installed_plugins'
-				fi ;;
-			(uninstall|reshim|where) if (( CURRENT == 3 ))
-				then
-					_asdf__installed_plugins
-					return
-				elif (( CURRENT == 4 ))
-				then
-					_asdf__installed_versions_of ${words[3]}
-					return
-				fi ;;
-			(set) case $CURRENT in
-					(3) _alternative 'flags:flags:((-u\:"set version in user home directory" -p\:"set version in closest parent .tool-versions"))' 'plugin:plugin:_asdf__installed_plugins' ;;
-					(4) if [[ ${words[3]} == -* ]]
-						then
-							_asdf__installed_plugins
-						else
-							#local versions
-							#if versions=$(asdf list all "${words[3]}" 2>/dev/null) 
-							#then
-							#	_wanted "versions-${words[3]}" expl "Available versions of ${words[3]}" compadd -- ${(f)versions}
-							#fi
-							_asdf__installed_versions_of_plus_system ${words[3]}
-						fi ;;
-					(*) if [[ ${words[3]} == -* ]]
-						then
-							local plugin="${words[4]}" 
-						else
-							local plugin="${words[3]}" 
-						fi
-						#local versions
-						#if versions=$(asdf list all "$plugin" 2>/dev/null) 
-						#then
-						#	_wanted "versions-$plugin" expl "Available versions of $plugin" compadd -- ${(f)versions}
-						#fi 
-						_asdf__installed_versions_of_plus_system "$plugin"
-						;;
-				esac ;;
-			(which|shimversions) _wanted asdf-shims expl "ASDF Shims" compadd -- "${asdf_dir:?}/shims"/*(:t) ;;
-			(exec) if (( CURRENT == 3 ))
-				then
-					_wanted asdf-shims expl "ASDF Shims" compadd -- "${asdf_dir:?}/shims"/*(:t)
-				else
-					compset -n 3
-					_normal -p "asdf-shims-${words[3]}"
-				fi ;;
-			(env) if (( CURRENT == 3 ))
-				then
-					_wanted asdf-shims expl "ASDF Shims" compadd -- "${asdf_dir:?}/shims"/*(:t)
-				else
-					compset -n 4
-					_normal -p "asdf-shims-${words[3]}"
-				fi ;;
-		esac
-	}
-	autoload -Uz _asdf
+		source "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
+	fi
+fi
+	
+asdf() {
+	echo "${0:A:h}"
+	if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
+		export CFLAGS="-I$(brew --prefix xz)/include" 
+		export LDFLAGS="-L$(brew --prefix xz)/lib"
+	fi
+	# Call the real asdf
+	command asdf "$@"
+	local exit_code=$?
 
-	function _asdf_fix_macos_system_jdk() {
-		###### fix for https://github.com/halcyon/asdf-java/issues/244
-		asdf_update_java_home() {
-			local java_path
-			java_path="$(asdf which java)"
-			if [[ -n "${java_path}" ]]; then
-				export JAVA_HOME
-				if [[ "$java_path" == "/usr/bin/java" ]]; then
-				JAVA_HOME="$(/usr/libexec/java_home)"
-				else
-				JAVA_HOME="$(dirname "$(dirname "${java_path:A}")")"
-				fi
-				export JAVA_HOME=${JAVA_HOME}
-				export JDK_HOME=${JAVA_HOME}
-			fi
-		}
-
-		autoload -U add-zsh-hook
-		add-zsh-hook precmd asdf_update_java_home
-	}
-
-	if [ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java" ]; then
-		asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
+	# If first arg is install or reshim, and second is nodejs or python
+	if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
 		
-		if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-		 	###### fix for https://github.com/halcyon/asdf-java/issues/244
-			_asdf_fix_macos_system_jdk
-		else
-			source "$asdf_set_java_home_script"
+		# If asdf failed, return its exit code
+		if [[ $exit_code -ne 0 ]]; then
+			return $exit_code
+		fi
+		
+		if [[ $2 == "nodejs" ]]; then
+			if [[ ! -e "${ASDF_DATA_DIR}/shims/nodejs" ]]; then
+				ln -sfn "${ASDF_DATA_DIR}/shims/node" "${ASDF_DATA_DIR}/shims/nodejs"
+			fi
+		fi
+
+		if [[ $2 == "python" ]]; then
+
+			if [[ ! -e "${ASDF_DATA_DIR}/shims/python" || ! -L "${ASDF_DATA_DIR}/shims/python" ]]; then
+				ln -sfn "${ASDF_DATA_DIR}/shims/python3" "${ASDF_DATA_DIR}/shims/python"
+			fi
+
+			if [[ ! -e "${ASDF_DATA_DIR}/shims/pip" || ! -L "${ASDF_DATA_DIR}/shims/pip" ]]; then
+				ln -sfn "${ASDF_DATA_DIR}/shims/pip3" "${ASDF_DATA_DIR}/shims/pip"
+			fi
 		fi
 	fi
-	
 
-	asdf() {
+	if [[ ( $1 == "plugin") && ( $3 == "java") ]]; then
 
-		if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
-			export CFLAGS="-I$(brew --prefix xz)/include" 
-			export LDFLAGS="-L$(brew --prefix xz)/lib"
-		fi
-		# Call the real asdf
-		command asdf "$@"
-		local exit_code=$?
-
-		# If first arg is install or reshim, and second is nodejs or python
-		if [[ ( $1 == "install" || $1 == "reshim" ) && ( $2 == "nodejs" || $2 == "python" ) ]]; then
-			
-			# If asdf failed, return its exit code
-			if [[ $exit_code -ne 0 ]]; then
-				return $exit_code
-			fi
-			
-			if [[ $2 == "nodejs" ]]; then
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/node" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/nodejs"
-				fi
-			fi
-
-			if [[ $2 == "python" ]]; then
-				
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/python"
-				fi
-
-				
-				if [[ ! -e "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" || ! -L "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip" ]]; then
-					ln -sfn "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip3" "${ASDF_DATA_DIR:-$HOME/.asdf}/shims/pip"
-				fi
-			fi
+		# If asdf failed, return its exit code
+		if [[ $exit_code -ne 0 ]]; then
+			return $exit_code
 		fi
 
-		if [[ ( $1 == "plugin") && ( $3 == "java") ]]; then
-
-			# If asdf failed, return its exit code
-			if [[ $exit_code -ne 0 ]]; then
-				return $exit_code
+		if [ -e "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
+			######This is a fix for https://github.com/halcyon/asdf-java/issues/244
+			if [ $(uname -a | grep -ci Darwin) = 1 ] && ! tail -n 5 "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
+				patch "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" < "$DOTFILES_DIR/asdf_set-java-home.zsh.patch"
 			fi
-
-			asdf_set_java_home_script="${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/java/set-java-home.zsh"
-		
-			if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-				###### fix for https://github.com/halcyon/asdf-java/issues/244
-				_asdf_fix_macos_system_jdk
-			else
-				source "$asdf_set_java_home_script"
-			fi
-			
-			
+			source "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
 		fi
+	fi
 
-		return $exit_code
-	}
+	return $exit_code
+}
 
+#and comment for maven $HOME/.asdf/plugins/maven/bin
 
-
-
-
-
-	
-
-
-	#and comment for maven $HOME/.asdf/plugins/maven/bin
-fi

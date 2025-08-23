@@ -18,8 +18,6 @@ alias _ps="procs"
 alias _top="btop"
 alias _ls="command ls"
 
-
-
 if _has eza; then
     unalias ls
     alias ls="eza"

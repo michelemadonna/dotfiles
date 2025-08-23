@@ -3,11 +3,11 @@
 # "This file is sourced by zshrc to set up environment variables, functions and basic configurations."
 #if micro is installed set micro as default editor else nano
 
-
-
 _has() {
   return $(whence $1 >/dev/null)
 }
+
+export DOTFILES_DIR="${0:A:h:h:h}"
 
 if _has micro; then
   export VISUAL=micro # Set default editor to micro
@@ -65,12 +65,10 @@ if [ $(uname -a | grep -ci Darwin) = 1 ]; then
   fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 fi
 
-
-
-
 # Add useful bindings for italian programmers
 # Alt + | → backtick `
 bindkey -s '^[\' '`'
 # Alt + 5 → tilde ~
 bindkey -s '^[5' '~'
+
 
