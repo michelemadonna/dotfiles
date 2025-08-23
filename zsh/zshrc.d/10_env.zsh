@@ -40,6 +40,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:descriptions' format '[%d]' # Set description format for completion
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
+zstyle ':completion:*:git-checkout:*' sort false
 
 tput cup 9999 0 # Move cursor to the bottom of the terminal
 
@@ -56,29 +57,20 @@ fi
 # Installing Git via Homebrew can break Zsh autocompletion for Git. 
 # This Restore proper autocompletion.
 
-export GIT_VERSION=$(git --version | awk '{print $3}')
-
+## Add Homebrew's site functions to fpath (minus git, because that causes conflicts)
+## This will give you autocomplete for _other_ things you installed
+## from brew (like `just`, or `exa`, or `k6`)
 if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-  # Paths
-  git_link="/usr/local/Cellar/git/${GIT_VERSION}/share/zsh/site-functions/_git"
-  zsh_target="/usr/share/zsh/${ZSH_VERSION}/functions/_git"
-
-  # Check if the file exists and is not a symlink, or if it's a symlink but points elsewhere
-  if { [[ -e "$git_link" && ! -L "$git_link" ]] || [[ -L "$git_link" && "$(readlink "$git_link")" != "$zsh_target" ]] }; then
-      echo "🔗 Updating symbolic link for _git..."
-      rm -rf "$git_link"
-      ln -s "$zsh_target" "$git_link"
-  fi
+	[ -e "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ] && rm "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
+  fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 fi
 
+
+
+
+# Add useful bindings for italian programmers
 # Alt + | → backtick `
 bindkey -s '^[\' '`'
-
 # Alt + 5 → tilde ~
 bindkey -s '^[5' '~'
-
-
-
-
-
 

@@ -97,7 +97,7 @@ This kit is designed to work seamlessly on both macOS and Linux, making it easy 
 -   [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - fish-like autosuggestions.
 -   [zsh-users/zsh-completions](https://github.com/zsh-users/zsh-completions) - Tab completions for many more applications.
 -   [zsh-users/zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - Better history search.
--   [Aloxaf/fzf-tab](https://github.comcom/Aloxaf/fzf-tab) - Replace zsh's default completion selection menu with fzf.
+-   [Aloxaf/fzf-tab](https://github.com/Aloxaf/fzf-tab) - Replace zsh's default completion selection menu with fzf.
 
 The kit also uses `zgenom` to load these oh-my-zsh plugins:
 `aws`, `brew` (macOS), `colored-man`, `git`, `github`, `osx` (macOS), `pip`, `python`, `rsync`, `screen`, `sudo`, `asdf`, `kubectl`, `docker`.
@@ -148,7 +148,7 @@ Restart Ghostty for the changes to take effect.
 
 You can extend the Ghostty configuration included in this repository by creating a `config.local` file inside `$HOME/.dotfiles/ghostty`. Any settings you add to `config.local` will override or supplement the defaults, allowing you to personalize your terminal without modifying the main configuration file.
 
-> **Important:**  
+> ⚠️ **Important: Default config path on macOS**  
 > On macOS, Ghostty saves its configuration in  
 > `$HOME/Library/Application Support/com.mitchellh.ghostty/config`.  
 > If you launched Ghostty **before** creating the symlink to your config in `$HOME/.config`, you must remove the old configuration folder to avoid conflicts:
@@ -156,9 +156,6 @@ You can extend the Ghostty configuration included in this repository by creating
 > rm -rf "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 > ```
 > Then restart Ghostty to load your new configuration.
-
-
-> ⚠️ **Default config path on macOS:** by default ghoss
 
 > ⚠️ **Mouse Reporting:** by default, Ghostty is configured to transparently report mouse events to terminal applications. You can hold down the <kbd>Shift</kbd> key to bypass mouse reporting temporarily
 
@@ -179,7 +176,7 @@ Install iTerm2 with:
 ```sh
 brew install --cask iterm2
 ```
-To apply my custom settings, follow these steps in iTerm2's **Preferences**:
+To apply my custom settings, follow these steps in iTerm2's **Settings**:
 -   `General` -> `Selection` -> Uncheck `"Command selection: Clicking on command selects it to restrict Find and Filter"`
 -   `General` -> `Selection` -> Check `"Access: Application in terminal may access clipboard"`
 -   `Appearance` -> `General` -> `Theme` -> Select `"Minimal"`
@@ -194,10 +191,10 @@ To apply my custom settings, follow these steps in iTerm2's **Preferences**:
     -   `Text` -> `Text rendering` -> Check `"Allow blinking text"`
     -   `Text` -> `Font` -> Select `"Fira Code Nerd Font Mono"`, `"Retina"`, size `12`
     -   `Terminal` -> `Shell Integration` -> Uncheck `"Show mark indicators"`
-    -   `Session` -> `Password Manager` -> Check `"Open password manager automatically..."`
     -   `Keys` -> `General` -> `Left Option key` -> Select `"Esc+"`
 -   Finally, `Profile` -> `"Astronaut Alternative Lighter"` -> `Other Actions...` -> `Set as Default`
-On macOS, you may also want to adjust `System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`.
+
+> 💡 On macOS, you may also want to adjust `System Settings -> Appearance -> Show Scroll Bars -> Select "When scrolling"`.
 
 > ⚠️ **Mouse Reporting:** by default, iTerm2 is configured to transparently report mouse events to terminal applications, except for right-click actions. You can temporarily enable right-click reporting by holding the <kbd>Command</kbd> key while clicking, or enable it permanently in the settings:  
 `General` → `Pointer` → `General` → Check `"Right Click reported to the apps, does not open menu"`. If you want to disable mouse reporting entirely, you can do so in the same settings menu. Alternatively, you can hold down the <kbd>Option</kbd> key to bypass mouse reporting temporarily.
@@ -456,8 +453,7 @@ asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions us
 | <kbd>Ctrl</kbd> + <kbd>Space</kbd>                            | Mark/unmark item.                          |
 | <kbd>Ctrl</kbd> + <kbd>A</kbd>                                | Toggle all marked/unmarked.                |
 | <kbd>Enter</kbd>                                              | Select the current item(s).                |
-| <kbd>Ctrl</kbd> + <kbd>P</kbd>                                | Toggle the preview window.                 |
-| <kbd>Ctrl</kbd> + <kbd>O</kbd>                                | Move the preview window.                   |
+| <kbd>Ctrl</kbd> + <kbd>/</kbd>                                | Toggle/Move the preview window.                 |
 | <kbd>Ctrl</kbd> + <kbd>J</kbd> / <kbd>K</kbd>                   | Scroll preview window down/up.             |
 | <kbd>Ctrl</kbd> + <kbd>O</kbd>                                | Move the preview window.                   |
 | <kbd>,</kbd> / <kbd>.</kbd>                                     | Switch group (fzf-tab).                    |
@@ -495,6 +491,7 @@ asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions us
 
 This repository includes a custom SSH configuration to enhance security and usability. To use it, create a symbolic link:
 ```sh
+mkdir -p $HOME/.ssh
 ln -s $HOME/.dotfiles/ssh/config $HOME/.ssh/config
 ```
 The configuration is modular:
@@ -582,6 +579,8 @@ This dotfiles setup improves Git completion by integrating the [`fzf-git.sh`](ht
 - <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>L</kbd> Fuzzy select ref**l**ogs
 - <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>W</kbd> Fuzzy select **W**orktrees
 - <kbd>CTRL</kbd> + <kbd>G</kbd> then <kbd>E</kbd> Fuzzy select refs via `git for-**e**ach-ref`
+
+For a complete list of key combinations for selection, moving/toggling the preview window, and other actions, see the [Keybindings](#5-⌨️-keybindings) section of this README.
 
 With `fzf-git.sh`, you can use interactive shortcuts to quickly select files, branches, or commit hashes when running `git checkout`:
 

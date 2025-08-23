@@ -43,10 +43,7 @@ RUN mkdir -p /home/demo/.asdf/bin && \
     rm asdf-v0.18.0-linux-amd64.tar.gz && \
     chown -R demo:demo /home/demo/.asdf
 
-## FZF shell integration (completion and key-bindings)
-RUN mkdir -p /home/demo/.fzf/shell && \
-    ln -s /home/demo/.dotfiles/fzf-linux/completion.zsh /home/demo/.fzf/shell/completion.zsh && \
-    ln -s /home/demo/.dotfiles/fzf-linux/key-bindings.zsh /home/demo/.fzf/shell/key-bindings.zsh
+
 
 ## Add SSH configuration
 RUN mkdir -p /home/demo/.ssh && \
@@ -61,6 +58,11 @@ RUN mkdir -p /home/demo/.config/git && \
 RUN mkdir -p /home/demo/.config/micro && \
     cd /home/demo/.dotfiles && \
     stow --target=/home/demo/.config/micro micro
+
+## Add fastfetch configuration
+RUN mkdir -p /home/demo/.config/fastfetch && \
+    cd /home/demo/.dotfiles && \
+    stow --target=/home/demo/.config/fastfetch fastfetch
 
 # Set Zsh as default shell
 SHELL ["/bin/zsh", "-c"]
@@ -102,4 +104,3 @@ CMD ["zsh"]
 
 #Launch with
 #docker run -e TERM -e COLORTERM -it --pid host --detach-keys="ctrl-^,ctrl-@" my-zsh-demo
-
