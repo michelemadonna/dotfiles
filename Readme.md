@@ -628,4 +628,54 @@ docker build -t my-zsh-dotfiles .
 3. 🚀 **Run the Container**
 ```sh
 docker run -e TERM -e COLORTERM -it --pid host --detach-keys="ctrl-^,ctrl-@" my-zsh-dotfiles
-```This gives you a clean, isolated Zsh environment to safely test your configuration and tools.
+```
+This gives you a clean, isolated Zsh environment to safely test your configuration and tools.
+
+## 10. 🎨 Bonus: Fastfetch
+
+Many users love having a stylish system info summary in their terminal. [**Fastfetch**](https://github.com/fastfetch-cli/fastfetch) is a blazing-fast, highly customizable tool for displaying system information with beautiful ASCII logos and colors.
+
+This repository includes my personal Fastfetch configuration at `$HOME/.dotfiles/fastfetch/config/config.jsonb`.
+
+### Installation
+
+#### 🍏 macOS
+Install Fastfetch via Homebrew:
+```sh
+brew install fastfetch
+```
+
+#### 🐧 Ubuntu 24.04
+Install Fastfetch using the official PPA:
+```sh
+sudo add-apt-repository ppa:fastfetch-cli/releases
+sudo apt update
+sudo apt install fastfetch
+```
+
+#### 🐧 Ubuntu 25.04 and newer
+Fastfetch is available in the official repositories:
+```sh
+sudo apt update
+sudo apt install fastfetch
+```
+
+### Configure Fastfetch
+
+1. **Create the default configuration:**
+    ```sh
+    fastfetch --gen-config
+    ```
+    This generates a default `config.jsonb` in your Fastfetch config directory (usually `$HOME/.config/fastfetch/config.jsonc`).
+
+2. **Remove the generated config:**
+    ```sh
+    rm -f $HOME/.config/fastfetch/config.jsonc
+    ```
+
+3. **Replace it with a symlink to this repository's config:**
+    ```sh
+    ln -s $HOME/.dotfiles/fastfetch/config/config.jsonc $HOME/.config/fastfetch/config.jsonc
+    ```
+
+Now, just run `fastfetch` to see your system info using your custom configuration!
