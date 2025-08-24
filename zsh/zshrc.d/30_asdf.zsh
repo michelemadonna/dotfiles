@@ -17,8 +17,9 @@ if [ $(uname -a | grep -ci Linux) = 1 ]; then
 		_comps[asdf]=_asdf
 	fi
 	asdf completion zsh >| "$ZSH_CACHE_DIR/completions/_asdf"
+	
 	if [ -e "$ZSH_CACHE_DIR/completions/_asdf" ] && ! tail -n 5 "$ZSH_CACHE_DIR/completions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
-		patch "$(readlink -f "$ZSH_CACHE_DIR/completions/_asdf" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
+		patch "$(readlink -f "$ZSH_CACHE_DIR/completions/_asdf")" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
 	fi
 fi
 
@@ -40,7 +41,6 @@ if [ -d "${ASDF_DATA_DIR}/plugins/java" ]; then
 fi
 	
 asdf() {
-	echo "${0:A:h}"
 	if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
 		export CFLAGS="-I$(brew --prefix xz)/include" 
 		export LDFLAGS="-L$(brew --prefix xz)/lib"
