@@ -1,4 +1,7 @@
 #!/usr/bin/env zsh
+if [[ "$(uname -s)" == "Linux" ]]; then
+	path=("${ASDF_DATA_DIR:-$HOME/.asdf}/bin" $path)
+fi
 
 #This file is sourced by zshrc to set up asdf integration.
 (( ! $+commands[asdf] )) && return
@@ -43,6 +46,15 @@ asdf() {
 		export CFLAGS="-I$(brew --prefix xz)/include" 
 		export LDFLAGS="-L$(brew --prefix xz)/lib"
 	fi
+
+	#if [[ ( $1 == "completion" && $2 == "zsh" ) ]]; then
+	#	echo $DOTFILES_DIR
+	#	command asdf completion zsh > ~/_asdf._comps
+	#	patch ~/_asdf._comps < "$DOTFILES_DIR/asdf_zsh_completition.patch"
+	#	cat ~/_asdf._comps
+	#	return 0
+	#fi	
+
 	# Call the real asdf
 	command asdf "$@"
 	local exit_code=$?
