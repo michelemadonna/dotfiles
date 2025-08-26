@@ -100,7 +100,15 @@ This kit is designed to work seamlessly on both macOS and Linux, making it easy 
 -   [Aloxaf/fzf-tab](https://github.com/Aloxaf/fzf-tab) - Replace zsh's default completion selection menu with fzf.
 
 The kit also uses `zgenom` to load these oh-my-zsh plugins:
-`aws`, `brew` (macOS), `colored-man`, `git`, `github`, `osx` (macOS), `pip`, `python`, `rsync`, `screen`, `sudo`, `asdf`, `kubectl`, `docker`.
+`aws`, `brew` (macOS), `colored-man`, `git`, `github`, `osx` (macOS), `pip`, `python`, `rsync`, `screen`, `sudo`, `kubectl`, `docker`.
+
+> ⚠️ **completitions** If you have installed a new plugin or application but completions are not working, try the following steps:
+> 1. Run `rm -f ~/.zcompdump*`
+> 2. Run `compinit`
+> 3. Run `touch ~/.zsh-quickstart-local-plugins`
+> 4. Restart your terminal  
+> This will refresh your Zsh completion cache and ensure new completions are loaded.
+
 
 ---
 

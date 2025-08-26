@@ -4,10 +4,16 @@
 (( ! $+commands[asdf] )) && return
 
 export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
+# Add shims to the front of the path, removing if already present.
+path=("$ASDF_DATA_DIR/shims" ${path:#$ASDF_DATA_DIR/shims})
+
+if [ -e "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
+	source "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
+fi
+
 
 if [ $(uname -a | grep -ci Linux) = 1 ]; then
-	# Add shims to the front of the path, removing if already present.
-	path=("$ASDF_DATA_DIR/shims" ${path:#$ASDF_DATA_DIR/shims})
+
 
 	# If the completion file doesn't exist yet, we need to autoload it and
 	# bind it to `asdf`. Otherwise, compinit will have already done that.
@@ -29,7 +35,9 @@ if [ $(uname -a | grep -ci Darwin) = 1 ]; then
 		patch "$(readlink -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf")" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
 	fi
 fi
-	
+
+
+
 asdf() {
 	if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
 		export CFLAGS="-I$(brew --prefix xz)/include" 
@@ -74,7 +82,7 @@ asdf() {
 
 		if [ -e "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
 			######This is a fix for https://github.com/halcyon/asdf-java/issues/244
-			if [ $(uname -a | grep -ci Darwin) = 1 ] && ! tail -n 5 "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
+			if [ $(uname -a | grep -ci Darwin) = 1 ] && ! tail -n 5 "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" | grep -q "p_a_t_c_h_e_d"; then
 				patch "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" < "$DOTFILES_DIR/asdf_set-java-home.zsh.patch"
 			fi
 			source "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
