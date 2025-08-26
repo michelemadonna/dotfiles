@@ -29,16 +29,6 @@ if [ $(uname -a | grep -ci Darwin) = 1 ]; then
 		patch "$(readlink -f "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf")" < "$DOTFILES_DIR/asdf_zsh_completition.patch"
 	fi
 fi
-
-if [ -d "${ASDF_DATA_DIR}/plugins/java" ]; then
-	if [ -e "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" ]; then
-		######This is a fix for https://github.com/halcyon/asdf-java/issues/244
-		if [ $(uname -a | grep -ci Darwin) = 1 ] && ! tail -n 5 "$HOMEBREW_PREFIX/share/zsh/site-functions/_asdf" | grep -q "p_a_t_c_h_e_d"; then
-			patch "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh" < "$DOTFILES_DIR/asdf_set-java-home.zsh.patch"
-		fi
-		source "${ASDF_DATA_DIR}/plugins/java/set-java-home.zsh"
-	fi
-fi
 	
 asdf() {
 	if [[ ( $(uname -a | grep -ci Darwin) = 1 ) && ( $1 == "install" || $2 == "python" ) ]]; then
