@@ -2,13 +2,16 @@ FROM ubuntu:24.10
 
 # Install essential packages and dependencies
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt update -y && apt install -y gpg wget curl \
+    && install -dm 755 /etc/apt/keyrings \
+    && wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null \
+    && echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         zsh sudo curl wget nano stow grc ripgrep fd-find eza tree micro python3 python3-pip \
         bat command-not-found git-delta tmux htop git unzip fastfetch software-properties-common \
         default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
         libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
-        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev  && \
+        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev mise && \
     ln -s /usr/bin/batcat /usr/bin/bat && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -35,16 +38,6 @@ RUN cd /home/demo/.zqs && stow --target=/home/demo/ zsh && cd && \
     cd /home/demo/.dotfiles/zsh && stow --target=/home/demo/ zsh && cd && \
     cd /home/demo/.dotfiles/zsh && stow --target=/home/demo/.zshrc.d zshrc.d && cd
 
-# Install asdf (system-wide, but owned by demo user)
-RUN mkdir -p /home/demo/.asdf/bin && \
-    cd /home/demo/.asdf/bin && \
-    wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz && \
-    tar zxvf asdf-v0.18.0-linux-amd64.tar.gz && \
-    rm asdf-v0.18.0-linux-amd64.tar.gz && \
-    chown -R demo:demo /home/demo/.asdf
-
-
-
 ## Add SSH configuration
 RUN mkdir -p /home/demo/.ssh && \
     ln -s /home/demo/.dotfiles/ssh/config /home/demo/.ssh/config
@@ -66,36 +59,27 @@ RUN mkdir -p /home/demo/.config/fastfetch && \
 
 # Set Zsh as default shell
 SHELL ["/bin/zsh", "-c"]
-
-RUN /home/demo/.asdf/bin/asdf plugin add java && \
-    /home/demo/.asdf/bin/asdf install java openjdk-17 && \
-    /home/demo/.asdf/bin/asdf set -u java system
-
-RUN /home/demo/.asdf/bin/asdf plugin add nodejs && \
-    /home/demo/.asdf/bin/asdf install nodejs 22.14.0 && \
-    /home/demo/.asdf/bin/asdf set -u nodejs system
-
-RUN /home/demo/.asdf/bin/asdf plugin add python && \
-    /home/demo/.asdf/bin/asdf install python 3.13.6 && \
-    /home/demo/.asdf/bin/asdf set -u python system && \
-    sed -E 's/("?)python([^3]|$)/\1python3\2/g' -i /home/demo/.asdf/shims/python && \
-    sed -E 's/("?)pip([^3]|$)/\1pip3\2/g' -i /home/demo/.asdf/shims/pip
+RUN /bin/zsh -i && \
+    mise use usage && \
+    mise install java@17.0.2 && mise use -g java@system && \
+    mise install python@3.13.6 && mise use -g python@system && \
+    mise install node@22.14.0 && mise use -g node@system
 
 RUN mkdir -p /home/demo/Developer/personal@github && \
     mkdir -p /home/demo/Developer/work@github && \
     cd /home/demo/Developer && \
     git clone https://github.com/jenkins-docs/simple-java-maven-app.git work@github/simple-java-maven-app && \
     git clone https://github.com/johnpapa/node-hello.git personal@github/simple-node-hello && \
+    git clone https://github.com/dbarnett/python-helloworld.git personal@github/python-helloworld && \
     cp /home/demo/.dotfiles/git/examples/gitconfig.personal@github.example /home/demo/.config/git/gitconfig.personal@github && \
     cp /home/demo/.dotfiles/git/examples/gitconfig.work@github.example /home/demo/.config/git/gitconfig.work@github && \
     cp /home/demo/.dotfiles/git/examples/local.gitconfig.example /home/demo/.config/git/local.gitconfig && \
-    cd /home/demo/Developer/personal@github/simple-node-hello && /home/demo/.asdf/bin/asdf set nodejs 22.14.0 && \
-    cd /home/demo/Developer/work@github/simple-java-maven-app && /home/demo/.asdf/bin/asdf set java openjdk-17
+    cd /home/demo/Developer/personal@github/simple-node-hello && mise use node@22.14.0 && \
+    cd /home/demo/Developer/work@github/simple-java-maven-app && mise use java@17.0.2 && \
+    cd /home/demo/Developer/personal@github/python-helloworld && mise use python@3.13.6
 
 
 
-# Set Zsh as default shell
-SHELL ["/bin/zsh", "-c"]
 
 
 

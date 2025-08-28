@@ -27,7 +27,7 @@ This configuration brings together a curated set of powerful command-line tools 
 -   🚀 **zsh-quickstart-kit**: Provides a rock-solid foundation for the entire Zsh configuration.
 -   ✏️ **micro**: A modern, intuitive, and mouse-friendly terminal-based text editor. (You are, of course, free to use any editor you prefer).
 -   🔀 **tmux**: A powerful terminal multiplexer for managing multiple windows, panes, and sessions.
--   📦 **asdf**: A versatile version manager for programming languages and other tools (optional).
+-   📦 **mise**: A versatile version manager for programming languages and other tools (optional).
 -   🔍 **fzf**: A blazing-fast, interactive fuzzy finder integrated throughout the shell.
 -   🦇 **bat**: A superior alternative to `cat` with syntax highlighting and Git integration.
 -   🦸 **ripgrep**: An ultra-fast, recursive file search tool that respects your `.gitignore`.
@@ -346,68 +346,50 @@ This allows you to edit files and run terminal commands side by side within Micr
 > ⚠️ **macOS Clipboard Alert:** on macOS, you **cannot use <kbd>Command</kbd> + <kbd>C</kbd> to copy text in Micro**—neither for pasting inside Micro nor into other applications. **Always use <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy text within Micro.**. However, you can use <kbd>Command</kbd> + <kbd>V</kbd> to paste text both inside Micro and into other apps.
 
 
-### 📦 **asdf-vm** (Optional)
-[**asdf-vm**](https://asdf-vm.com) is a universal runtime version manager. It's a single CLI tool to manage multiple versions of languages and tools like Node.js, Python, Java, kubectl, and more. It uses a `.tool-versions` file to switch versions automatically as you navigate directories.
+### 📦 **mise** (Universal Runtime Version Manager)
+[**mise**](https://github.com/jdx/mise) is a fast, modern CLI tool for managing multiple versions of programming languages and tools (Java, Node.js, Python, kubectl, and more). It uses a `.tool-versions` file to automatically switch versions as you move between directories, making development environments consistent and reproducible.
 
 #### Installation
-**macOS Installation**
-```sh
-# Install asdf and dependencies
-brew install asdf
-brew install openssl readline sqlite3 xz zlib tcl-tk@8 libb2 zstd xz
-# Install system versions of tools
-brew install openjdk node
-sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
-# Reload terminal session
-```
 
-**Linux Installation**
+**macOS**
 ```sh
-# Install dependencies and system versions of tools
-sudo apt install default-jdk-headless nodejs make build-essential libssl-dev zlib1g-dev \
-    libbz2-dev libreadline-dev libsqlite3-dev libgdbm-dev libc6-dev libzstd-dev \
-    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-# Install asdf (check GitHub for latest version)
-mkdir -p ~/.asdf/bin && cd ~/.asdf/bin && \
-wget https://github.com/asdf-vm/asdf/releases/download/v0.18.0/asdf-v0.18.0-linux-amd64.tar.gz && \
-tar zxvf asdf-v0.18.0-linux-amd64.tar.gz && \
-rm asdf-v0.18.0-linux-amd64.tar.gz
-# Reload terminal session
+brew install mise
 ```
+After installation, restart your shell to enable completions and ensure mise is available.
+
+**Ubuntu**
+```sh
+sudo apt update -y && sudo apt install -y gpg sudo wget curl
+sudo install -dm 755 /etc/apt/keyrings
+wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+sudo apt update
+sudo apt install -y mise
+mise use usage  # Enables shell completions
+```
+Restart your shell after installation.
 
 #### Usage
+
 ```sh
-# Add plugins for languages
-asdf plugin add java
-asdf plugin add nodejs
-asdf plugin add python
+# Install a specific version of a runtime
+mise install java@17.0.2
 
-# Install a specific version
-asdf install java openjdk-22 #or asdf install java + [TAB] to list available versions using completion
+# Set the global (user-wide) version
+mise use -g java@17.0.2
 
-# Set the system provided tool version as the global version (user-wide)
-asdf set -u java system #or asdf set -u java + [TAB] to list installed versions using completion
+# Use the system-provided runtime version
+mise use -g java@system
 
-# Set the local (project-specific) version
-asdf set java openjdk-22 #or asdf set java + [TAB] to list installed versions using completion
+# Set a project-specific version
+cd /path/to/your/project
+mise use java@17.0.2
 ```
-> **Note:**  
-> If you do not specify a Java version within a project (i.e., there is no `.tool-versions` file in the project directory), asdf will use the global system version.  
-> If you set a specific version for the project (`asdf set java <version>` in the project folder), asdf will automatically switch to that version when you enter the directory or open the project in an editor like VSCode or IntelliJ.
 
-> **⚠️ Attention:**
-> If on Linux, asdf is unable to switch the Node.js version (it always stays on the system version even after installing other versions with asdf), you need to:
->     1. Uninstall the system-provided Node.js (`sudo apt remove nodejs`).
->     2. Set the global Node.js version via asdf:
->     ```sh
->     asdf set -u nodejs <desired-version>
->     ```
->     3. If needed, reinstall the system version of Node.js after configuring asdf (`sudo apt install nodejs`).
-> This ensures that the `node` command points to the version managed by asdf and not the system one.
-> On macOS, after running asdf install python, you might see a warning such as: `xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance` To fix this, run: `sudo xcode-select --reset`
+If a `mise.toml` or `.tool-versions` file is present in a project directory, mise will automatically switch to the specified versions when you enter that directory or open it in your editor.
 
 > **Tip:**  
-> In some cases, to list all installed versions of a tool managed by asdf, you may need to install at least one additional version of that tool. This allows asdf to properly list and manage multiple versions on your system.
+> You can use `mise use -g <runtime>@system` to select the system-installed version of a tool if available.
 
 ### 🔀 **tmux**
 [**tmux**](https://github.com/tmux/tmux) is a terminal multiplexer that lets you manage multiple terminal sessions within a single window. The custom `$HOME/.tmux.conf` included in this repository features an ergonomic <kbd>Ctrl</kbd> + <kbd>A</kbd> prefix, persistent sessions, a clean status bar, intuitive keybindings, mouse support, and clipboard integration.

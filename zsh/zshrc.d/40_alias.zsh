@@ -18,6 +18,8 @@ alias _ps="procs"
 alias _top="btop"
 alias _ls="command ls"
 
+alias nodejs="command node"
+
 if _has eza; then
     unalias ls
     alias ls="eza"

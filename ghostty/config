@@ -81,6 +81,8 @@ clipboard-write=allow
 
 #term=xterm-256color
 #keybind = alt+c=esc:c
+adw-toolbar-style=flat
+#window-theme=ghostty
 
 theme = Astronaut
 config-file=?shaders_config
