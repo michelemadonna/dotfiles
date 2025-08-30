@@ -655,22 +655,9 @@ sudo apt install fastfetch
 ```
 
 ### Configure Fastfetch
-
-1. **Create the default configuration:**
-    ```sh
-    fastfetch --gen-config
-    ```
-    This generates a default `config.jsonb` in your Fastfetch config directory (usually `$HOME/.config/fastfetch/config.jsonc`).
-
-2. **Remove the generated config:**
-    ```sh
-    rm -f $HOME/.config/fastfetch/config.jsonc
-    ```
-
-3. **Replace it with a symlink to this repository's config:**
-    ```sh
-    ln -s $HOME/.dotfiles/fastfetch/config/config.jsonc $HOME/.config/fastfetch/config.jsonc
-    ```
+The Fastfetch configuration is set up automatically.
+When you install these dotfiles, a symbolic link to `$HOME/.dotfiles/fastfetch/config.jsonc` is automatically created in `$HOME/.config/fastfetch/config.jsonc`—unless you have a personal configuration file named `config.local.jsonc` in `$HOME/.dotfiles/fastfetch`. In that case, the symlink will point to your custom config instead.  
+You don't need to create these links manually; the setup script handles it for you.
 
 Now, just run `fastfetch` to see your system info using your custom configuration!
 

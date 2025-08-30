@@ -42,11 +42,25 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:git-checkout:*' sort false
 
+
+
+
 tput cup 9999 0 # Move cursor to the bottom of the terminal
 
 # Set up fastfetch to run only if the parent command is not an editor or IDE
 # This prevents fastfetch from running in editors like VSCode, Neovim, etc.
 if _has fastfetch; then
+  if [[ -d "$HOME/.config/fastfetch" ]]; then
+    mkdir -p "$HOME/.config/fastfetch"
+  fi
+
+  #se esiste $HOME/.dotfiles/fastfetch/config.local.jsonc
+  if [[ -f "$DOTFILES_DIR/fastfetch/config.local.jsonc" ]]; then
+    ln -sfn "$DOTFILES_DIR/fastfetch/config.local.jsonc" "$HOME/.config/fastfetch/config.jsonc"
+  else
+    ln -sfn "$DOTFILES_DIR/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
+  fi
+
   parent_cmd=$(ps -o comm= -p $(ps -o ppid= -p $$))
   if ! echo "$parent_cmd" | grep -qiE 'zed|code|micro|nvim|vim|idea|clion|goland|phpstorm|pycharm|tmux|Terminal'; then
     fastfetch --pipe false
