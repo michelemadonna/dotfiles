@@ -30,6 +30,12 @@ WORKDIR /home/demo
 RUN git clone https://github.com/unixorn/zsh-quickstart-kit.git .zqs && \
     git clone https://github.com/jandamm/zgenom.git .zgenom
 
+
+ARG USE_OH_MY_POSH
+
+# enable oh-my-posh
+
+
 # Copy your dotfiles into the container
 COPY --chown=demo:demo . /home/demo/.dotfiles
 
@@ -57,15 +63,21 @@ RUN mkdir -p /home/demo/.config/fastfetch && \
     cd /home/demo/.dotfiles && \
     stow --target=/home/demo/.config/fastfetch fastfetch
 
+RUN if [ "$USE_OH_MY_POSH" = "true" ]; then \
+      mkdir -p $HOME/.zshrc.pre-plugins.d && \
+      ln -s /home/demo/.dotfiles/oh-my-posh/00_oh_my_posh.zqs.plugin.zsh \
+            $HOME/.zshrc.pre-plugins.d/00_oh_my_posh.zqs.plugin.zsh ; \
+    fi
+
 # Set Zsh as default shell
 SHELL ["/bin/zsh", "-c"]
-RUN /bin/zsh -i && \
-    mise use usage && \
+RUN mise use usage && \
+    /bin/zsh -i && \
+    cd $HOME && \
     mise install java@17.0.2 && mise use -g java@system && \
     mise install python@3.13.6 && mise use -g python@system && \
-    mise install node@22.14.0 && mise use -g node@system
-
-RUN mkdir -p /home/demo/Developer/personal@github && \
+    mise install node@22.14.0 && mise use -g node@system && \
+    mkdir -p /home/demo/Developer/personal@github && \
     mkdir -p /home/demo/Developer/work@github && \
     cd /home/demo/Developer && \
     git clone https://github.com/jenkins-docs/simple-java-maven-app.git work@github/simple-java-maven-app && \

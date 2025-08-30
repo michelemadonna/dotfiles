@@ -28,8 +28,6 @@ if _has eza; then
     alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
 fi
 
-
-#alias python=python3
 # Use 256 color for tmux.
 alias tmux="TERM=screen-256color-bce tmux"
 # Attempt to take over existing sessions before creating a new tmux session.

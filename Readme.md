@@ -34,9 +34,14 @@ This configuration brings together a curated set of powerful command-line tools 
 -   📁 **eza**: A modern replacement for `ls` with beautiful colors, icons, and useful metadata.
 -   🧠 **zsh-autosuggestions**: Fish-like command suggestions based on your history, displayed as you type.
 -   🎨 **zsh-syntax-highlighting**: Provides real-time syntax highlighting for commands in the terminal.
+-   🖌️ **powerlevel10k**: A highly customizable Zsh theme that emphasizes speed and simplicity.
 -   🛠️ **Other tools**: A suite of essentials including `z`, `git`, `duf`, `wget`, `htop`, and many more.
 
 The `zsh-quickstart-kit` includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font to render its iconic status glyphs. For this purpose, my configuration uses [Nerd fonts](https://github.com/ryanoasis/nerd-fonts), a collection of over 20 patched fonts (with more than 1,700 variations) that provide an extensive set of glyphs. This includes popular fonts like Droid Sans, Meslo, Fira Code, Inconsolata, and more.
+
+> 💡 **Tip:**  
+> You can also use [oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh) instead of powerlevel10k for advanced and beautiful shell prompts. Oh My Posh is a cross-platform prompt theme engine that works with Zsh, Bash, PowerShell, and more. It offers a wide variety of themes and customization options, including support for Nerd Fonts and rich segment displays.  
+> For installation and configuration details, see the **"Bonus"** section at the end of this README.
 
 ### 🪐 Ghostty Terminal
 
@@ -100,7 +105,7 @@ This kit is designed to work seamlessly on both macOS and Linux, making it easy 
 -   [Aloxaf/fzf-tab](https://github.com/Aloxaf/fzf-tab) - Replace zsh's default completion selection menu with fzf.
 
 The kit also uses `zgenom` to load these oh-my-zsh plugins:
-`aws`, `brew` (macOS), `colored-man`, `git`, `github`, `osx` (macOS), `pip`, `python`, `rsync`, `screen`, `sudo`, `kubectl`, `docker`.
+`aws`, `brew` (macOS), `colored-man`, `git`, `github`, `osx` (macOS), `pip`, `python`, `rsync`, `screen`, `sudo`, `kubectl`, `docker`. `mise`.
 
 > ⚠️ **completitions** If you have installed a new plugin or application but completions are not working, try the following steps:
 > 1. Run `rm -f ~/.zcompdump*`
@@ -668,3 +673,36 @@ sudo apt install fastfetch
     ```
 
 Now, just run `fastfetch` to see your system info using your custom configuration!
+
+## 11. 💎 Bonus: Oh My Posh Integration
+
+[Oh My Posh](https://ohmyposh.dev) is a cross-platform prompt theme engine that brings beautiful, customizable prompts to Zsh, Bash, PowerShell, and more.
+
+### Enable Oh My Posh
+
+To activate Oh My Posh in your Zsh setup, simply create a symbolic link:
+```sh
+ln -s $HOME/.dotfiles/oh-my-posh/00_oh_my_posh $HOME/.zshrc.pre-plugins.d/
+```
+This will load the default Oh My Posh integration before your plugins.
+
+### Custom Configuration
+
+You can personalize your prompt in two ways:
+
+- **Custom JSON config:**
+    To use your own custom Oh My Posh configuration, create a file at `$HOME/.dotfiles/oh-my-posh/omp.local.zsh` and set the environment variable `ZQS_OH_MY_POSH_CONFIG` to the path of your JSON config file:
+    ```sh
+    export ZQS_OH_MY_POSH_CONFIG="$HOME/.dotfiles/oh-my-posh/my-posh-config.json"
+    ```
+
+    This ensures Oh My Posh loads your personalized prompt settings automatically.
+- **Built-in theme:**  
+    Set `ZQS_OH_MY_POSH_CONFIG` to the name of any theme included with Oh My Posh (e.g., `paradox`, `jandedobbeleer`, `powerlevel10k`):
+    ```sh
+    export ZQS_OH_MY_POSH_CONFIG="paradox"
+    ```
+
+Restart your terminal to apply the changes.  
+For more themes and customization options, see the [Oh My Posh theme gallery](https://ohmyposh.dev/themes).
+
