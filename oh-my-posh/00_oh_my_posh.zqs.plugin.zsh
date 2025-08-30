@@ -17,7 +17,7 @@ else
     fi
 fi
 
-if [[ ! -L "$HOME/.p10k.zsh" ]] || ! head -n 2 "$HOME/.p10k.zsh" | grep -q "oh-my-posh"; then
+if [[ ! -L "$HOME/.p10k.zsh" ]] || [ ! -f "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" ] || ! head -n 2 "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" | grep -q "oh-my-posh"; then
     cp -f "$DOTFILES_DIR/oh-my-posh/start_oh_my_posh.zsh" "$DOTFILES_DIR/zsh/zsh/.p10k.zsh"
     ln -sfn "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
 fi

@@ -197,9 +197,9 @@ if [[ -z "${ZQS_USE_OH_MY_POSH}" || "${ZQS_USE_OH_MY_POSH}" == "false" ]]; then
     zgenom load romkatv/powerlevel10k powerlevel10k
     DOTFILES_DIR="${0:A:h:h:h}"
 
-    if [[ ! -f "$HOME/.p10k.zsh" ]] || ! head -n 2 "$HOME/.p10k.zsh" | grep -q "powerlevel10k"; then
-      cp -f "$DOTFILES_DIR/powerlevel10k/p10k.zsh" "$DOTFILES_DIR/zsh/zsh/p10k.zsh"
-      ln -sfn "$DOTFILES_DIR/zsh/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+    if [[ ! -L "$HOME/.p10k.zsh" ]] || [ ! -f "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" ] || ! head -n 2 "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" | grep -q "powerlevel10k"; then
+      cp -f "$DOTFILES_DIR/powerlevel10k/.p10k.zsh" "$DOTFILES_DIR/zsh/zsh/.p10k.zsh"
+      ln -sfn "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
     fi
 
     warn-about-prompt-change
