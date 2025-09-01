@@ -104,7 +104,7 @@
                         "style": "round",
                         "threshold": 3000
                     },
-                    "template": " {{ .FormattedMs }} ",
+                    "template": " {{ .FormattedMs }}{{ if eq (env \"TERM_PROGRAM\") \"iTerm.app\" }} {{ end }} ",
                     "leading_diamond": "\ue0b2",
                     "background": "p:yellow",
                     "foreground": "p:black",

@@ -168,8 +168,15 @@ __fzf_reload() {
   KEYTIMEOUT=300
 }
 
-__fzf_reload
+fzf_tab_no_space_after_at() {
+  if (( CURSOR == ${#BUFFER} )) && [[ $BUFFER == *'@'*' ' ]]; then
+    zle backward-delete-char
+  fi
+}
 
+zle -N fzf_tab_no_space_after_at                                                                 
+bindkey '^I' fzf_tab_no_space_after_at   # TAB
+__fzf_reload
 
 
 
