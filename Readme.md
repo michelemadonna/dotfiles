@@ -356,23 +356,11 @@ This allows you to edit files and run terminal commands side by side within Micr
 
 #### Installation
 
-**macOS**
+To install and activate mise in your Zsh setup, simply create a symbolic link:
 ```sh
-brew install mise
+ln -s $HOME/.dotfiles/mise/10_mise.zqs.plugin.zsh $HOME/.zshrc.pre-plugins.d/
 ```
-After installation, restart your shell to enable completions and ensure mise is available.
-
-**Ubuntu**
-```sh
-sudo apt update -y && sudo apt install -y gpg sudo wget curl
-sudo install -dm 755 /etc/apt/keyrings
-wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | sudo tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null
-echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
-sudo apt update
-sudo apt install -y mise
-mise use usage  # Enables shell completions
-```
-Restart your shell after installation.
+This will load the customized mise integration (with Powerlevel10k segments support and a more convenient completion for using the various runtimes versions) before your plugins.
 
 #### Usage
 
