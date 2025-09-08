@@ -166,17 +166,22 @@ __fzf_reload() {
 
   unset NO_COLOR
   KEYTIMEOUT=300
+  zle -N fzf_tab_no_space_after_at                                                                 
+  bindkey '^I' fzf_tab_no_space_after_at 
 }
 
 fzf_tab_no_space_after_at() {
   if (( CURSOR == ${#BUFFER} )) && [[ $BUFFER == *'@'*' ' ]]; then
     zle backward-delete-char
+  else
+    
   fi
+  fzf-tab-complete
 }
 
-zle -N fzf_tab_no_space_after_at                                                                 
-bindkey '^I' fzf_tab_no_space_after_at   # TAB
+
 __fzf_reload
+  # TAB
 
 
 
