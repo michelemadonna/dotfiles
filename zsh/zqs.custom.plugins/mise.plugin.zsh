@@ -26,7 +26,10 @@ $__mise completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
 compinit -u "$ZSH_CACHE_DIR/completions/_$__mise"
 unset __mise
 
-mise use usage
+if [ $(uname -a | grep -ci Linux) = 1 ] && ! command mise list -q -i usage | grep -q "usage"; then
+  mise use usage
+fi
+
 
 # Wrap mise to update .tool-versions on `mise use`. tool versions are
 # translated to asdf format and saved in .tool-versions in the current

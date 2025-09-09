@@ -20,6 +20,11 @@ fi
 #this is needed by powerlevel10k to show the mise segment using asdf segment configuration
 export ASDF_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf"
 
+# remove zqs file that loads mise if present
+if [ -f "$HOME/.zshrc.d/001-load-mise-if-present" ]; then
+    rm "$HOME/.zshrc.d/001-load-mise-if-present"
+fi
+
 if [[ ! -d "$ASDF_DATA_DIR" ]]; then
   mkdir -p "$ASDF_DATA_DIR"
   git clone https://github.com/asdf-vm/asdf-plugins.git "$ASDF_DATA_DIR"
