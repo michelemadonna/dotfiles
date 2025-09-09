@@ -42,43 +42,6 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:git-checkout:*' sort false
 
-
-
-
-tput cup 9999 0 # Move cursor to the bottom of the terminal
-
-# Set up fastfetch to run only if the parent command is not an editor or IDE
-# This prevents fastfetch from running in editors like VSCode, Neovim, etc.
-if _has fastfetch; then
-  if [[ -d "$HOME/.config/fastfetch" ]]; then
-    mkdir -p "$HOME/.config/fastfetch"
-  fi
-
-  #se esiste $HOME/.dotfiles/fastfetch/config.local.jsonc
-  if [[ -f "$DOTFILES_DIR/fastfetch/config.local.jsonc" ]]; then
-    ln -sfn "$DOTFILES_DIR/fastfetch/config.local.jsonc" "$HOME/.config/fastfetch/config.jsonc"
-  else
-    ln -sfn "$DOTFILES_DIR/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
-  fi
-
-  parent_cmd=$(ps -o comm= -p $(ps -o ppid= -p $$))
-  if ! echo "$parent_cmd" | grep -qiE 'zed|code|micro|nvim|vim|idea|clion|goland|phpstorm|pycharm|tmux|Terminal'; then
-    fastfetch --pipe false
-  fi
-fi
-
-# **Fix Zsh Git Autocompletion on macOS Homebrew Installs**
-# Installing Git via Homebrew can break Zsh autocompletion for Git. 
-# This Restore proper autocompletion.
-
-## Add Homebrew's site functions to fpath (minus git, because that causes conflicts)
-## This will give you autocomplete for _other_ things you installed
-## from brew (like `just`, or `exa`, or `k6`)
-if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-	[ -e "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ] && rm "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
-  fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
-fi
-
 # Add useful bindings for italian programmers
 # Alt + | → backtick `
 bindkey -s '^[\' '`'

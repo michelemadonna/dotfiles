@@ -26,6 +26,8 @@ $__mise completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
 compinit -u "$ZSH_CACHE_DIR/completions/_$__mise"
 unset __mise
 
+mise use usage
+
 # Wrap mise to update .tool-versions on `mise use`. tool versions are
 # translated to asdf format and saved in .tool-versions in the current
 # directory or in $HOME/.tool-versions if `mise use -g` is used for global

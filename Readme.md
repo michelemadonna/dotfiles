@@ -321,10 +321,21 @@ Restart Ghostty for the changes to take effect.
 ## 4. 🛠️ Optional Components & Configuration
 
 ### ✏️ **Micro**
-[**Micro**](https://micro-editor.github.io) is a modern, easy-to-use terminal-based text editor with a clean UI, mouse support, and a powerful plugin system. This repository includes my personal Micro configuration to get you started productively. To use it, create a symbolic link:
+[**Micro**](https://micro-editor.github.io) is a modern, easy-to-use terminal-based text editor with a clean UI, mouse support, and a powerful plugin system. 
+This repository includes my personal Micro configuration to get you started productively.
+The micro configuration is set up automatically using the folder `$HOME/.dotfiles/micro $HOME/.config/micro`.
+
+If you want to use your own custom micro configuration, create a `.zshenv` file in your home directory (if it doesn't already exist) and add the following lines:
+
 ```sh
-ln -s $HOME/.dotfiles/micro $HOME/.config/micro
+export DOTFILES_DIR=$HOME/.dotfiles
+export MICRO_CONFIG_HOME="$DOTFILES_DIR/<your config file path>"
 ```
+
+This will ensure micro loads your personalized configuration automatically.
+
+#### Plugins
+
 You can easily manage plugins directly from within Micro:
 
 - To list installed plugins:  
@@ -341,7 +352,7 @@ some useful plugins are :
 - [fzf](https://github.com/samdmarshall/micro-fzf-plugin) — Fuzzy file finder
 
 
-**Example workflow:**
+#### Basic Usage
 1. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> to open the command bar and type `open myfile.txt` to open a file.
 2. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> and type `hsplit` to create a horizontal split.
 3. In the new split (bottom pane), press <kbd>Ctrl</kbd> + <kbd>E</kbd> and type `term` to open a terminal.
@@ -643,9 +654,22 @@ sudo apt install fastfetch
 ```
 
 ### Configure Fastfetch
-The Fastfetch configuration is set up automatically.
-When you install these dotfiles, a symbolic link to `$HOME/.dotfiles/fastfetch/config.jsonc` is automatically created in `$HOME/.config/fastfetch/config.jsonc`—unless you have a personal configuration file named `config.local.jsonc` in `$HOME/.dotfiles/fastfetch`. In that case, the symlink will point to your custom config instead.  
-You don't need to create these links manually; the setup script handles it for you.
+The Fastfetch configuration is set up automatically using `$HOME/.dotfiles/fastfetch/config.jsonc`.
+
+If you want to use your own custom Fastfetch configuration, create a `.zshenv` file in your home directory (if it doesn't already exist) and add the following lines:
+
+```sh
+export DOTFILES_DIR=$HOME/.dotfiles
+export ZQS_FASTFETCH_CONFIG="$DOTFILES_DIR/<your config file path>/<config file name>.jsonb"
+```
+
+This will ensure Fastfetch loads your personalized configuration automatically.
+
+If you want Fastfetch to run automatically every time you open a new terminal session, add the following line to your `.zshenv` file:
+```sh
+export ZQS_SHOW_FASTFETCH=true
+```
+With this setting, Fastfetch will be displayed unless the terminal is opened within an IDE (such as VSCode or Zed) or inside a tmux session.
 
 Now, just run `fastfetch` to see your system info using your custom configuration!
 
@@ -659,24 +683,25 @@ To activate Oh My Posh in your Zsh setup, simply create a symbolic link:
 ```sh
 ln -s $HOME/.dotfiles/oh-my-posh/00_oh_my_posh $HOME/.zshrc.pre-plugins.d/
 ```
-This will load the default Oh My Posh integration before your plugins.
+This will downloads Oh My Posh and load the default  configuration in `$HOME/.dotfiles/oh-my-posh/custom.omp.json.
 
 ### Custom Configuration
 
 You can personalize your prompt in two ways:
 
 - **Custom JSON config:**
-    To use your own custom Oh My Posh configuration, create a file at `$HOME/.dotfiles/oh-my-posh/omp.local.zsh` and set the environment variable `ZQS_OH_MY_POSH_CONFIG` to the path of your JSON config file:
-    ```sh
-    export ZQS_OH_MY_POSH_CONFIG="$HOME/.dotfiles/oh-my-posh/my-posh-config.json"
-    ```
+To use your own custom Oh My Posh configuration, create a `.zshenv` file in your home directory (if it doesn't already exist) and add the following lines:
+```sh
+export DOTFILES_DIR=$HOME/.dotfiles
+export ZQS_OH_MY_POSH_CONFIG="$DOTFILES_DIR/<your config file path>/<config file name>.json"
+```
 
     This ensures Oh My Posh loads your personalized prompt settings automatically.
 - **Built-in theme:**  
-    Set `ZQS_OH_MY_POSH_CONFIG` to the name of any theme included with Oh My Posh (e.g., `paradox`, `jandedobbeleer`, `powerlevel10k`):
-    ```sh
-    export ZQS_OH_MY_POSH_CONFIG="paradox"
-    ```
+Set `ZQS_OH_MY_POSH_CONFIG` to the name of any theme included with Oh My Posh (e.g., `paradox`, `jandedobbeleer`, `powerlevel10k`):
+```sh
+export ZQS_OH_MY_POSH_CONFIG="paradox"
+```
 
 Restart your terminal to apply the changes.  
 For more themes and customization options, see the [Oh My Posh theme gallery](https://ohmyposh.dev/themes).
