@@ -194,6 +194,7 @@ To apply my custom settings, follow these steps in iTerm2's **Settings**:
 -   `General` -> `Selection` -> Check `"Access: Application in terminal may access clipboard"`
 -   `Appearance` -> `General` -> `Theme` -> Select `"Minimal"`
 -   `Pointer` -> `General` -> `Mouse Reporting` -> Check `"^-Click reported to apps, does not open menu"`
+-   `Advanced` -> `Drawing` -> `Underline OSC 8 hyperlinks` -> `"No"`
 -   `Profiles` -> `Default` -> `Other Actions...` -> `Duplicate Profile` -> Name it `"Astronaut Alternative Lighter"`
 -   In the new profile:
     -   `Colors` -> Uncheck `"Modes : Use separate colors for light and dark mode"`
