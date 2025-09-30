@@ -173,15 +173,15 @@ __fzf_reload() {
 fzf_tab_no_space_after_at() {
   if (( CURSOR == ${#BUFFER} )) && [[ $BUFFER == *'@'*' ' ]]; then
     zle backward-delete-char
-  else
-    
   fi
   fzf-tab-complete
 }
 
+if [[ -f ~/.fzf.zsh ]] && ! grep -q '^#\[' ~/.fzf.zsh; then
+  awk '/^[[:space:]]*#/ {print; next} /\[\[ \$- == \*i\* \]\] && source "\${FZF_PATH}\/shell\/completion.zsh" 2> \/dev\/null/ {print "#" $0; next} {print}' ~/.fzf.zsh > ~/.fzf.zsh.tmp && mv ~/.fzf.zsh.tmp ~/.fzf.zsh
+fi
 
-__fzf_reload
-  # TAB
+
 
 
 

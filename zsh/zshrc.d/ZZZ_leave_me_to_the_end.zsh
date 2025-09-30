@@ -17,3 +17,9 @@ if _has fastfetch && [[ "$ZQS_SHOW_FASTFETCH" == "true" ]]; then
     fastfetch --pipe false
   fi
 fi
+
+# load fzf-tab completion if fzf is installed
+(( ! $+commands[fzf] )) && return
+if whence -w __fzf_reload >/dev/null; then
+  __fzf_reload
+fi 
