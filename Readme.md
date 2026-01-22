@@ -248,6 +248,7 @@ brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git
 #### 2.2.2 Link dotfiles using stow:
 
 ```bash
+cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example .dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
 git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
 git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
 cd $HOME/.zqs && stow --target=$HOME zsh && cd
