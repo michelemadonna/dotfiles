@@ -15,9 +15,10 @@
 
 ZGEN_LOADED=()
 ZGEN_COMPLETIONS=()
-
-export DOTFILES_DIR="${0:A:h:h:h}"
-echo "DOTFILES_DIR is $DOTFILES_DIR"
+  
+if [[ ! -n "$DOTFILES_DIR" ]]; then
+  export DOTFILES_DIR="${0:A:h:h:h}"
+fi
 
 if [[ $(_zqs-get-setting load-omz-plugins true) == 'true' ]]; then
   zgenom oh-my-zsh
@@ -187,24 +188,7 @@ zgenom load zsh-users/zsh-autosuggestions
 # directories.
 #zgenom load supercrabtree/k
 
-# Be compatible with the old settings files for now
-if [[ -z "${ZQS_USE_OH_MY_POSH}" || "${ZQS_USE_OH_MY_POSH}" == "false" ]]; then
-  if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
-    # Bullet train prompt setup.
-    zgenom load https://github.com/caiogondim/bullet-train.zsh
-  else
-    # p10k is faster and what I'm using now, so it is the new default
-    zgenom load romkatv/powerlevel10k powerlevel10k
-    DOTFILES_DIR="${0:A:h:h:h}"
 
-    if [[ ! -L "$HOME/.p10k.zsh" ]] || [ ! -f "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" ] || ! head -n 2 "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" | grep -q "powerlevel10k"; then
-      cp -f "$DOTFILES_DIR/powerlevel10k/.p10k.zsh" "$DOTFILES_DIR/zsh/zsh/.p10k.zsh"
-      ln -sfn "$DOTFILES_DIR/zsh/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
-    fi
-
-    warn-about-prompt-change
-  fi
-fi
 #Replace zsh's default completion selection menu with fzf!
 zgenom load Aloxaf/fzf-tab
 #interactive git with fzf
@@ -215,5 +199,24 @@ zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/fzf.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/fix_git_completion_on_mac.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/allafine.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/mise.plugin.zsh
+# zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/ohmyposh.plugin.zsh
+
+# Be compatible with the old settings files for now
+echo "$ZQS_USE_OH_MY_POSH !!!!" 
+if [[ -z "${ZQS_USE_OH_MY_POSH}" || "${ZQS_USE_OH_MY_POSH}" == "false" ]]; then
+  if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
+    # Bullet train prompt setup.
+    zgenom load https://github.com/caiogondim/bullet-train.zsh
+  else
+    # p10k is faster and what I'm using now, so it is the new default
+
+    if [[ ! -L "$HOME/.p10k.zsh" ]] || [[ -L "$HOME/.p10k.zsh" && ! $(head -n 2 "$HOME/.p10k.zsh" | grep -q "powerlevel10k") ]]; then
+      ln -sfn "$DOTFILES_DIR/powerlevel10k/.p10k.zsh" "$HOME/.p10k.zsh"
+    fi
+
+    zgenom load romkatv/powerlevel10k powerlevel10k
+    warn-about-prompt-change
+  fi
+fi
 # Save it all to init script.
 zgenom save

@@ -7,7 +7,9 @@ _has() {
   return $(whence $1 >/dev/null)
 }
 
-export DOTFILES_DIR="${0:A:h:h:h}"
+if [[ ! -n "$DOTFILES_DIR" ]]; then
+  export DOTFILES_DIR="${0:A:h:h:h}"
+fi
 
 if _has micro; then
   export VISUAL=micro # Set default editor to micro

@@ -1,3 +1,11 @@
+#!/usr/bin/env zsh
+# mise plugin for zsh
+# this plugin integrates mise (https://github.com/mise/mise) into zsh shell
+
+if [[ ! -n "$DOTFILES_DIR" ]]; then
+  export DOTFILES_DIR="${0:A:h:h:h}"
+fi
+
 # TODO: 2024-01-03 remove rtx support
 local __mise=mise
 if (( ! $+commands[mise] )); then
@@ -7,6 +15,31 @@ if (( ! $+commands[mise] )); then
     return
   fi
 fi
+
+#this is needed by powerlevel10k to show the mise segment using asdf segment configuration
+export ASDF_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/asdf"
+
+if [[ ! -d "$ASDF_DATA_DIR" ]]; then
+  mkdir -p "$ASDF_DATA_DIR"
+  git clone https://github.com/asdf-vm/asdf-plugins.git "$ASDF_DATA_DIR"
+
+  for file in "$ASDF_DATA_DIR/plugins"/*; do
+    local dir_name="${file##*/}"
+    rm "$file"
+    mkdir -p "$ASDF_DATA_DIR/plugins/$dir_name"
+  done
+fi
+
+asdf() {
+  command mise "$@"
+}
+
+# remove zqs file that loads mise if present
+if [ -f "$HOME/.zshrc.d/001-load-mise-if-present" ]; then
+    rm "$HOME/.zshrc.d/001-load-mise-if-present"
+fi
+
+
 # Load mise hooks
 eval "$($__mise activate zsh)"
 
