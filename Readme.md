@@ -224,6 +224,8 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
     - `Text` -> `Text rendering` -> Check `"Allow blinking text"`
     - `Text` -> `Font` -> Select `"Fira Code Nerd Font Mono"`, `"Retina"`, size `12`
     - `Terminal` -> `Shell Integration` -> Uncheck `"Show mark indicators"`
+    - `Keys` -> `General` -> `Key Reporting` -> Check `"Report keys using CSI u"`
+    - `Keys` -> `General` -> `Key Behaviour` -> Select `"treat Option as Alt for special keys like arrows"`
     - `Keys` -> `General` -> `Left Option key` -> Select `"Esc+"`
   - Finally, `Profile` -> `"Astronaut Alternative Lighter"` -> `Other Actions...` -> `Set as Default`
   
@@ -234,7 +236,7 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
   
   > ⚠️ **Copying Text from Terminal Applications :** to copy text from tmux or similar apps, **hold the Option key while selecting text with your mouse, then press Command + C**.
 
-</details> 
+</details>
 
 ### 2.2 Installation
 
@@ -248,7 +250,7 @@ brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git
 #### 2.2.2 Link dotfiles using stow:
 
 ```bash
-cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example .dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
+cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example $HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
 git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
 git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
 cd $HOME/.zqs && stow --target=$HOME zsh && cd
@@ -464,7 +466,7 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 2. Split window horizontally: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>-</kbd>
 3. Split vertically: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>|</kbd>
 4. Move between panes: <kbd>Ctrl</kbd>+<kbd>A</kbd> then + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
-5. Resize panes: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
+5. Resize panes: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
 6. Detach from session: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>D</kbd>
 7. Reattach to the last session: `tmux attach`
 8. Toggle the status bar: <kbd>Ctrl</kbd> + <kbd>A</kbd> then <kbd>Ctrl</kbd> + <kbd>S</kbd>
@@ -499,7 +501,7 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 | <kbd>Ctrl</kbd> + <kbd>T</kbd>                                | Fuzzy file path completion (fzf).          |
 | <kbd>Alt</kbd> + <kbd>C</kbd> / <kbd>Esc</kbd> + <kbd>C</kbd> | `cd` into a selected subdirectory (fzf).   |
 | <kbd>Tab</kbd>                                                | Open autocomplete menu with fzf (fzf-tab). |
-| <kbd>Alt</kbd> + <kbd>H</kbd>                                 | Toggle hidden files in FZF search.         |
+| <kbd>Ctrl</kbd> + <kbd>H</kbd>                                | Toggle hidden files in FZF search.         |
 
 ### 🔍 fzf
 
@@ -510,23 +512,22 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 | <kbd>Ctrl</kbd> + <kbd>Space</kbd>            | Mark/unmark item.               |
 | <kbd>Ctrl</kbd> + <kbd>A</kbd>                | Toggle all marked/unmarked.     |
 | <kbd>Enter</kbd>                              | Select the current item(s).     |
-| <kbd>Ctrl</kbd> + <kbd>/</kbd>                | Toggle/Move the preview window. |
+| <kbd>Ctrl</kbd> + <kbd>P</kbd>                | Toggle/Move the preview window. |
 | <kbd>Ctrl</kbd> + <kbd>J</kbd> / <kbd>K</kbd> | Scroll preview window down/up.  |
-| <kbd>Ctrl</kbd> + <kbd>O</kbd>                | Move the preview window.        |
 | <kbd>,</kbd> / <kbd>.</kbd>                   | Switch group (fzf-tab).         |
 
 ### 🔀 tmux
 
-| Key                                                                                                       | Action                                                |
-| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>A</kbd>                                                                            | Prefix key (instead of <kbd>Ctrl</kbd>+<kbd>B</kbd>). |
-| `Prefix` + <kbd>C</kbd>                                                                                   | New window.                                           |
-| `Prefix` + <kbd>-</kbd>                                                                                   | Horizontal split.                                     |
-| `Prefix` + <kbd>                                                                                          | </kbd>                                                |
-| `Prefix` + <kbd>d</kbd>                                                                                   | Detach session.                                       |
-| `Prefix` + <kbd>+</kbd>                                                                                   | Zoom the current pane.                                |
-| `Prefix` + <kbd>Ctrl</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>                    | Move between panes.                                   |
-| `Prefix` + <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Resize panes.                                         |
+| Key                                                                                    | Action                                                |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| <kbd>Ctrl</kbd> + <kbd>A</kbd>                                                         | Prefix key (instead of <kbd>Ctrl</kbd>+<kbd>B</kbd>). |
+| `Prefix` + <kbd>C</kbd>                                                                | New window.                                           |
+| `Prefix` + <kbd>-</kbd>                                                                | Horizontal split.                                     |
+| `Prefix` + <kbd>\|</kbd>                                                               | Vertical Split                                        |
+| `Prefix` + <kbd>d</kbd>                                                                | Detach session.                                       |
+| `Prefix` + <kbd>+</kbd>                                                                | Zoom the current pane.                                |
+| `Prefix` + <kbd>Ctrl</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Move between panes.                                   |
+| `Prefix` + <kbd>Alt</kbd> +  <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Resize panes.                                         |
 
 ### ✏️ micro
 

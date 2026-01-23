@@ -155,7 +155,7 @@ __fzf_reload() {
   export FZF_ALT_C_OPTS="$(__fzf_alt_c_opts)"
   export FZF_CTRL_T_OPTS="$(__fzf_ctrl_t_opts)"
   export FZF_DEFAULT_OPTS="--multi \
-    --bind='tab:down,shift-tab:up,ctrl-a:toggle-all,ctrl-space:toggle,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-/:change-preview-window(50%,bottom|hidden|50%,right)'"
+    --bind='tab:down,shift-tab:up,ctrl-a:toggle-all,ctrl-space:toggle,ctrl-k:preview-up,ctrl-j:preview-down,ctrl-p:change-preview-window(50%,bottom|hidden|50%,right)'"
 
 
   zstyle ":fzf-tab:complete:${${EDITOR}:t}:*" fzf-preview "$(__fzf_tab_complete_editor_preview)"
