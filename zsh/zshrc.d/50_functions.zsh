@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-if [[ "$(uname)" == "Darwin" ]]; then
-  clear_macos_icon_cache() {
+if [[ "$(uname)" == "Linux" ]]; then
+  function clear_macos_icon_cache() {
 
     echo "🧹 Cleaning macOS icon cache..."
     sudo rm -rf /Library/Caches/com.apple.iconservices.store >/dev/null 2>&1
