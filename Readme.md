@@ -1,6 +1,6 @@
 # ⚡️ Dotfiles for Zsh on macOS  & Ubuntu 🐧 (>= 24.04)
 
-Welcome to my personal dotfiles repository! This is a comprehensive collection of my Zsh configurations, finely tuned for both macOS and Ubuntu Linux (version 24.04 and newer). The entire setup is built upon the solid foundation of the [zsh-quickstart-kit](https://github.com/unixorn/zsh-quickstart-kit) and integrates a suite of powerful terminal applications. Each component is configured to maximize productivity, speed, and comfort for your daily command-line work.
+Welcome to my personal `dotfiles` repository! This is a comprehensive collection of my Zsh configurations, finely tuned for both macOS and Ubuntu Linux (version 24.04 and newer). The entire setup is built upon the solid foundation of the [zsh-quickstart-kit](https://github.com/unixorn/zsh-quickstart-kit) and integrates a suite of powerful terminal applications. Each component is configured to maximize productivity, speed, and comfort for your daily command-line work.
 
 ## ⚙️ How the Zsh Configuration Works
 
@@ -25,7 +25,6 @@ This configuration brings together a curated set of powerful command-line tools 
 - 🐚 **Zsh**: The main shell, chosen for its power and extensive customization capabilities.
 - ⚡️ **zgenom**: A lightweight and exceptionally fast Zsh plugin manager.
 - 🚀 **zsh-quickstart-kit**: Provides a rock-solid foundation for the entire Zsh configuration.
-- ✏️ **micro**: A modern, intuitive, and mouse-friendly terminal-based text editor. (You are, of course, free to use any editor you prefer).
 - 🔀 **tmux**: A powerful terminal multiplexer for managing multiple windows, panes, and sessions.
 - 📦 **mise**: A versatile version manager for programming languages and other tools (optional).
 - 🔍 **fzf**: A blazing-fast, interactive fuzzy finder integrated throughout the shell.
@@ -244,13 +243,14 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
 
 ```bash
 brew tap "homebrew/command-not-found"
-brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git micro
+brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git
 ```
 
 #### 2.2.2 Link dotfiles using stow:
 
 ```bash
 cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example $HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
+cp $HOME/.dotfiles/zsh/.zshenv.example $HOME/.dotfiles/zsh/zsh/.zshenv
 git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
 git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
 cd $HOME/.zqs && stow --target=$HOME zsh && cd
@@ -331,7 +331,7 @@ This will launch an interactive wizard to personalize your prompt.
 #### 3.2.1 Install essential packages:
 
 ```bash
-sudo apt install curl wget stow grc ripgrep fd-find eza tree micro python3-pip bat command-not-found git-delta tmux htop
+sudo apt install curl wget stow grc ripgrep fd-find eza tree python3-pip bat command-not-found git-delta tmux htop
 # Create a symlink so `bat` can be called instead of `batcat`
 sudo ln -s /usr/bin/batcat /usr/bin/bat
 ```
@@ -339,6 +339,8 @@ sudo ln -s /usr/bin/batcat /usr/bin/bat
 #### 3.2.2 Link dotfiles using stow:
 
 ```bash
+cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example $HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
+cp $HOME/.dotfiles/zsh/.zshenv.example $HOME/.dotfiles/zsh/zsh/.zshenv
 git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
 git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
 cd $HOME/.zqs && stow --target=$HOME zsh && cd
@@ -360,22 +362,46 @@ p10k configure
 
 ## 4. 🛠️ Optional Components & Configuration
 
-### ✏️ Micro
+### ✏️ Editors
+
+> **Unpopular opinion**
+> 
+> Using Vim, Emacs, or their modal distributions in 2026 is masochistic nostalgia. They work, of course, but you end up spending more time learning key combinations than actually writing code. Development today is local, on powerful machines with GUIs, mice, and clipboards: VS Code, Zed, Sublime, or Notepad++ do everything instantly, with human-friendly keybindings and built-in LSP. Doom Emacs and LazyVim? Interesting for hobby projects or SSH, but for real work they’re just unnecessary overhead—and on remote machines, you often don’t have the rights to install a full Vim or Emacs distribution. True efficiency isn’t flying across the keyboard—it’s reducing mental friction.
+
+#### Option 1 : Micro Editor
 
 [**Micro**](https://micro-editor.github.io) is a modern, easy-to-use terminal-based text editor with a clean UI, mouse support, and a powerful plugin system. 
 This repository includes my personal Micro configuration to get you started productively.
-The micro configuration is set up automatically using the folder `$HOME/.dotfiles/micro $HOME/.config/micro`.
 
-If you want to use your own custom micro configuration, create a `.zshenv` file in your home directory (if it doesn't already exist) and add the following lines:
+##### Installation
+
+###### 🍏 macOS
+
+Install micro via Homebrew :
 
 ```bash
-export DOTFILES_DIR=$HOME/.dotfiles
-export MICRO_CONFIG_HOME="$DOTFILES_DIR/<your config file path>"
+brew install micro
 ```
 
-This will ensure micro loads your personalized configuration automatically.
+##### 🐧 Ubuntu >= 24.04
 
-#### Plugins
+Install micro using :
+
+```bash
+sudo apt install micro
+```
+
+##### Configuration
+
+You can use my micro configuration using:
+
+```bash
+ln -sfn "$DOTFILES_DIR/micro" "$HOME/.config/micro"
+```
+
+If you want to use your own custom micro configuration, create symlink to your configuration.
+
+##### Plugins
 
 You can easily manage plugins directly from within Micro:
 
@@ -393,7 +419,7 @@ some useful plugins are :
 - [filemanager](https://github.com/NicolaiSoeborg/filemanager-plugin) — Tree-based file explorer 
 - [fzf](https://github.com/samdmarshall/micro-fzf-plugin) — Fuzzy file finder
 
-#### Basic Usage
+##### Basic Usage
 
 1. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> to open the command bar and type `open myfile.txt` to open a file.
 2. Press <kbd>Ctrl</kbd> + <kbd>E</kbd> and type `hsplit` to create a horizontal split.
@@ -402,6 +428,72 @@ some useful plugins are :
 This allows you to edit files and run terminal commands side by side within Micro.
 
 > ⚠️ **macOS Clipboard Alert:** on macOS, you **cannot use <kbd>Command</kbd> + <kbd>C</kbd> to copy text in Micro**—neither for pasting inside Micro nor into other applications. **Always use <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy text within Micro.**. However, you can use <kbd>Command</kbd> + <kbd>V</kbd> to paste text both inside Micro and into other apps.
+
+#### Option 2 : Fresh editor
+
+[Fresh]([GitHub - sinelaw/fresh: Text editor for your terminal: easy, powerful and fast](https://github.com/sinelaw/fresh)) is a **modern, minimal, terminal-based text editor** that aims to provide a simple, fast, and non-modal editing experience. Unlike Vim or Emacs, it doesn’t rely on complex modes or steep learning curves, making it more approachable for users used to GUI editors like VS Code, Sublime, or Notepad++.
+
+Here are the key points about Fresh:
+
+- **File Management**: open/save/new/close, file explorer, tabs, auto-revert, git file finder
+
+- **Editing**: undo/redo, multi-cursor, block selection, smart indent, comments, clipboard
+
+- **Search & Replace**: incremental search, find in selection, query replace, git grep
+
+- **Navigation**: go to line/bracket, word movement, position history, bookmarks, error navigation
+
+- **Views & Layout**: split panes, line numbers, line wrap, backgrounds, markdown preview
+
+- **Language Server (LSP)**: go to definition, references, hover, code actions, rename, diagnostics, autocompletion
+
+- **Productivity**: command palette, menu bar, keyboard macros, git log, diagnostics panel
+
+- **Plugins & Extensibility**: TypeScript plugins, color highlighter, TODO highlighter, merge conflicts, path complete, keymaps
+
+- **Internationalization**: Multiple language support (see [`locales/`](https://github.com/sinelaw/fresh/blob/master/locales) for available languages), plugin translation system
+
+##### Installation
+
+###### 🍏 macOS
+
+Install fresh via Homebrew :
+
+```bash
+brew install fresh-editor
+```
+
+###### 🐧 Ubuntu >= 24.04
+
+Install fresh using :
+
+```bash
+curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | grep "browser_download_url.*_$(dpkg --print-architecture)\.deb" | cut -d '"' -f 4) -o fresh-editor.deb && sudo dpkg -i fresh-editor.deb
+```
+
+##### Configuration
+
+You can use my fresh configuration using:
+
+```bash
+ln -sfn "$DOTFILES_DIR/fresh" "$HOME/.config/fresh"
+```
+
+If you want to use your own custom fresh configuration, create symlink to your configuration.
+
+> **Fresh keymapping on Macos**
+> 
+> The macOS keymap is designed around these constraints:
+> 
+> **Ctrl+Shift combinations don't work.** Some macOS terminals cannot reliably send <kbd>Ctrl</kbd>+<kbd>Shift</kbd> sequences. For example, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> produces a caron character (ˇ) instead of being recognized as a key chord. The macOS keymap uses <kbd>Ctrl</kbd>+<kbd>Alt</kbd> as an alternative modifier.
+> 
+> **Some <kbd>Ctrl</kbd> keys are ASCII control characters.** In terminal protocols, <kbd>Ctrl</kbd>+<kbd>J</kbd> is Line Feed (newline), <kbd>Ctrl</kbd>+<kbd>M</kbd> is Carriage Return (Enter), and <kbd>Ctrl</kbd>+<kbd>I</kbd> is Tab. Binding actions to these keys causes erratic behavior. The macOS keymap avoids these collisions.
+> 
+> **International keyboards use Alt for essential characters.** On German, French, and other ISO layouts, <kbd>Alt</kbd> (Option) combined with letters produces characters like @, [, ], {, and }. The macOS keymap avoids <kbd>Alt</kbd>+letter combinations that would block character input.
+> 
+> **Unix readline conventions are preserved.** Terminal users expect <kbd>Ctrl</kbd>+<kbd>Y</kbd> to "yank" (paste from the kill ring), <kbd>Ctrl</kbd>+<kbd>K</kbd> to kill to end of line, and <kbd>Ctrl</kbd>+<kbd>U</kbd> to kill to start of line. The macOS keymap respects these conventions rather than overriding them with GUI editor shortcuts.
+> 
+> Use the **Command Palette** (<kbd>Ctrl</kbd>+<kbd>P</kbd>) or **Show Keybindings** (<kbd>Ctrl</kbd>+<kbd>H</kbd>) to discover the actual key bindings, or view the keymap file directly at `keymaps/macos.json`.
 
 ### 📦 mise (Universal Runtime Version Manager)
 
@@ -429,7 +521,7 @@ curl https://mise.run | sh
 If not already present or commented, uncomment and add this line on your `$HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins`
 
 ```bash
-zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/mise.plugin.zsh
+zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-mise.plugin.zsh
 ```
 
 This will load the customized mise integration (with Powerlevel10k segments support and a more convenient completion for using the various runtimes versions) before your plugins.
@@ -458,19 +550,19 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 
 ### 🔀 tmux
 
-[**tmux**](https://github.com/tmux/tmux) is a terminal multiplexer that lets you manage multiple terminal sessions within a single window. The custom `$HOME/.tmux.conf` included in this repository features an ergonomic <kbd>Ctrl</kbd> + <kbd>A</kbd> prefix, persistent sessions, a clean status bar, intuitive keybindings, mouse support, and clipboard integration.
+[**tmux**](https://github.com/tmux/tmux) is a terminal multiplexer that lets you manage multiple terminal sessions within a single window. The custom `$HOME/.tmux.conf` included in this repository features an ergonomic <kbd>Alt</kbd> + <kbd>A</kbd> prefix, persistent sessions, a clean status bar, intuitive keybindings, mouse support, and clipboard integration.
 
 #### Example workflow:
 
 1. Start a new session: `tmux`
-2. Split window horizontally: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>-</kbd>
-3. Split vertically: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>|</kbd>
-4. Move between panes: <kbd>Ctrl</kbd>+<kbd>A</kbd> then + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
-5. Resize panes: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
-6. Detach from session: <kbd>Ctrl</kbd>+<kbd>A</kbd> then <kbd>D</kbd>
+2. Split window horizontally: <kbd>Alt</kbd>+<kbd>A</kbd> then <kbd>-</kbd>
+3. Split vertically: <kbd>Alt</kbd>+<kbd>A</kbd> then <kbd>|</kbd>
+4. Move between panes: <kbd>Alt</kbd>+<kbd>A</kbd> then + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
+5. Resize panes: <kbd>Alt</kbd>+<kbd>A</kbd> then <kbd>Alt</kbd> + <kbd>Shift</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>
+6. Detach from session: <kbd>Alt</kbd>+<kbd>A</kbd> then <kbd>D</kbd>
 7. Reattach to the last session: `tmux attach`
-8. Toggle the status bar: <kbd>Ctrl</kbd> + <kbd>A</kbd> then <kbd>Ctrl</kbd> + <kbd>S</kbd>
-9. Sync input to all panes: <kbd>Ctrl</kbd> + <kbd>A</kbd> then <kbd>Alt</kbd> + <kbd>S</kbd>
+8. Toggle the status bar: <kbd>Alt</kbd> + <kbd>A</kbd> then <kbd>Ctrl</kbd> + <kbd>S</kbd>
+9. Sync input to all panes: <kbd>Alt</kbd> + <kbd>A</kbd> then <kbd>Alt</kbd> + <kbd>S</kbd>
    (This enables or disables synchronized input, so your keystrokes are sent to all panes at once—useful for running the same command in multiple panes.)
 
 > 🖱️ **Mouse support** is fully enabled in tmux: you can seamlessly move between panes and windows, resize them, scroll, and interact directly using your mouse. By right-clicking and holding on Ghostty, the **tmux context menu** will open. If you are using iTerm, you also need to hold the <kbd>Command</kbd> key while right-clicking.
@@ -518,16 +610,19 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 
 ### 🔀 tmux
 
-| Key                                                                                    | Action                                                |
-| -------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| <kbd>Ctrl</kbd> + <kbd>A</kbd>                                                         | Prefix key (instead of <kbd>Ctrl</kbd>+<kbd>B</kbd>). |
-| `Prefix` + <kbd>C</kbd>                                                                | New window.                                           |
-| `Prefix` + <kbd>-</kbd>                                                                | Horizontal split.                                     |
-| `Prefix` + <kbd>\|</kbd>                                                               | Vertical Split                                        |
-| `Prefix` + <kbd>d</kbd>                                                                | Detach session.                                       |
-| `Prefix` + <kbd>+</kbd>                                                                | Zoom the current pane.                                |
-| `Prefix` + <kbd>Ctrl</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Move between panes.                                   |
-| `Prefix` + <kbd>Alt</kbd> +  <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Resize panes.                                         |
+| Key                                                                                                       | Action                                                |
+| --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| <kbd>Alt</kbd> + <kbd>A</kbd>                                                                             | Prefix key (instead of <kbd>Ctrl</kbd>+<kbd>B</kbd>). |
+| `Prefix` then <kbd>C</kbd>                                                                                | New window.                                           |
+| `Prefix` then <kbd>-</kbd>                                                                                | Horizontal split.                                     |
+| `Prefix` then <kbd>\|</kbd>                                                                               | Vertical Split                                        |
+| `Prefix` then <kbd>d</kbd>                                                                                | Detach session.                                       |
+| `Prefix` then <kbd>+</kbd>                                                                                | Zoom the current pane.                                |
+| `Prefix`  then <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd>                                  | Move between panes.                                   |
+| `Prefix` then <kbd>Alt</kbd> +<kbd>shift</kbd>  <kbd>↑</kbd> / <kbd>↓</kbd> / <kbd>←</kbd> / <kbd>→</kbd> | Resize panes.                                         |
+| `Prefix`  then <kbd>R</kbd>                                                                               | Reload tmux config                                    |
+| `Prefix`  then <kbd>Alt</kbd>+<kbd>S</kbd>                                                                | Sync input to all panes                               |
+| `Prefix`  then <kbd>Ctrl</kbd>+<kbd>S</kbd>                                                               | Hide status bar                                       |
 
 ### ✏️ micro
 
