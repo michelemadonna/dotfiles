@@ -363,7 +363,13 @@ cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
 if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
 
 ```bash
-
+mkdir -p $HOME/.config
+mkdir -p $HOME/.ssh
+mkdir -p $HOME/.local/bin
+ln -sfn "$HOME/.dotfiles/ssh/config" "$HOME/.ssh/"
+ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/"
+ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/"
+ln -sfn "$HOME/.dotfiles/git" "$HOME/.config/"
 ```
 
 #### 3.2.3 Restart your terminal.
@@ -597,6 +603,18 @@ If a `mise.toml` or `.tool-versions` file is present in a project directory, mis
 - **Kill a process interactively:** Type `kill` and press <kbd>Tab</kbd> to select a process to kill.
 - **Run a Docker container:** Type `docker run` and press <kbd>Tab</kbd> to select a container to run.
 - **Checkout a git branch:** Type `git checkout` and press <kbd>Tab</kbd> to select a branch.
+
+> **Note for Ubuntu 25.10 users**
+> 
+> On Ubuntu 25.10, the first press of tab does not show fzf-tab’s popup. Completion UI appears only after a subsequent keystroke (e.g. second tab or any key). The bug here was `dd`.
+> 
+> `dd` is part of the `coreutils` package and in Ubuntu 25.10, it switched from gnu to rust. The switch made `dd` not work so it cannot write the buffer (my guess), making the process goes up to 1gb.
+> 
+> The solution is to switch back to gnu utils.
+> 
+> ```bash
+> sudo apt install coreutils-from-gnu coreutils-from-uutils- --allow-remove-essential
+> ```
 
 ---
 

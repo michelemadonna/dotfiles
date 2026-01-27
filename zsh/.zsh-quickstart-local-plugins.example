@@ -193,13 +193,37 @@ zgenom load zsh-users/zsh-autosuggestions
 zgenom load Aloxaf/fzf-tab
 #interactive git with fzf
 #zgenom load wfxr/forgit
+
 # Load custom plugins from zqs.custom.plugins
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-custom-env.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fzf.plugin.zsh
-zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fix-git-completion-on-mac.plugin.zsh
-zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-allafine.plugin.zsh
+zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fix-git-completion-on-darwin.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-mise.plugin.zsh
-zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-prompt.plugin.zsh
-#
+
+
+rm -rf ~/.p10k.zsh
+if [[ -z "${ZQS_PROMPT}" || "${ZQS_PROMPT}" != "ohmyposh" ]]; then
+  #if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
+    # Bullet train prompt setup.
+   # zgenom load https://github.com/caiogondim/bullet-train.zsh
+  #else
+    # p10k is faster and what I'm using now, so it is the new default
+    
+    if [[ ! -L "$HOME/.p10k.zsh" ]] || ([[ -r "$HOME/.p10k.zsh" ]] && ! head -n 2 "$HOME/.p10k.zsh" | grep -q "powerlevel10k"); then
+      echo "🎨 Switch to powerlevel10k prompt"
+      
+      ln -sfn "$DOTFILES_DIR/powerlevel10k/.p10k.zsh" "$HOME/.p10k.zsh"
+      zgenom load romkatv/powerlevel10k powerlevel10k
+    fi
+  
+  #fi
+else
+  if [[ ! -L "$HOME/.p10k.zsh" ]] || ([[ -r "$HOME/.p10k.zsh" ]] && ! head -n 2 "$HOME/.p10k.zsh" | grep -q "oh-my-posh"); then
+    
+    echo "🎨 Switch to oh-my-posh prompt"
+    ln -sfn "$DOTFILES_DIR/oh-my-posh/start_oh_my_posh.zsh" "$HOME/.p10k.zsh"
+  fi
+fi
+
 # Save it all to init script.
 zgenom save
