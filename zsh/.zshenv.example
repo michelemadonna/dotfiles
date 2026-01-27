@@ -1,13 +1,16 @@
+#export DOTFILES_DIR=$HOME/.dotfiles
 (( $path[(Ie)"$HOME/.local/bin"] )) || path+=("$HOME/.local/bin")
 
-export ZQS_SHOW_FASTFETCH=true
-export ZQS_PROMPT="ohmyposh"
 
-export EDITOR=micro
-export VISUAL="$EDITOR"
-ZQS_ENABLE_ALLAFINE=true
-#export DOTFILES_DIR=$HOME/.dotfiles
-#export ZQS_FASTFETCH_CONFIG="$DOTFILES_DIR/fastfetch/config.jsonc"
+export ZQS_PROMPT="p10k"
+
+#export EDITOR=micro
+#export VISUAL="$EDITOR"
 #export MICRO_CONFIG_HOME="$DOTFILES_DIR/micro"
+
+export ZQS_SHOW_FASTFETCH=true
+#export ZQS_FASTFETCH_CONFIG="$DOTFILES_DIR/fastfetch/config.jsonc"
+
 #export ZQS_OH_MY_POSH_CONFIG="$DOTFILES_DIR/oh-my-posh/custom.omp.json"
 
+export ZQS_ENABLE_ALLAFINE=true
