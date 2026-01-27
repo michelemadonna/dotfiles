@@ -258,6 +258,18 @@ cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd
 cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
 ```
 
+if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
+
+```bash
+mkdir -p $HOME/.config
+mkdir -p $HOME/.ssh
+mkdir -p $HOME/.local/bin
+ln -sfn "$HOME/.dotfiles/ssh/config" "$HOME/.ssh/"
+ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/"
+ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/"
+ln -sfn "$HOME/.dotfiles/git" "$HOME/.config/"
+```
+
 #### 2.2.3 Restart your terminal.
 
 #### 2.2.4 Customize Powerlevel10k Prompt:
@@ -348,6 +360,12 @@ cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd
 cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
 ```
 
+if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
+
+```bash
+
+```
+
 #### 3.2.3 Restart your terminal.
 
 #### 3.2.4 Customize Powerlevel10k Prompt:
@@ -396,7 +414,7 @@ sudo apt install micro
 You can use my micro configuration using:
 
 ```bash
-ln -sfn "$DOTFILES_DIR/micro" "$HOME/.config/micro"
+ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/micro"
 ```
 
 If you want to use your own custom micro configuration, create symlink to your configuration.
@@ -476,7 +494,7 @@ curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | 
 You can use my fresh configuration using:
 
 ```bash
-ln -sfn "$DOTFILES_DIR/fresh" "$HOME/.config/fresh"
+ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/fresh"
 ```
 
 If you want to use your own custom fresh configuration, create symlink to your configuration.
