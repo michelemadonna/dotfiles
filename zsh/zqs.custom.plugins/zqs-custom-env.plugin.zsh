@@ -1,26 +1,25 @@
 #!/usr/bin/env zsh
 # this file is responsible for setting up my zqs optionated env
+
+_has() {
+  return $(whence $1 >/dev/null)
+}
+
 if [[ ! -n "$DOTFILES_DIR" ]]; then
   export DOTFILES_DIR="${0:A:h:h:h}"
 fi
+
 FILENAME="${0:a}"
-echo "$FILENAME"
 if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
-    echo "sto in plugin"
     ln -sfn "$FILENAME" "$HOME/.zshrc.d/000000_temp.zsh"
     return
 else
-    echo "non sto in plugin!!!!"
     rm -f "$HOME/.zshrc.d/000000_temp.zsh"
 fi
 
 if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
     source "$HOME/.zshenv" 
 fi
-
-_has() {
-  return $(whence $1 >/dev/null)
-}
 
 if [[ -z "$TMUX" ]]; then # Switch to xterm if we're in a tmux session.
   TERM="xterm-256color"
@@ -65,9 +64,8 @@ alias _top="btop"
 alias _ls="command ls"
 
 alias nodejs="command node"
-echo "sssss"
+
 if _has eza; then
-    echo "cccccc"
     unalias ls
     alias ls="eza"
     alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
@@ -75,3 +73,28 @@ if _has eza; then
     alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
 fi
 
+# this file is sourced by zshrc to set up allafine integration.
+# it moves the cursor to the bottom of the terminal when pressing Enter.
+if [[ "${ZQS_ENABLE_ALLAFINE}" == "true" ]]; then
+  echo "Enabling allafine integration..."
+  function allafine(){
+
+      zle accept-line # Accept the current line
+      tput cup 9999 0 # Move cursor to the bottom of the terminal
+  }
+  zle -N allafine # Define the allafine function for Zsh line editor
+  bindkey '^M' allafine # Bind Ctrl+M to the allafine function. Ctrl+M is often used as an alternative to Enter in some terminal applications.
+
+  if whence -w _fzf-tab-apply >/dev/null; then
+    _orig_fzf_tab_apply=${functions[_fzf-tab-apply]}
+    _fzf-tab-apply() {
+      # --- PRE-HOOK: delete previous prompt line(s) ---
+      local lines
+      lines=$(echo -n "$PS1" | wc -l)   # number of lines your PS1 takes
+      print -n "\033[${lines}A\033[2K"   # move up and clear those lines
+      # --- CALL original _fzf-tab-apply ---
+      print -n "$(tput cup 9999 0)"
+      eval "$_orig_fzf_tab_apply" "$@"
+    }
+  fi
+fi

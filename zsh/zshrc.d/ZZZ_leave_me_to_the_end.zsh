@@ -11,7 +11,6 @@ fi
 
 tput cup 9999 0 # Move cursor to the bottom of the terminal
 
-
 if [[ "$ZQS_SHOW_FASTFETCH" == "true" ]]; then
   if command -v fastfetch &> /dev/null; then
     #if exist the env ZQS_FASTFETCH_CONFIG and is not empty
