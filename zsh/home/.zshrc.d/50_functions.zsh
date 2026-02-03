@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+echo "Loading custom functions..."
+
 if [[ "$(uname)" == "Linux" ]]; then
   function clear_macos_icon_cache() {
 

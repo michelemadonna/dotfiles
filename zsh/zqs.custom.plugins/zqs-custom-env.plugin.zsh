@@ -10,12 +10,24 @@ if [[ ! -n "$DOTFILES_DIR" ]]; then
 fi
 
 FILENAME="${0:a}"
+echo $FILENAME
 if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
-    ln -sfn "$FILENAME" "$HOME/.zshrc.d/000000_temp.zsh"
-    
-else
-    if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
-        source "$HOME/.zshenv" 
+    ln -sfn "$FILENAME" "$HOME/.zshrc.d/ZZZZZZ_temp.zsh"
+
+    if [[ -L "$HOME/.zsh_functions" ]]; then
+        rm "$HOME/.zsh_functions" 
+    fi
+
+    if [[ -L "$HOME/.zsh_functions" ]]; then
+        rm "$HOME/.zsh_aliases" 
+    fi
+
+    if [[ -f "$HOME/.zqs/zsh/.zsh_functions" ]]; then
+        source "$HOME/.zqs/zsh/.zsh_functions" 
+    fi
+
+    if [[ -f "$HOME/.zqs/zsh/.zsh_aliases" ]]; then
+        source "$HOME/.zqs/zsh/.zsh_aliases" 
     fi
 
     if [[ -z "$TMUX" ]]; then # Switch to xterm if we're in a tmux session.
@@ -63,12 +75,23 @@ else
     alias nodejs="command node"
 
     if _has eza; then
-        unalias ls
+        echo "creo alias"
         alias ls="eza"
-        alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
-        alias lls="${aliases[ls]:-ls} -bghHliS@Z --time-style=long-iso"
-        alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
+
+        alias ls="eza --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
+
+        alias lls="eza -bghHliS@Z --time-style=long-iso"
+
+        alias ll="eza --group --time-style=long-iso -las modified"
+
     fi
+    
+
+    if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
+        source "$HOME/.zshenv" 
+    fi
+    
+else
 
     # this file is sourced by zshrc to set up allafine integration.
     # it moves the cursor to the bottom of the terminal when pressing Enter.
@@ -95,6 +118,31 @@ else
       fi
     fi
 
-    rm -f "$HOME/.zshrc.d/000000_temp.zsh"
-fi
+    tput cup 9999 0 # Move cursor to the bottom of the terminal
 
+    if [[ "$ZQS_SHOW_FASTFETCH" == "true" ]]; then
+      if command -v fastfetch &> /dev/null; then
+      
+        #show fastfetch when opening a new terminal, but not when opening an editor or IDE from the terminal
+        # Set up fastfetch to run only if the parent command is not an editor or IDE
+        # This prevents fastfetch from running in editors like VSCode, Neovim, etc.
+        parent_cmd=$(ps -o comm= -p $(ps -o ppid= -p $$))
+        if ! echo "$parent_cmd" | grep -qiE 'zed|code|micro|nvim|vim|idea|clion|goland|phpstorm|pycharm|tmux|fresh|helix|Terminal'; then
+          fastfetch --pipe false
+        fi
+      else
+          echo "fastfetch not found. Please refer to $DOTFILES_DIR/Readme.md for installation instructions."
+          exit 1
+      fi
+    fi
+
+    
+
+    # load fzf-tab completion if fzf is installed
+    (( ! $+commands[fzf] )) && return
+    if whence -w __fzf_reload >/dev/null; then
+      __fzf_reload
+    fi 
+
+    rm -f "$HOME/.zshrc.d/ZZZZZZ_temp.zsh"
+fi

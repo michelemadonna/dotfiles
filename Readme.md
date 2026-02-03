@@ -10,9 +10,9 @@ Configuration is managed through a clean, modular approach:
 
 - **`stow`** is used to create symbolic links from this repository to your home directory, seamlessly connecting the kit’s `.zshrc` and all your custom configuration files.
 - **Customizations should never be made directly in the framework’s `.zshrc`**. Instead, place your personalized settings in:
-  - `$HOME/.dotfiles/zsh/zshrc.d/` for general configuration snippets.
-  - `$HOME/.dotfiles/zsh/zshrc.pre-plugins` for environment variables or any code that must run *before* plugins are loaded.
-- The list of Zsh plugins to be loaded is defined in `$HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins`.
+  - `$HOME/.dotfiles/local/home/zshrc.d/` for general configuration snippets.
+  - `$HOME/.dotfiles/local/home/zshrc.pre-plugins` for environment variables or any code that must run *before* plugins are loaded.
+- The list of Zsh plugins to be loaded is defined in `$HOME/.dotfiles/local/home/.zsh-quickstart-local-plugins`.
 
 This structure keeps your custom settings neatly separated from the core framework, making future updates both straightforward and safe.
 
@@ -163,16 +163,17 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
   font-size=12.0
   ```
   
-  or simply create a symbolic link to use the config from this repo:
+  or simply create a symbolic link to use the config from this repo after coping my config from `$HOME/.dotfiles/ghossty` to `$HOME/.dotfiles/local/`:
   
   ```bash
   mkdir -p $HOME/.config
-  ln -s $HOME/.dotfiles/ghostty $HOME/.config/
+  cp -R $HOME/.dotfiles/ghostty $HOME/.dotfiles/local/
+  ln -s $HOME/.dotfiles/local/ghostty $HOME/.config/
   ```
   
   Restart Ghostty for the changes to take effect.
   
-  You can extend the Ghostty configuration included in this repository by creating a `config.local` file inside `$HOME/.dotfiles/ghostty`. Any settings you add to `config.local` will override or supplement the defaults, allowing you to personalize your terminal without modifying the main configuration file.
+  You can extend the Ghostty configuration included in this repository by creating also a `config.local` file inside `$HOME/.dotfiles/local/ghostty`. Any settings you add to `config.local` will override or supplement the defaults, allowing you to personalize your terminal without modifying the main configuration file (useful with mixed envs like macos/linux).
   
   > ⚠️ **Important: Default config path on macOS**  
   > On macOS, Ghostty saves its configuration in  
@@ -247,27 +248,23 @@ brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git
 ```
 
 #### 2.2.2 Link dotfiles using stow:
+In your home :
 
 ```bash
-cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example $HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
-cp $HOME/.dotfiles/zsh/.zshenv.example $HOME/.dotfiles/zsh/zsh/.zshenv
-git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
-git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
-cd $HOME/.zqs && stow --target=$HOME zsh && cd
-cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd
-cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
+cp -R "$HOME/.dotfiles/zsh/home" "$HOME/.dotfiles/local/"
+git clone https://github.com/jandamm/zgenom.git "$HOME/.zgenom"
+git clone https://github.com/unixorn/zsh-quickstart-kit.git "$HOME/.zqs"
+cd "$HOME/.zqs" && stow --target=$HOME zsh && cd
+cd "$HOME/.dotfiles/local" && stow --target=$HOME home && cd
 ```
 
 if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
 
 ```bash
-mkdir -p $HOME/.config
-mkdir -p $HOME/.ssh
-mkdir -p $HOME/.local/bin
-ln -sfn "$HOME/.dotfiles/ssh/config" "$HOME/.ssh/"
-ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/"
-ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/"
-ln -sfn "$HOME/.dotfiles/git" "$HOME/.config/"
+mkdir -p "$HOME"/{.config,.ssh,.local/bin}
+cp -Rn "$HOME/.dotfiles"/{ssh,micro,git,fresh,oh-my-posh,fastfetch,ghostty,powerlevel10k} "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/"
+ln -sfn "$HOME/.dotfiles/local/{micro,git,fresh,fastfetch,ghostty}" "$HOME/.config/"
 ```
 
 #### 2.2.3 Restart your terminal.
