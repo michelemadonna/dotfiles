@@ -10,7 +10,6 @@ if [[ ! -n "$DOTFILES_DIR" ]]; then
 fi
 
 FILENAME="${0:a}"
-echo $FILENAME
 if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
     ln -sfn "$FILENAME" "$HOME/.zshrc.d/ZZZZZZ_temp.zsh"
 
@@ -74,23 +73,24 @@ if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
 
     alias nodejs="command node"
 
-    if _has eza; then
-        echo "creo alias"
-        alias ls="eza"
 
-        alias ls="eza --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
-
-        alias lls="eza -bghHliS@Z --time-style=long-iso"
-
-        alias ll="eza --group --time-style=long-iso -las modified"
-
-    fi
     
+    if can_haz eza; then
+      ls_analog='eza'
+    elif can_haz exa; then
+      ls_analog='exa'
+    fi
+
+    if [ -v ls_analog ]; then
+        aliases[ls]="$ls_analog"
+        alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
+        alias lls="${aliases[ls]:-ls} -bghHliS@Z --time-style=long-iso"
+        alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
+    fi
 
     if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
         source "$HOME/.zshenv" 
     fi
-    
 else
 
     # this file is sourced by zshrc to set up allafine integration.

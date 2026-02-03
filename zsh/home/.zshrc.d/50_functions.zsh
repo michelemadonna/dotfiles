@@ -2,7 +2,7 @@
 
 echo "Loading custom functions..."
 
-if [[ "$(uname)" == "Linux" ]]; then
+if [[ "$(uname)" != "Linux" ]]; then
   function clear_macos_icon_cache() {
 
     echo "🧹 Cleaning macOS icon cache..."
