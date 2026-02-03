@@ -28,7 +28,7 @@ if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
     if [[ -f "$HOME/.zqs/zsh/.zsh_aliases" ]]; then
         source "$HOME/.zqs/zsh/.zsh_aliases" 
     fi
-
+    
     if [[ -z "$TMUX" ]]; then # Switch to xterm if we're in a tmux session.
       TERM="xterm-256color"
     fi
@@ -44,18 +44,7 @@ if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
     alias t="tmux a -d -t ${TMUX_DEFAULT_SESSION} 2> /dev/null || tmux new -s ${TMUX_DEFAULT_SESSION}"
 
 
-    if _has rg; then 
-      export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-    fi
-
-    if _has bat; then
-      # Export theme for http://github.com/sharkdp/bat.
-      export BAT_THEME="Solarized (dark)"
-    fi
-
-    export EZA_COLORS="da=1;36;0"
-
-    export LS_COLORS='di=1;34;0:ln=2;2:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
+    
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
     zstyle ':completion:*:descriptions' format '[%d]' # Set description format for completion
     zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -74,25 +63,10 @@ if [ $(echo $FILENAME | grep -ci plugin) = 1 ]; then
     alias nodejs="command node"
 
 
-    
-    if can_haz eza; then
-      ls_analog='eza'
-    elif can_haz exa; then
-      ls_analog='exa'
-    fi
-
-    if [ -v ls_analog ]; then
-        aliases[ls]="$ls_analog"
-        alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
-        alias lls="${aliases[ls]:-ls} -bghHliS@Z --time-style=long-iso"
-        alias ll="${aliases[ls]:-ls} --group --time-style=long-iso -las modified"
-    fi
-
+else
     if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
         source "$HOME/.zshenv" 
     fi
-else
-
     # this file is sourced by zshrc to set up allafine integration.
     # it moves the cursor to the bottom of the terminal when pressing Enter.
     if [[ "${ZQS_ENABLE_ALLAFINE}" == "true" ]]; then
