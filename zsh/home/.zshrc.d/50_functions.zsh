@@ -17,3 +17,4 @@ if [[ "$(uname)" != "Linux" ]]; then
   }
 fi
 
+alias ls="${aliases[ls]:-ls} --icons --git --group --time-style=long-iso --group-directories-first --color-scale"
