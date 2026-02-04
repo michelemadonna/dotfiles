@@ -116,7 +116,96 @@ else
     (( ! $+commands[fzf] )) && return
     if whence -w __fzf_reload >/dev/null; then
       __fzf_reload
-    fi 
+    fi
+    
+    function __keybinds() {
+  local data
+  data=$(
+    cat <<'EOF'
+----------------------------------------------------------------------------------
+🐚 Zsh
+----------------------------------------------------------------------------------
+Ctrl+R                        │ Search history (fzf)
+Esc Esc                       │ Insert sudo before the last command
+Ctrl+T                        │ Fuzzy file path completion (fzf)
+Alt+C / Esc+C                 │ cd into a selected subdirectory (fzf)
+Tab                           │ Open autocomplete menu with fzf-tab
+Ctrl+H                        │ Toggle hidden files in FZF search
+
+----------------------------------------------------------------------------------
+🔍 fzf
+----------------------------------------------------------------------------------
+↑ / ↓                         │ Move up/down
+Tab                           │ Cycle selection
+Ctrl+Space                    │ Mark / unmark item
+Ctrl+A                        │ Toggle all marked / unmarked
+Enter                         │ Select current item(s)
+Ctrl+P                        │ Toggle / move preview window
+Ctrl+J / K                    │ Scroll preview down / up
+, / .                         │ Switch group (fzf-tab)
+Ctrl+G then ?                 │ Show all available fzf-git shortcuts
+Ctrl+G then F                 │ fzf-git select **F**iles (e.g., for `git add`)
+Ctrl+G then B                 │ fzf-git select **B**ranches
+Ctrl+G then T                 │ fzf-git select **T**ags
+Ctrl+G then R                 │ fzf-git select **R**emotes
+Ctrl+G then H                 │ fzf-git select commit **H**ashes
+Ctrl+G then S                 │ fzf-git select **S**tashes
+Ctrl+G then L                 │ fzf-git select ref**l**ogs
+Ctrl+G then W                 │ fzf-git select **W**orktrees
+Ctrl+G then E                 │ fzf-git select refs via `git for-**e**ach-ref`
+
+----------------------------------------------------------------------------------
+🔀 tmux
+----------------------------------------------------------------------------------
+Alt+A                         │ Prefix key
+Prefix then C                 │ New window
+Prefix then -                 │ Horizontal split
+Prefix then |                 │ Vertical split
+Prefix then d                 │ Detach session
+Prefix then +                 │ Zoom current pane
+Prefix then ↑↓←→              │ Move between panes
+Prefix then Alt+Shift ↑↓←→    │ Resize panes
+Prefix then R                 │ Reload tmux config
+Prefix then Alt+S             │ Sync input to all panes
+Prefix then Ctrl+S            │ Hide status bar
+
+----------------------------------------------------------------------------------
+✏️ micro
+----------------------------------------------------------------------------------
+Ctrl+O                        │ Open file
+Ctrl+S                        │ Save
+Ctrl+Q                        │ Quit
+Ctrl+F                        │ Find
+Ctrl+Z / Y                    │ Undo / Redo
+Ctrl+X/C/V                    │ Cut / Copy / Paste
+Ctrl+E                        │ Open command bar
+Ctrl+T                        │ New tab
+Alt+, / .                     │ Previous / Next tab
+Ctrl+R                        │ Toggle line numbers
+EOF
+  )
+
+  print -r -- "$data" |
+    fzf --ansi \
+        --no-multi \
+        --cycle \
+        --layout=reverse \
+        --border=rounded \
+        --prompt="Keybinds ❯ " \
+        --delimiter='│' \
+        --with-nth=1,2 \
+        --preview-window=right:0%:wrap \
+        --preview='
+          if [[ "{}" == $"\033[1m"* ]]; then
+            echo "{}"
+          else
+            echo "KEY:\n  {1}\n\nACTION:\n  {2}"
+          fi
+        '
+  }
+    
+    zle -N __keybinds
+    bindkey '^K' __keybinds 
 
     rm -f "$HOME/.zshrc.d/ZZZZZZ_temp.zsh"
 fi
