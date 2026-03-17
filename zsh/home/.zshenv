@@ -1,6 +1,7 @@
 
 (( $path[(Ie)"$HOME/.local/bin"] )) || path+=("$HOME/.local/bin")
 
+export MISE_QUIET=1
 
 export EDITOR=micro
 export VISUAL="$EDITOR"
