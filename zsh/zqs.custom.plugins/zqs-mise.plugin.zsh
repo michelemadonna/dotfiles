@@ -37,13 +37,13 @@ fi
 
 
 # Load mise hooks
-eval "$($__mise activate zsh)"
+eval "$($__mise --quiet activate zsh)"
 
 # Hook mise into current environment
 eval "$($__mise hook-env -s zsh)"
 
 asdf() {
-  command mise "$@" --quiet
+  command mise --quiet "$@"
 }
 _mise_hook_chpwd () {
         eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason chpwd)"
@@ -61,7 +61,7 @@ if [[ ! -f "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
 fi
 
 # Generate and load mise completion
-$__mise completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
+$__mise --quiet completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
 compinit -u "$ZSH_CACHE_DIR/completions/_$__mise"
 unset __mise
 
