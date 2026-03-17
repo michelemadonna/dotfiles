@@ -9,6 +9,7 @@ This setup leverages the `.zshrc` from the `zsh-quickstart-kit` as the main conf
 Configuration is managed through a clean, modular approach:
 
 - **`stow`** is used to create symbolic links from this repository to your home directory, seamlessly connecting the kit’s `.zshrc` and all your custom configuration files.
+- This dotfiles setup loads its own plugins and settings, while your customizations are kept separate in the `local` directory in `$HOME/.dotfiles/local`. This means you can update the kit without worrying about losing your personalized tweaks.
 - **Customizations should never be made directly in the framework’s `.zshrc`**. Instead, place your personalized settings in:
   - `$HOME/.dotfiles/local/home/zshrc.d/` for general configuration snippets.
   - `$HOME/.dotfiles/local/home/zshrc.pre-plugins` for environment variables or any code that must run *before* plugins are loaded.
@@ -35,6 +36,8 @@ This configuration brings together a curated set of powerful command-line tools 
 - 🎨 **zsh-syntax-highlighting**: Provides real-time syntax highlighting for commands in the terminal.
 - 🖌️ **powerlevel10k**: A highly customizable Zsh theme that emphasizes speed and simplicity.
 - 🛠️ **Other tools**: A suite of essentials including `z`, `git`, `duf`, `wget`, `htop`, and many more.
+- 🪐 **Ghostty**: A modern, GPU-accelerated terminal emulator for macOS and Ubuntu.
+- 📝 **Micro**: A modern terminal-based text editor (optional).
 
 The `zsh-quickstart-kit` includes the [powerlevel10k](https://github.com/romkatv/powerlevel10k) ZSH theme, which requires a Powerline-compatible font to render its iconic status glyphs. For this purpose, my configuration uses [Nerd fonts](https://github.com/ryanoasis/nerd-fonts), a collection of over 20 patched fonts (with more than 1,700 variations) that provide an extensive set of glyphs. This includes popular fonts like Droid Sans, Meslo, Fira Code, Inconsolata, and more.
 
@@ -57,7 +60,7 @@ I chose Ghostty because it is:
 - High performance with minimal resource usage.
 - Native GPU rendering and advanced Unicode support.
 - Extensive customization for fonts, colors, and layouts.
-- **The `nightly build` version enables *shaders*, allowing for advanced graphical effects and animations directly in your terminal!**
+- Shader support for advanced graphical effects and animations.
 
 This repository includes my personal Ghostty configuration, which applies a slightly customized version of the **Argonaut** theme called **Astronaut**. Another color scheme I really like, **Breeze**, is also included.
 
@@ -151,10 +154,10 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
   Install the latest version of Ghostty:
   
   ```bash
-  brew install ghostty@tip
+  brew install ghostty
   ```
   
-  > **Note:** The `@tip` version is the nightly build, which includes shader support for advanced graphical effects.
+  > **Note:** The `ghostty@tip` version is the nightly build, which includes the latest features but may be less stable. The `ghostty` version is the latest stable release. For the best experience with shaders and new features, I recommend using `ghostty@tip`.
   
   Next, configure Ghostty. You can either open its default settings and manually set the font to `FiraCode Nerd Font Mono` with a size of `12.0`:
   
@@ -234,7 +237,7 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
   > ⚠️ **Mouse Reporting:** by default, iTerm2 is configured to transparently report mouse events to terminal applications, except for right-click actions. You can temporarily enable right-click reporting by holding the Command key while clicking, or enable it permanently in the settings:  
   > `General` → `Pointer` → `General` → Check `"Right Click reported to the apps, does not open menu"`. If you want to disable mouse reporting entirely, you can do so in the same settings menu. Alternatively, you can hold down the Option key to bypass mouse reporting temporarily.
   
-  > ⚠️ **Copying Text from Terminal Applications :** to copy text from tmux or similar apps, **hold the Option key while selecting text with your mouse, then press Command + C**.
+  > ⚠️ **Copying Text from Terminal Applications :** to copy text from tmux or similar apps, **hold the Option key while selecting text with your mouse, then press Command + C**. 
 
 </details>
 
@@ -243,7 +246,6 @@ The kit also uses `zgenom` to load these oh-my-zsh plugins:
 #### 2.2.1 Install essential packages:
 
 ```bash
-brew tap "homebrew/command-not-found"
 brew install coreutils bat eza fd git-delta htop ripgrep stow tmux tree wget git
 ```
 
@@ -254,17 +256,18 @@ In your home :
 cp -R "$HOME/.dotfiles/zsh/home" "$HOME/.dotfiles/local/"
 git clone https://github.com/jandamm/zgenom.git "$HOME/.zgenom"
 git clone https://github.com/unixorn/zsh-quickstart-kit.git "$HOME/.zqs"
-cd "$HOME/.zqs" && stow --target=$HOME zsh && cd
-cd "$HOME/.dotfiles/local" && stow --target=$HOME home && cd
+cd "$HOME/.zqs" && stow --target=$HOME zsh
+rm -rf "$HOME/.zshrc.d"
+cd "$HOME/.dotfiles/local" && stow --target=$HOME home
 ```
 
-if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
+if you want use my conf for ssh, micro, fastfetch and git :
 
 ```bash
 mkdir -p "$HOME"/{.config,.ssh,.local/bin}
-cp -Rn "$HOME/.dotfiles"/{ssh,micro,git,fresh,oh-my-posh,fastfetch,ghostty,powerlevel10k} "$HOME/.dotfiles/local/"
+cp -Rn "$HOME/.dotfiles"/{ssh,micro,fastfetch} "$HOME/.dotfiles/local/"
 ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/"
-ln -sfn "$HOME/.dotfiles/local/{micro,git,fresh,fastfetch,ghostty}" "$HOME/.config/"
+ln -sfn "$HOME/.dotfiles/local"/{micro,git,fastfetch} "$HOME/.config/"
 ```
 
 #### 2.2.3 Restart your terminal.
@@ -348,25 +351,21 @@ sudo ln -s /usr/bin/batcat /usr/bin/bat
 #### 3.2.2 Link dotfiles using stow:
 
 ```bash
-cp $HOME/.dotfiles/zsh/.zsh-quickstart-local-plugins.example $HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins
-cp $HOME/.dotfiles/zsh/.zshenv.example $HOME/.dotfiles/zsh/zsh/.zshenv
-git clone https://github.com/jandamm/zgenom.git $HOME/.zgenom
-git clone https://github.com/unixorn/zsh-quickstart-kit.git $HOME/.zqs
-cd $HOME/.zqs && stow --target=$HOME zsh && cd
-cd $HOME/.dotfiles/zsh && stow --target=$HOME zsh && cd
-cd $HOME/.dotfiles/zsh && stow --target=$HOME/.zshrc.d zshrc.d && cd
+cp -R "$HOME/.dotfiles/zsh/home" "$HOME/.dotfiles/local/"
+git clone https://github.com/jandamm/zgenom.git "$HOME/.zgenom"
+git clone https://github.com/unixorn/zsh-quickstart-kit.git "$HOME/.zqs"
+cd "$HOME/.zqs" && stow --target=$HOME zsh
+rm -rf "$HOME/.zshrc.d"
+cd "$HOME/.dotfiles/local" && stow --target=$HOME home
 ```
 
-if you want use my conf for ssh, micro, fresh, fastfetch, git and oh-my-posh :
+if you want use my conf for ssh, micro, fastfetch, git and oh-my-posh :
 
 ```bash
-mkdir -p $HOME/.config
-mkdir -p $HOME/.ssh
-mkdir -p $HOME/.local/bin
-ln -sfn "$HOME/.dotfiles/ssh/config" "$HOME/.ssh/"
-ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/"
-ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/"
-ln -sfn "$HOME/.dotfiles/git" "$HOME/.config/"
+mkdir -p "$HOME"/{.config,.ssh,.local/bin}
+cp -Rn "$HOME/.dotfiles"/{ssh,micro,git,oh-my-posh,fastfetch} "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/"
+ln -sfn "$HOME/.dotfiles/local/{micro,git,fastfetch}" "$HOME/.config/"
 ```
 
 #### 3.2.3 Restart your terminal.
@@ -417,7 +416,8 @@ sudo apt install micro
 You can use my micro configuration using:
 
 ```bash
-ln -sfn "$HOME/.dotfiles/micro" "$HOME/.config/micro"
+cp -Rn "$HOME/.dotfiles/micro" "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/micro" "$HOME/.config/micro"
 ```
 
 If you want to use your own custom micro configuration, create symlink to your configuration.
@@ -497,7 +497,7 @@ curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | 
 You can use my fresh configuration using:
 
 ```bash
-ln -sfn "$HOME/.dotfiles/fresh" "$HOME/.config/fresh"
+ln -sfn "$HOME/.dotfiles/local/fresh" "$HOME/.config/fresh"
 ```
 
 If you want to use your own custom fresh configuration, create symlink to your configuration.
@@ -539,11 +539,12 @@ mkdir -p $HOME/.local/bin
 curl https://mise.run | sh
 ```
 
-If not already present or commented, uncomment and add this line on your `$HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins`
+If not already present or commented, uncomment and add this line on your `$HOME/.dotfiles/local/home/.zsh-quickstart-local-plugins`
 
 ```bash
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-mise.plugin.zsh
 ```
+and restart your terminal.
 
 This will load the customized mise integration (with Powerlevel10k segments support and a more convenient completion for using the various runtimes versions) before your plugins.
 
@@ -680,7 +681,8 @@ This repository includes a custom SSH configuration to enhance security and usab
 
 ```bash
 mkdir -p $HOME/.ssh
-ln -s $HOME/.dotfiles/ssh/config $HOME/.ssh/config
+cp -Rn "$HOME/.dotfiles/ssh" "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/config"
 ```
 
 The configuration is modular:
@@ -730,7 +732,9 @@ This setup includes a default `.main.gitconfig`. To extend it without creating m
 To set up your Git configuration using `stow`:
 
 ```sh
-mkdir -p $HOME/.config/git && cd $HOME/.dotfiles && stow --target=$HOME/.config/git git && cd
+mkdir -p $HOME/.config
+cp -Rn "$HOME/.dotfiles/git" "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/git" "$HOME/.config/git"
 ```
 
 This links the git config files from this repo into `$HOME/.config/git`. You can then create `$HOME/.config/git/local.gitconfig` to define your user details and include other files conditionally, as shown in the original prompt's examples.
@@ -876,18 +880,13 @@ sudo apt install fastfetch
 ```
 
 ### Configure Fastfetch
-
-The Fastfetch configuration is set up automatically using `$HOME/.dotfiles/fastfetch/config.jsonc`.
-
-If you want to use your own custom Fastfetch configuration, create a `.zshenv` file in your home directory (if it doesn't already exist) and add the following lines:
+The Fastfetch configuration is set up automatically using `$HOME/.config/fastfetch/config.jsonc`.
 
 ```bash
-export DOTFILES_DIR=$HOME/.dotfiles
-export ZQS_FASTFETCH_CONFIG="$DOTFILES_DIR/<your config file path>/<config file name>.jsonb"
+mkdir -p $HOME/.config
+cp -Rn "$HOME/.dotfiles/fastfetch" "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/fastfetch" "$HOME/.config/fastfetch"
 ```
-
-This will ensure Fastfetch loads your personalized configuration automatically.
-
 If you want Fastfetch to run automatically every time you open a new terminal session, add the following line to your `.zshenv` file:
 
 ```bash
@@ -895,8 +894,6 @@ export ZQS_SHOW_FASTFETCH=true
 ```
 
 With this setting, Fastfetch will be displayed unless the terminal is opened within an IDE (such as VSCode or Zed) or inside a tmux session.
-
-Now, just run `fastfetch` to see your system info using your custom configuration!
 
 ## 11. 💎 Bonus: Oh My Posh Integration
 
@@ -929,7 +926,11 @@ To enable Oh My Posh in your Zsh setup: If not already present or commented, unc
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/ohmyposh.plugin.zsh
 ```
 
-This enables Oh My Posh and load the default configuration in `$HOME/.dotfiles/oh-my-posh/custom.omp.json`.
+This enables Oh My Posh and load the default configuration in `$HOME/.config/oh-my-posh/custom.omp.json`.
+
+mkdir -p $HOME/.config
+cp -Rn "$HOME/.dotfiles/oh-my-posh" "$HOME/.dotfiles/local/"
+ln -sfn "$HOME/.dotfiles/local/oh-my-posh" "$HOME/.config/oh-my-posh"
 
 To revert to `powerlevel10K`, simply remove or comment the previous line and restart your terminal.
 
