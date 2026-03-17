@@ -67,6 +67,13 @@ else
     if [[ -L "$HOME/.zshenv" || -f "$HOME/.zshenv" ]]; then
         source "$HOME/.zshenv" 
     fi
+    # Load Homebrew's command-not-found handler if on macOS and Homebrew is installed
+    if [ $(uname -a | grep -ci Darwin) = 1 ]; then
+      HOMEBREW_COMMAND_NOT_FOUND_HANDLER="$(brew --repository)/Library/Homebrew/command-not-found/handler.sh"
+      if [ -f "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER" ]; then
+        source "$HOMEBREW_COMMAND_NOT_FOUND_HANDLER";
+      fi
+    fi
     # this file is sourced by zshrc to set up allafine integration.
     # it moves the cursor to the bottom of the terminal when pressing Enter.
     if [[ "${ZQS_ENABLE_ALLAFINE}" == "true" ]]; then
