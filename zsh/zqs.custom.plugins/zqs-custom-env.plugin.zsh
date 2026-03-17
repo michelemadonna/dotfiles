@@ -113,7 +113,6 @@ else
         fi
       else
           echo "fastfetch not found. Please refer to $DOTFILES_DIR/Readme.md for installation instructions."
-          exit 1
       fi
     fi
 
