@@ -30,10 +30,6 @@ if [[ ! -d "$ASDF_DATA_DIR" ]]; then
   done
 fi
 
-asdf() {
-  command mise "$@"
-}
-
 # remove zqs file that loads mise if present
 if [ -f "$HOME/.zshrc.d/001-load-mise-if-present" ]; then
     rm "$HOME/.zshrc.d/001-load-mise-if-present"
@@ -45,6 +41,16 @@ eval "$($__mise activate zsh)"
 
 # Hook mise into current environment
 eval "$($__mise hook-env -s zsh)"
+
+asdf() {
+  command mise "$@" --quiet
+}
+_mise_hook_chpwd () {
+        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason chpwd)"
+}
+_mise_hook_precmd () {
+        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason precmd)"
+}
 
 # If the completion file doesn't exist yet, we need to autoload it and
 # bind it to `mise`. Otherwise, compinit will have already done that.
