@@ -9,7 +9,7 @@ if ! command -v oh-my-posh &> /dev/null; then
     return
 fi
 
-TARGET_FILE="$HOME/.p10k.zsh"
+TARGET_FILE="$DOTFILES_DIR/local/home/.p10k.zsh"
 
 if [[ "$OSTYPE" == darwin* ]]; then
     SED_INPLACE=(-i '')
@@ -23,11 +23,9 @@ if ! head -n 1 "$TARGET_FILE" | grep -q "ohmyposh"; then
 if [[ "${ZQS_PROMPT}" == "ohmyposh" ]]; then\
   # this file is responsible for setting up oh-my-posh\
   if [ ! -n "$ZQS_OH_MY_POSH_CONFIG" ]; then\
-    export ZQS_OH_MY_POSH_CONFIG="$DOTFILES_DIR/local/oh-my-posh/custom.omp.json"\
+    export ZQS_OH_MY_POSH_CONFIG="$HOME/.config/oh-my-posh/custom.omp.json"\
   fi\
-  
   eval "$(oh-my-posh init zsh --config $ZQS_OH_MY_POSH_CONFIG)"\
-  
   return\
 fi
 ' "$TARGET_FILE"
