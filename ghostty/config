@@ -92,9 +92,9 @@ gtk-toolbar-style=flat
 window-theme=ghostty
 gtk-titlebar-style=native
 
-keybind = alt+\=text:`
-keybind = alt+5=text:~
-
+#keybind = alt+\=text:`
+#keybind = alt+5=text:~
+keybind = super+a=unbind
 #on ubuntu with gtk you need to add to your config.local
 #set the windows-bar backgroud color to match the background of your theme also if ghostty is not in foreground
 #window-titlebar-background=#292c33

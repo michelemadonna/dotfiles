@@ -497,6 +497,7 @@ curl -sL $(curl -s https://api.github.com/repos/sinelaw/fresh/releases/latest | 
 You can use my fresh configuration using:
 
 ```bash
+cp -Rn "$HOME/.dotfiles/fresh" "$HOME/.dotfiles/local/"
 ln -sfn "$HOME/.dotfiles/local/fresh" "$HOME/.config/fresh"
 ```
 
@@ -506,6 +507,7 @@ If you want to use your own custom fresh configuration, create symlink to your c
 > 
 > The macOS keymap is designed around these constraints:
 > 
+> To use completition with <kbd>Ctrl</kbd>+<kbd>Space</kbd>, you need to disable the default macOS shortcut to select the previous input source, which is <kbd>Ctrl</kbd>+<kbd>Space</kbd> by default. This can be done in System Settings > Keyboard > Keyboard Shortcuts ... > Input Sources > Disable "Select the previous input source"
 > **Ctrl+Shift combinations don't work.** Some macOS terminals cannot reliably send <kbd>Ctrl</kbd>+<kbd>Shift</kbd> sequences. For example, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> produces a caron character (ˇ) instead of being recognized as a key chord. The macOS keymap uses <kbd>Ctrl</kbd>+<kbd>Alt</kbd> as an alternative modifier.
 > 
 > **Some <kbd>Ctrl</kbd> keys are ASCII control characters.** In terminal protocols, <kbd>Ctrl</kbd>+<kbd>J</kbd> is Line Feed (newline), <kbd>Ctrl</kbd>+<kbd>M</kbd> is Carriage Return (Enter), and <kbd>Ctrl</kbd>+<kbd>I</kbd> is Tab. Binding actions to these keys causes erratic behavior. The macOS keymap avoids these collisions.
@@ -514,7 +516,7 @@ If you want to use your own custom fresh configuration, create symlink to your c
 > 
 > **Unix readline conventions are preserved.** Terminal users expect <kbd>Ctrl</kbd>+<kbd>Y</kbd> to "yank" (paste from the kill ring), <kbd>Ctrl</kbd>+<kbd>K</kbd> to kill to end of line, and <kbd>Ctrl</kbd>+<kbd>U</kbd> to kill to start of line. The macOS keymap respects these conventions rather than overriding them with GUI editor shortcuts.
 > 
-> Use the **Command Palette** (<kbd>Ctrl</kbd>+<kbd>P</kbd>) or **Show Keybindings** (<kbd>Ctrl</kbd>+<kbd>H</kbd>) to discover the actual key bindings, or view the keymap file directly at `keymaps/macos.json`.
+> Use the **Command Palette** (<kbd>Ctrl</kbd>+<kbd>P</kbd>) or **Show Keybindings** (<kbd>Ctrl</kbd>+<kbd>H</kbd>) to discover the actual key bindings, or view the keymap file directly at `keymaps/macos.json` or `keymaps/macos-gui.json`.
 
 ### 📦 mise (Universal Runtime Version Manager)
 
