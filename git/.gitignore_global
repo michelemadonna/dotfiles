@@ -1,3 +1,4 @@
+*~
 # General
 .DS_Store
 .AppleDouble
@@ -24,7 +25,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-# Micro editor directories
-micro/buffers
-micro/backups
