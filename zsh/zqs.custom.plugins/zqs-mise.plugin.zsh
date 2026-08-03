@@ -46,10 +46,10 @@ asdf() {
   command mise --quiet "$@"
 }
 _mise_hook_chpwd () {
-        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason chpwd)"
+        eval "$("$(whence -p mise)" --quiet hook-env -s zsh --reason chpwd)"
 }
 _mise_hook_precmd () {
-        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason precmd)"
+        eval "$("$(whence -p mise)" --quiet hook-env -s zsh --reason precmd)"
 }
 
 # If the completion file doesn't exist yet, we need to autoload it and
