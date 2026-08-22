@@ -3,24 +3,23 @@
 #includes private functions for toggling hidden files, setting default commands, and configuring fzf options.
 (( ! $+commands[fzf] )) && return
 
+(( ${+ZQS_FZF_HIDE_HIDDEN_FILE} )) || \
+  typeset -gr ZQS_FZF_HIDE_HIDDEN_FILE="$HOME/.fzf/.FZF_HIDE_HIDDEN"
+
+__fzf_hidden_files_visible() {
+  [[ ! -f $ZQS_FZF_HIDE_HIDDEN_FILE ]]
+}
+
 __toggle_fzf_hidden_files() {
-  local show_hidden="$1"
-  if [[ -z "$show_hidden" ]]; then
-    # Toggle mode
-    if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
-      show_hidden="false"
-    else
-      show_hidden="true"
-    fi
-  fi
-  if [[ "$show_hidden" == "true" ]]; then
-    setopt globdots
-    echo "🙈 FZF Hide Hidden files ON"
-    touch ~/.fzf/.FZF_SHOW_HIDDEN
-  else
+  if __fzf_hidden_files_visible; then
+    mkdir -p "${ZQS_FZF_HIDE_HIDDEN_FILE:h}"
+    touch "$ZQS_FZF_HIDE_HIDDEN_FILE"
     unsetopt globdots
-    echo "🙉 FZF Show Hidden files OFF"
-    rm -f ~/.fzf/.FZF_SHOW_HIDDEN
+    print -r -- "🙈 FZF hidden files hidden"
+  else
+    rm -f "$ZQS_FZF_HIDE_HIDDEN_FILE"
+    setopt globdots
+    print -r -- "🙉 FZF hidden files visible"
   fi
   __fzf_reload
 
@@ -32,7 +31,7 @@ __toggle_fzf_hidden_files() {
 
   
 __fzf_default_command() {
-  if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
+  if __fzf_hidden_files_visible; then
     setopt globdots
     FD_HIDDEN_FLAG="--hidden"
     FIND_HIDDEN_EXPR="-name '.*' -prune -o"
@@ -42,19 +41,19 @@ __fzf_default_command() {
     FIND_HIDDEN_EXPR=""
   fi
 
-  if command -v fd &>/dev/null; then
-    echo "fd --type f --follow $FD_HIDDEN_FLAG --exclude '.git' --exclude 'node_modules' 2>/dev/null"
+  if (( $+commands[fd] )); then
+    print -r -- "fd --type f --follow $FD_HIDDEN_FLAG --exclude '.git' --exclude 'node_modules' 2>/dev/null"
   else
     if [[ -n "$FIND_HIDDEN_EXPR" ]]; then
-      echo "find . \( -path '*/.git/*' -o -path '*/node_modules/*' \) -prune -o -type f -print"
+      print -r -- "find . \( -path '*/.git/*' -o -path '*/node_modules/*' \) -prune -o -type f -print"
     else
-      echo "find . -type f ! -path '*/.git/*' ! -path '*/node_modules/*' ! -name '.*'"
+      print -r -- "find . -type f ! -path '*/.git/*' ! -path '*/node_modules/*' ! -name '.*'"
     fi
   fi
 }
 
 __fzf_alt_c_command() {
-  if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
+  if __fzf_hidden_files_visible; then
     setopt globdots
     FD_HIDDEN_FLAG="--hidden"
     FIND_HIDDEN_EXPR=""
@@ -64,16 +63,16 @@ __fzf_alt_c_command() {
     FIND_HIDDEN_EXPR="! -name '.*'"
   fi
 
-  if command -v fd &>/dev/null; then
-    echo "fd --type d --color never $FD_HIDDEN_FLAG --exclude '.git' --exclude 'node_modules' 2>/dev/null"
+  if (( $+commands[fd] )); then
+    print -r -- "fd --type d --color never $FD_HIDDEN_FLAG --exclude '.git' --exclude 'node_modules' 2>/dev/null"
   else
     # Exclude .git and node_modules, and optionally hidden dirs
-    echo "find . -type d ! -path '*/.git/*' ! -path '*/node_modules/*' $FIND_HIDDEN_EXPR"
+    print -r -- "find . -type d ! -path '*/.git/*' ! -path '*/node_modules/*' $FIND_HIDDEN_EXPR"
   fi
 }
   
 __fzf_alt_c_opts() {
-  if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
+  if __fzf_hidden_files_visible; then
     setopt globdots
     EXA_HIDDEN_FLAG="--all"
     LS_HIDDEN_FLAG="-A"
@@ -85,26 +84,26 @@ __fzf_alt_c_opts() {
     TREE_HIDDEN_FLAG=""
   fi
 
-  if command -v eza &>/dev/null; then
-    echo "--preview '(eza $EXA_HIDDEN_FLAG --icons --tree --color=always {} 2>/dev/null || tree $TREE_HIDDEN_FLAG -C {}) | head -200'"
-  elif command -v tree &>/dev/null; then
-    echo "--preview 'tree $TREE_HIDDEN_FLAG -C {} | head -200'"
+  if (( $+commands[eza] )); then
+    print -r -- "--preview '(eza $EXA_HIDDEN_FLAG --icons --tree --color=always {} 2>/dev/null || tree $TREE_HIDDEN_FLAG -C {}) | head -200'"
+  elif (( $+commands[tree] )); then
+    print -r -- "--preview 'tree $TREE_HIDDEN_FLAG -C {} | head -200'"
   else
-    echo "--preview 'ls -l$LS_HIDDEN_FLAG {} | head -200'"
+    print -r -- "--preview 'ls -l$LS_HIDDEN_FLAG {} | head -200'"
   fi
 }
   
 __fzf_ctrl_t_opts() {
-  if command -v bat &>/dev/null; then
-    echo "--preview '(bat --style=numbers --color=always {} 2>/dev/null) | head -200'"
+  if (( $+commands[bat] )); then
+    print -r -- "--preview '(bat --style=numbers --color=always {} 2>/dev/null) | head -200'"
   else
-    echo "--preview 'cat {} 2>/dev/null | head -200'"
+    print -r -- "--preview 'cat {} 2>/dev/null | head -200'"
   fi
 }
 
 # Set up fzf preview for various commands
 __fzf_tab_complete_editor_preview() {
-  if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
+  if __fzf_hidden_files_visible; then
     setopt globdots
     EXA_HIDDEN_FLAG="--all"
     LS_HIDDEN_FLAG="-A"
@@ -123,7 +122,7 @@ __fzf_tab_complete_editor_preview() {
 }
 
 __fzf_tab_complete_cd_preview() {
-  if [[ -f ~/.fzf/.FZF_SHOW_HIDDEN ]]; then
+  if __fzf_hidden_files_visible; then
     setopt globdots
     EXA_HIDDEN_FLAG="--all"
     LS_HIDDEN_FLAG="-A"
@@ -143,12 +142,20 @@ __fzf_tab_complete_cd_preview() {
   fi
 }
 
-if [[ ! -f $HOME/.fzf/fzf-git.sh ]]; then
-  curl -fsSL https://raw.githubusercontent.com/junegunn/fzf-git.sh/master/fzf-git.sh -o $HOME/.fzf/fzf-git.sh
-fi
-source $HOME/.fzf/fzf-git.sh
+fzf-git-update() {
+  mkdir -p "$HOME/.fzf"
+  command curl -fsSL https://raw.githubusercontent.com/junegunn/fzf-git.sh/master/fzf-git.sh \
+    -o "$HOME/.fzf/fzf-git.sh"
+}
+[[ -r "$HOME/.fzf/fzf-git.sh" ]] && source "$HOME/.fzf/fzf-git.sh"
 
 __fzf_reload() {
+  if __fzf_hidden_files_visible; then
+    setopt globdots
+  else
+    unsetopt globdots
+  fi
+
   export FZF_DEFAULT_COMMAND="$(__fzf_default_command)"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$(__fzf_alt_c_command)"
@@ -176,12 +183,3 @@ fzf_tab_no_space_after_at() {
   fi
   fzf-tab-complete
 }
-
-if [[ -f ~/.fzf.zsh ]] && ! grep -q '^#\[' ~/.fzf.zsh; then
-  awk '/^[[:space:]]*#/ {print; next} /\[\[ \$- == \*i\* \]\] && source "\${FZF_PATH}\/shell\/completion.zsh" 2> \/dev\/null/ {print "#" $0; next} {print}' ~/.fzf.zsh > ~/.fzf.zsh.tmp && mv ~/.fzf.zsh.tmp ~/.fzf.zsh
-fi
-
-
-
-
-

@@ -7,7 +7,8 @@
 ## Add Homebrew's site functions to fpath (minus git, because that causes conflicts)
 ## This will give you autocomplete for _other_ things you installed
 ## from brew (like `just`, or `exa`, or `k6`)
-if [ $(uname -a | grep -ci Darwin) = 1 ]; then
-	[ -e "$HOMEBREW_PREFIX/share/zsh/site-functions/_git" ] && rm "$HOMEBREW_PREFIX/share/zsh/site-functions/_git"
-  fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+if [[ $OSTYPE == darwin* && -d ${HOMEBREW_PREFIX:-/usr/local}/share/zsh/site-functions ]]; then
+  # Append Homebrew completions so Zsh's existing _git keeps precedence.
+  fpath+=("${HOMEBREW_PREFIX:-/usr/local}/share/zsh/site-functions")
+  typeset -gU fpath
 fi
