@@ -28,3 +28,5 @@ Temporary Items
 # Micro editor directories
 micro/buffers
 micro/backups
+
+local

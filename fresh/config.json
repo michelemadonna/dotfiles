@@ -7,9 +7,10 @@
     "screensaver_enabled": true,
     "indentation_guide": "all",
     "completion_popup_auto_show": true,
-    "nerd_font_icons": true
-  },
-  "active_keybinding_map": "macos-gui",
+    "nerd_font_icons": true,
+    "auto_read_only": false,
+   },
+  "active_keybinding_map": "vscode",
   "default_language": "bash",
   "plugins": {
     "vi_mode": {
@@ -19,40 +20,72 @@
         "arrowKeys": true,
         "searchWordUnderCursor": true
       }
+    },
+    "dashboard": {
+      "settings": {
+        "autoOpen": true
+      },
+      "enabled": true
+    },
+    "git_explorer": {
+      "settings": {
+        "colorNames": true
+      },
+      "enabled": true
     }
   }, 
   "keybindings": [
     {
       "key": "Enter",
       "action": "prompt_accept_suggestion",
-      "when": "prompt"
+      "when": "prompt",
     },
     {
-      "comment": "Completion popup context - Enter accepts the selected completion",
       "key": "Enter",
       "action": "completion_accept",
-      "when": "completion"
+      "when": "completion",
     },
     {
       "key": "g",
       "modifiers": ["ctrl"],
       "action": "goto_line",
-      "when": "normal"
+      "when": "normal",
     },
     {
       "key": "Up",
       "modifiers": ["shift", "alt"],
       "action": "add_cursor_above",
-      "when": "normal"
+      "when": "normal",
     },
     {
       "key": "Down",
-      "modifiers": ["shift", "alt"],
       "action": "add_cursor_below",
-      "when": "normal"
-    }
+      "modifiers": ["shift", "alt"],
+      "when": "normal",
+    },
+    {
+      "key": "f",
+      "modifiers": ["alt"],
+      "action": "move_word_right",
+      "when": "global",
+    },
+    {
+      "key": "<",
+      "modifiers": ["alt"],
+      "action": "menu_open",
+      "args": {
+        "name": "File",
+      },
+      "when": "global",
+    },
   ],
   "file_explorer": {
-    "show_hidden": false
+    "show_hidden": true
+  },
+  "clipboard": {
+    "use_osc52": true
+  },
+  "file_browser": {
+    "show_hidden": true
   }
 }
