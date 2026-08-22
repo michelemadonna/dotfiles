@@ -39,19 +39,9 @@ fi
 # Load mise hooks
 eval "$($__mise --quiet activate zsh)"
 
-# Hook mise into current environment
-eval "$($__mise hook-env -s zsh)"
-
 asdf() {
   command mise --quiet "$@"
 }
-_mise_hook_chpwd () {
-        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason chpwd)"
-}
-_mise_hook_precmd () {
-        eval "$(/usr/local/bin/mise --quiet hook-env -s zsh --reason precmd)"
-}
-
 # If the completion file doesn't exist yet, we need to autoload it and
 # bind it to `mise`. Otherwise, compinit will have already done that.
 if [[ ! -f "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
@@ -60,9 +50,11 @@ if [[ ! -f "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
   _comps[$__mise]=_$__mise
 fi
 
-# Generate and load mise completion
-$__mise --quiet completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
-compinit -u "$ZSH_CACHE_DIR/completions/_$__mise"
+# Generate the completion only when the cache is absent. The main shell
+# initialization owns compinit; invoking it here caused duplicate compaudit.
+if [[ ! -s "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
+  $__mise --quiet completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise"
+fi
 unset __mise
 
 if [ $(uname -a | grep -ci Linux) = 1 ] && ! command mise list -q -i usage | grep -q "usage"; then

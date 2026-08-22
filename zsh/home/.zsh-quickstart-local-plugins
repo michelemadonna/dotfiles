@@ -161,8 +161,6 @@ fi
 # utilities distributed with pip.
 zgenom load sharat87/pip-app
 
-zgenom load chrissicool/zsh-256color
-
 # Load more completion files for zsh from the zsh-lovers github repo.
 zgenom load zsh-users/zsh-completions src
 
@@ -178,6 +176,7 @@ GENCOMPL_FPATH=$HOME/.zsh/complete
 # Very cool plugin that generates zsh completion functions for commands
 # if they have getopt-style help text. It doesn't generate them on the fly,
 # you'll have to explicitly generate a completion, but it's still quite cool.
+export ZSH_COMPLETION_GENERATOR_NO_AUTOGEN=true
 zgenom load RobSis/zsh-completion-generator
 
 # Add Fish-like autosuggestions to your ZSH.
@@ -200,8 +199,8 @@ zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-custom-env.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fzf.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fix-git-completion-on-darwin.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-mise.plugin.zsh
-#zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-oh-my-posh.plugin.zsh
-##
+zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-oh-my-posh.plugin.zsh
+###
 
 if [[ -z "${ZQS_PROMPT}" || "${ZQS_PROMPT}" != "ohmyposh" ]]; then
   if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
