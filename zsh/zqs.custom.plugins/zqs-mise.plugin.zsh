@@ -64,6 +64,38 @@ if [[ -s $mise_activate_cache ]]; then
 else
   eval "$(command "$mise_binary" --quiet activate zsh)"
 fi
+
+# Mise registers the same hook for both chpwd and precmd. After `cd`, Zsh runs
+# chpwd immediately and then precmd for the next prompt, causing two identical
+# hook-env calls. Keep the immediate chpwd update, but consume its result once
+# at the following prompt when the working directory has not changed again.
+_zqs_mise_chpwd_hook() {
+  _mise_hook || return
+  typeset -g _ZQS_MISE_CHPWD_PWD=$PWD
+  typeset -gi _ZQS_MISE_SKIP_NEXT_PRECMD=1
+}
+
+_zqs_mise_precmd_hook() {
+  if (( ${_ZQS_MISE_SKIP_NEXT_PRECMD:-0} )) &&
+      [[ ${_ZQS_MISE_CHPWD_PWD:-} == $PWD ]]; then
+    unset _ZQS_MISE_SKIP_NEXT_PRECMD _ZQS_MISE_CHPWD_PWD
+    return 0
+  fi
+
+  unset _ZQS_MISE_SKIP_NEXT_PRECMD _ZQS_MISE_CHPWD_PWD
+  _mise_hook
+}
+
+typeset -ga precmd_functions chpwd_functions
+precmd_functions=(
+  _zqs_mise_precmd_hook
+  ${precmd_functions:#_mise_hook}
+)
+chpwd_functions=(
+  _zqs_mise_chpwd_hook
+  ${chpwd_functions:#_mise_hook}
+)
+
 unset mise_binary mise_cache_dir mise_activate_cache mise_activate_tmp mise_activate_raw_tmp
 
 asdf() {

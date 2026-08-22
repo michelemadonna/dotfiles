@@ -76,6 +76,10 @@
                     "foreground": "p:white",
                     "background": "p:blue",
                     "type": "session",
+                    "cache": {
+                        "duration": "24h",
+                        "strategy": "session"
+                    },
                     "style": "diamond"
                 }
             ]
@@ -127,7 +131,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "node"
+                    "type": "node",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -139,7 +147,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "python"
+                    "type": "python",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -151,7 +163,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "java"
+                    "type": "java",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -163,7 +179,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "dotnet"
+                    "type": "dotnet",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -175,7 +195,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "go"
+                    "type": "go",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -187,7 +211,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "rust"
+                    "type": "rust",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -199,7 +227,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "dart"
+                    "type": "dart",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -211,7 +243,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "angular"
+                    "type": "angular",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -223,7 +259,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "aurelia"
+                    "type": "aurelia",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -235,7 +275,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "nx"
+                    "type": "nx",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -247,7 +291,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "julia"
+                    "type": "julia",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 {
                     "properties": {
@@ -259,7 +307,11 @@
                     "foreground": "p:red",
                     "leading_diamond": "\ue0b2",
                     "style": "diamond",
-                    "type": "ruby"
+                    "type": "ruby",
+                    "cache": {
+                        "duration": "5m",
+                        "strategy": "folder"
+                    }
                 },
                 
                 {
@@ -357,6 +409,6 @@
             ]
         }
     ],
-    "version": 3,
+    "version": 4,
     "final_space": true
 }

@@ -21,22 +21,6 @@ zstyle ':completion:*:git-checkout:*' sort false
 alias _dig=dogggo _ping=gping _hex=hexyl _curl=http _ps=procs _top=btop
 alias _ls='command ls' nodejs='command node'
 
-if [[ $OSTYPE == darwin* ]]; then
-  typeset -a _zqs_brew_handler_candidates
-  [[ -n ${HOMEBREW_REPOSITORY:-} ]] &&
-    _zqs_brew_handler_candidates+=("$HOMEBREW_REPOSITORY/Library/Homebrew/command-not-found/handler.sh")
-  _zqs_brew_handler_candidates+=(
-    "${HOMEBREW_PREFIX:-/usr/local}/Library/Homebrew/command-not-found/handler.sh"
-    "${HOMEBREW_PREFIX:-/usr/local}/Homebrew/Library/Homebrew/command-not-found/handler.sh"
-  )
-  for _zqs_brew_handler in "$_zqs_brew_handler_candidates[@]"; do
-    if [[ -r $_zqs_brew_handler ]]; then
-      source "$_zqs_brew_handler"
-      break
-    fi
-  done
-  unset _zqs_brew_handler _zqs_brew_handler_candidates
-fi
 
 if [[ ${ZQS_ENABLE_ALLAFINE:-false} == true ]]; then
   allafine() {
