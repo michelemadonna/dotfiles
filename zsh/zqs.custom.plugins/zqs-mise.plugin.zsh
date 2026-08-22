@@ -39,7 +39,6 @@ fi
 # Load mise hooks
 eval "$($__mise --quiet activate zsh)"
 
-# Hook mise into current environment
 eval "$($__mise hook-env -s zsh)"
 
 asdf() {
@@ -51,7 +50,6 @@ _mise_hook_chpwd () {
 _mise_hook_precmd () {
         eval "$("$(whence -p mise)" --quiet hook-env -s zsh --reason precmd)"
 }
-
 # If the completion file doesn't exist yet, we need to autoload it and
 # bind it to `mise`. Otherwise, compinit will have already done that.
 if [[ ! -f "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
@@ -60,6 +58,7 @@ if [[ ! -f "$ZSH_CACHE_DIR/completions/_$__mise" ]]; then
   _comps[$__mise]=_$__mise
 fi
 
+# Generate the completion only when the cache is absent. The main shell
 # Generate and load mise completion
 $__mise --quiet completion zsh >| "$ZSH_CACHE_DIR/completions/_$__mise" &|
 compinit -u "$ZSH_CACHE_DIR/completions/_$__mise"

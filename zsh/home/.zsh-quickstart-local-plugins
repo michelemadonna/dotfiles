@@ -161,9 +161,9 @@ fi
 # utilities distributed with pip.
 zgenom load sharat87/pip-app
 
+# Load more completion files for zsh from the zsh-lovers github repo.
 zgenom load chrissicool/zsh-256color
 
-# Load more completion files for zsh from the zsh-lovers github repo.
 zgenom load zsh-users/zsh-completions src
 
 # Docker completion
@@ -200,8 +200,8 @@ zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-custom-env.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fzf.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-fix-git-completion-on-darwin.plugin.zsh
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-mise.plugin.zsh
-#zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-oh-my-posh.plugin.zsh
-##
+zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/zqs-oh-my-posh.plugin.zsh
+###
 
 if [[ -z "${ZQS_PROMPT}" || "${ZQS_PROMPT}" != "ohmyposh" ]]; then
   if [[ $(_zqs-get-setting bullet-train false) == 'true' ]]; then
