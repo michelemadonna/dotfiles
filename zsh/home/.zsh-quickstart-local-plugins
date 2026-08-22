@@ -162,6 +162,8 @@ fi
 zgenom load sharat87/pip-app
 
 # Load more completion files for zsh from the zsh-lovers github repo.
+zgenom load chrissicool/zsh-256color
+
 zgenom load zsh-users/zsh-completions src
 
 # Docker completion
@@ -176,7 +178,6 @@ GENCOMPL_FPATH=$HOME/.zsh/complete
 # Very cool plugin that generates zsh completion functions for commands
 # if they have getopt-style help text. It doesn't generate them on the fly,
 # you'll have to explicitly generate a completion, but it's still quite cool.
-export ZSH_COMPLETION_GENERATOR_NO_AUTOGEN=true
 zgenom load RobSis/zsh-completion-generator
 
 # Add Fish-like autosuggestions to your ZSH.
