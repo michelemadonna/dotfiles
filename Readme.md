@@ -261,13 +261,13 @@ rm -rf "$HOME/.zshrc.d"
 cd "$HOME/.dotfiles/local" && stow --target=$HOME home
 ```
 
-if you want use my conf for ssh, micro, fastfetch and git :
+if you want use my conf for ssh, micro, fastfetch, git and ghostty  :
 
 ```bash
 mkdir -p "$HOME"/{.config,.ssh,.local/bin}
-cp -Rn "$HOME/.dotfiles"/{ssh,micro,fastfetch} "$HOME/.dotfiles/local/"
+cp -Rn "$HOME/.dotfiles"/{ssh,micro,fastfetch,ghostty} "$HOME/.dotfiles/local/"
 ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/"
-ln -sfn "$HOME/.dotfiles/local"/{micro,git,fastfetch} "$HOME/.config/"
+ln -sfn "$HOME"/.dotfiles/local/{micro,git,fastfetch,ghostty} "$HOME/.config/"
 ```
 
 #### 2.2.3 Restart your terminal.
@@ -359,13 +359,13 @@ rm -rf "$HOME/.zshrc.d"
 cd "$HOME/.dotfiles/local" && stow --target=$HOME home
 ```
 
-if you want use my conf for ssh, micro, fastfetch, git and oh-my-posh :
+if you want use my conf for ssh, micro, fastfetch, git and ghostty :
 
 ```bash
 mkdir -p "$HOME"/{.config,.ssh,.local/bin}
-cp -Rn "$HOME/.dotfiles"/{ssh,micro,git,oh-my-posh,fastfetch} "$HOME/.dotfiles/local/"
+cp -Rn "$HOME/.dotfiles"/{ssh,micro,git,fastfetch} "$HOME/.dotfiles/local/"
 ln -sfn "$HOME/.dotfiles/local/ssh/config" "$HOME/.ssh/"
-ln -sfn "$HOME/.dotfiles/local/{micro,git,fastfetch}" "$HOME/.config/"
+ln -sfn "$HOME"/.dotfiles/local/{micro,git,fastfetch,ghostty} "$HOME/.config/"
 ```
 
 #### 3.2.3 Restart your terminal.
@@ -554,10 +554,10 @@ This will load the customized mise integration (with Powerlevel10k segments supp
 
 ```bash
 # Install a specific version of a runtime
-mise install java@17.0.2
+mise install java@21.0.2
 
 # Set the global (user-wide) version
-mise use -g java@17.0.2
+mise use -g java@21.0.2
 
 # Use the system-provided runtime version
 mise use -g java@system
@@ -922,7 +922,7 @@ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 
 ### Enable Oh My Posh
 
-To enable Oh My Posh in your Zsh setup: If not already present or commented, uncomment or add this line on your `$HOME/.dotfiles/zsh/zsh/.zsh-quickstart-local-plugins`
+To enable Oh My Posh in your Zsh setup: If not already present or commented, uncomment or add this line on your `$HOME/.dotfiles/local/home/.zsh-quickstart-local-plugins`
 
 ```bash
 zgenom load $DOTFILES_DIR/zsh/zqs.custom.plugins/ohmyposh.plugin.zsh
