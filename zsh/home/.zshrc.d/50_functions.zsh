@@ -14,3 +14,29 @@ if [[ "$(uname)" != "Linux" ]]; then
     echo "🔄 Dock and Finder restarted successfully."
   }
 fi
+
+# Rebuild zgenom's generated init and all Zsh completion/activation caches.
+function zqs-reset-zsh-cache() {
+  emulate -L zsh
+
+  if (( ! $+functions[zgenom] && ! $+commands[zgenom] )); then
+    print -u2 -r -- "zgenom is not available in this shell"
+    return 1
+  fi
+
+  zgenom reset || return
+
+  local -a cache_files
+  cache_files=(
+    "$HOME"/.zcompdump*(N)
+    "$HOME"/.zgenom/zcompdump_*(N)
+    "$HOME"/.cache/oh-my-zsh/completions/*(N)
+    "$HOME"/.cache/zsh/mise-activate*.zsh(N)
+  )
+
+  (( ${#cache_files} )) && command rm -f -- "${cache_files[@]}"
+  command touch "$HOME/.zsh-quickstart-local-plugins" || return
+
+  print -r -- "Zsh caches cleared; rebuilding configuration..."
+  exec zsh
+}
